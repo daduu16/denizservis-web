@@ -23,6 +23,15 @@ const deliverySchema = z.object({
     suppressed_recipients: z.array(z.string()).optional(),
   }),
 });
+const providerErrorSchema = z.object({ errors: z.array(z.object({ code: z.number().int() })) });
+const providerErrors: Record<number, string> = {
+  10101: "cloudflare_unauthorized", 10102: "cloudflare_forbidden",
+  10103: "cloudflare_bad_token_type", 10105: "cloudflare_not_entitled",
+  10203: "cloudflare_sending_disabled", 10207: "cloudflare_account_suspended",
+  10001: "cloudflare_invalid_request", 10004: "cloudflare_throttled",
+  10200: "cloudflare_email_too_big", 10201: "cloudflare_content_length_required",
+  10202: "cloudflare_invalid_email",
+};
 
 function json(message: string, status: number, extra: Record<string, unknown> = {}, headers: Record<string, string> = {}) {
   return Response.json({ message, ...extra }, { status, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", ...headers } });
@@ -91,9 +100,20 @@ export function createBookingHandler({ send = (input, init) => fetch(input, init
         body: JSON.stringify({ from: "info@denizservis.az", to: recipient, ...bookingEmail(parsed.data) }),
         signal: AbortSignal.timeout(12_000),
       });
-      if (!response.ok) return json(failedMessage, 502);
-      const result = deliverySchema.safeParse(await response.json());
-      if (!result.success) return json(failedMessage, 502);
+      const payload: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        // Only whitelisted numeric codes/statuses, never upstream messages,
+        // response headers, recipient values, request payloads or credentials.
+        const error = providerErrorSchema.safeParse(payload);
+        const providerCode = error.success ? error.data.errors.find(({ code }) => Object.hasOwn(providerErrors, code))?.code : undefined;
+        return json(failedMessage, 502, {
+          code: providerCode === undefined ? "cloudflare_send_failed" : providerErrors[providerCode],
+          providerStatus: response.status,
+          ...(providerCode === undefined ? {} : { providerCode }),
+        });
+      }
+      const result = deliverySchema.safeParse(payload);
+      if (!result.success) return json(failedMessage, 502, { code: "cloudflare_invalid_response", providerStatus: response.status });
       const contains = (values: string[] = []) => values.some((value) => value.toLowerCase() === recipient.toLowerCase());
       const delivery = result.data.result;
       if (contains(delivery.permanent_bounces) || contains(delivery.suppressed_recipients) || !(contains(delivery.delivered) || contains(delivery.queued))) {

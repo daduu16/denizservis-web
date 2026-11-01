@@ -124,6 +124,28 @@ describe("Cloudflare Pages booking email", () => {
     expect(send).toHaveBeenCalledOnce();
   });
 
+  it.each([[10105, "cloudflare_not_entitled"], [10102, "cloudflare_forbidden"], [10101, "cloudflare_unauthorized"]])("exposes only a safe provider classification for code %s", async (providerCode, code) => {
+    const { handle, send } = setup();
+    send.mockResolvedValue(Response.json({ success: false, errors: [{ code: providerCode, message: `private ${env.CLOUDFLARE_EMAIL_API_TOKEN} ${env.CONTACT_RECIPIENT_EMAIL}` }] }, { status: 403 }));
+    const response = await handle(request(), env, "ip");
+    expect(response.status).toBe(502);
+    const result = await response.json();
+    expect(result).toMatchObject({ code, providerCode, providerStatus: 403 });
+    expect(JSON.stringify(result)).not.toContain(env.CLOUDFLARE_EMAIL_API_TOKEN);
+    expect(JSON.stringify(result)).not.toContain(env.CONTACT_RECIPIENT_EMAIL);
+    expect(result.message).toContain("çatdırmaq mümkün olmadı");
+  });
+
+  it("does not echo unknown provider codes or messages", async () => {
+    const { handle, send } = setup();
+    send.mockResolvedValue(Response.json({ errors: [{ code: 999999, message: env.CLOUDFLARE_EMAIL_API_TOKEN }] }, { status: 403 }));
+    const result = await (await handle(request(), env, "ip")).json();
+    expect(result.code).toBe("cloudflare_send_failed");
+    expect(result.providerStatus).toBe(403);
+    expect(result).not.toHaveProperty("providerCode");
+    expect(JSON.stringify(result)).not.toContain(env.CLOUDFLARE_EMAIL_API_TOKEN);
+  });
+
   it("limits repeated submissions and gives a retry interval without contacting the provider", async () => {
     const { handle, send } = setup();
     // A fetch Response body may only be read once.
