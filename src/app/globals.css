@@ -88,6 +88,7 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.035em; }
   transition: height 180ms ease, box-shadow 180ms ease;
 }
 .site-header--compact { height: 64px; box-shadow: 0 10px 24px rgba(11, 40, 81, 0.08); }
+.site-header-shell--menu-open .site-header { position: fixed; }
 .logo-link { display: inline-flex; flex: 0 0 auto; border-radius: 8px; }
 .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .site-logo { position: relative; display: block; overflow: hidden; aspect-ratio: 1448 / 323; }
@@ -117,7 +118,7 @@ html:not([lang="az"]) .hero-lead { white-space: normal; }
 .icon-button { width: 44px; height: 44px; display: inline-grid; place-items: center; border: 0; border-radius: 12px; background: var(--soft-blue); color: var(--primary); cursor: pointer; }
 .mobile-menu-backdrop { position: fixed; inset: var(--mobile-menu-top) 0 0; z-index: 49; visibility: hidden; opacity: 0; background: rgba(4, 18, 37, 0.4); transition: opacity 180ms ease, visibility 180ms; }
 .mobile-menu-backdrop.is-open { visibility: visible; opacity: 1; }
-.mobile-menu { position: absolute; top: 8px; left: 16px; right: 16px; max-height: calc(100dvh - 100px); overflow-y: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border); border-radius: 20px; background: white; box-shadow: var(--shadow); transform: translateY(-12px); transition: transform 180ms ease; }
+.mobile-menu { position: absolute; top: 8px; left: 16px; right: 16px; max-height: calc(100dvh - var(--mobile-menu-top) - 16px - env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; overflow-anchor: none; -webkit-overflow-scrolling: touch; touch-action: pan-y; padding: 12px; border: 1px solid var(--border); border-radius: 20px; background: white; box-shadow: var(--shadow); transform: translateY(-12px); transition: transform 180ms ease; }
 .is-open .mobile-menu { transform: translateY(0); }
 .mobile-nav-link { min-height: 48px; display: flex; align-items: center; padding: 10px 14px; border-radius: 12px; font-weight: 750; }
 .mobile-nav-link:hover, .mobile-nav-link:focus-visible, .mobile-nav-link[aria-current] { background: var(--soft-blue); }

@@ -91,9 +91,9 @@ npm run check:static
 npm run preview:static
 ```
 
-Cloudflare Pages build command: `npm run build:static`; publish directory: `out`. Preview `http://localhost:3001` ünvanındadır. Bu işdə deployment edilməyib.
+Cloudflare Pages build command: `npm run build` (`npm run build:static` də uyğundur); publish directory: `out`. Framework preset-in standart `npx next build` əmrini dəyişin: o, bu layihədə hazırlıq skriptini işə salmır. Preview `http://localhost:3001` ünvanındadır. Bu işdə deployment edilməyib.
 
-Statik build təzə müvəqqəti qovluqda frontend-i hazırlayır, yalnız həmin nüsxədən `app/api` server route-larını çıxarır və `output: export` ilə HTML yaradır. Orijinal `src/app/api/bookings/route.ts` və normal `npm run build` dəyişməz server imkanlarını saxlayır. Müvəqqəti build qovluğu sonda silinir; əvvəlki, alət tərəfindən işarələnmiş `out` varsa recoverable `out.previous-*` qovluğuna keçirilir. İstifadəçiyə məxsus naməlum `out` üzərinə yazılmır.
+`npm run build` statik build-i başladır: təzə müvəqqəti qovluqda frontend-i hazırlayır, yalnız həmin nüsxədən `app/api` server route-larını çıxarır və `next.config.ts` daxilində `output: "export"` rejimi ilə HTML yaradır. Orijinal `src/app/api/bookings/route.ts` və ayrıca `npm run build:server` server imkanlarını saxlayır. Müvəqqəti build qovluğu sonda silinir; əvvəlki, alət tərəfindən işarələnmiş `out` varsa recoverable `out.previous-*` qovluğuna keçirilir. İstifadəçiyə məxsus naməlum `out` üzərinə yazılmır.
 
 **Backend olmayan statik versiyada e-mail forması deaktivdir**, aydın izah göstərilir, `/api/bookings`-ə sorğu və saxta uğur yoxdur. Zəng və WhatsApp aktivdir. E-mail göndərişi üçün adi server build və real Resend konfiqurasiyası lazımdır. `NEXT_PUBLIC_STATIC_EXPORT` yalnız build skripti tərəfindən təyin olunur; development üçün `.env.local`-a yazmayın.
 
@@ -108,6 +108,12 @@ Paltaryuyan və qabyuyan xidmət səhifələri ortaq `ServiceHero` komponentind�
 Ana səhifədə “İşlərimiz”dən dərhal sonra “Biz təmir edirik” bölməsi yerləşir. `src/data/brands.ts` faylındakı 19 brend iki sətirdə göstərilir. `BrandMarquee` server komponentidir: əlavə client JavaScript, carousel paketi və ya interval yoxdur. Bütün loqolar optimallaşdırılmış şəffaf WebP kimi lokaldır; mənbələr `public/images/brands/SOURCES.md` faylındadır.
 
 CSS animasiyaları 40 və 42 saniyəlik linear dövrlərlə əks istiqamətlərə axır. Hər qrup son boşluğu ilə birlikdə eyni enli nüsxəyə malikdir; `translateX(-50%)` dövrün sonunda fasiləsiz keçid verir. Dublikatlar screen reader-dən gizlənir. Desktopda hover və hər iki görünüşdə klaviatura fokusu animasiyanı saxlayır; ayrıca dayandırma idarəsi göstərilmir. `prefers-reduced-motion: reduce` zamanı hərəkət və dublikatlar söndürülür; hər iki sətir öz daxilində manual sürüşdürülə bilir, səhifə üfüqi daşmır.
+
+## Mobil menyu və zəng keçidləri
+
+Mobil menyu səhifə aşağı sürüşdürüləndə açıldıqda fonu iOS-a uyğun fixed-body kilidi ilə saxlayır; bağlananda əvvəlki scroll mövqeyi və inline style-lar bərpa olunur. Menyu bağlananda dil dropdown-u unmount olunur və növbəti açılışda bağlı başlayır. Touch blur-un `relatedTarget=null` vəziyyəti seçim klikindən əvvəl dropdown-u bağlamır; avtomatik fokus yalnız desktop/klaviatura açılışında istifadə olunur.
+
+Zəng düymələri yalnız istifadəçinin klik etdiyi standart `tel:+994705522021` keçidləridir; avtomatik yönləndirmə, timer və proqramla çağırış yoxdur. `format-detection: telephone=no` iOS-un mətndən əlavə telefon keçidləri yaratmasının qarşısını alır, açıq `tel:` linklərini söndürmür. iOS/Safari-nin zəng təsdiqi və blok xəbərdarlığı sistem idarəsidir; sayt bu təhlükəsizlik icazəsini ləğv edə bilməz. [Apple telefon linkləri sənədi](https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html).
 
 ## “İşlərimiz” video qalereyası
 
@@ -130,8 +136,9 @@ npm run dev       # development server
 npm run typecheck # TypeScript yoxlaması
 npm run lint      # ESLint
 npm test          # validasiya testləri
-npm run build     # production build
-npm start         # production server
+npm run build        # Cloudflare static export -> out/
+npm run build:server # Node server build with POST API
+npm start            # run after build:server (not after static export)
 ```
 
 ## Səhifələr

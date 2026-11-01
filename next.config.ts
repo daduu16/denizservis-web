@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+// npm run build prepares static assets and enables export in an isolated copy.
+// Direct `next build` is reserved for build:server, which retains the POST API.
 const staticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
 
 const nextConfig: NextConfig = {

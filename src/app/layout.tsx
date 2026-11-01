@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: "Paltaryuyan və Qabyuyan Təmiri | DənizServis", template: "%s | DənizServis" },
   robots: { index: indexableDeployment, follow: true },
+  // Keep explicit tel: anchors; prevent iOS from inventing extra phone links.
+  formatDetection: { telephone: false },
   icons: { icon: [{ url: "/icon.svg", type: "image/svg+xml" }] },
 };
 

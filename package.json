@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:static",
+    "build:server": "next build",
     "build:static": "node scripts/build-static.mjs",
     "check:static": "node scripts/check-static.mjs",
     "check:seo": "node scripts/check-seo.mjs",

@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { Header } from "./Header";
 import { siteConfig } from "../config/site";
+import { readFileSync } from "node:fs";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
@@ -18,13 +19,34 @@ describe("header contact and language controls", () => {
     expect(html).toContain('aria-expanded="false"');
   });
 
-  it("includes a separate language control inside the mobile menu", () => {
+  it("unmounts closed mobile controls so the language popup resets between openings", () => {
     const html = renderToStaticMarkup(createElement(Header));
-    const mobileMenu = html.slice(html.indexOf('id="mobile-menu"'));
-    expect(mobileMenu).toContain("mobile-language");
-    expect(mobileMenu).toContain('aria-haspopup="menu"');
-    expect(mobileMenu).toContain("Azərbaycanca");
+    const source = readFileSync("src/components/Header.tsx", "utf8");
+    expect(html).not.toContain('id="mobile-menu"');
+    expect(source).toContain('{isOpen && <div className="mobile-menu-backdrop');
+    expect(source).toContain('<LanguageSwitcher variant="mobile" />');
     expect(html).toContain("lucide-globe");
     expect(html).not.toContain("lucide-earth");
+  });
+
+  it("keeps telephone navigation as one native user-initiated link", () => {
+    const html = renderToStaticMarkup(createElement(Header));
+    const phone = html.match(/<a\b[^>]*href="tel:[^"]+"[^>]*>/)?.[0];
+    expect(phone).toContain('href="tel:+994705522021"');
+    expect(phone).not.toContain('target=');
+    const source = readFileSync("src/components/Header.tsx", "utf8");
+    expect(source).not.toContain("window.open");
+    expect(source).not.toContain("location.href");
+    expect(source).not.toContain(".click()");
+  });
+
+  it("keeps pointer selection distinct from keyboard focus and ignores touch blur with no target", () => {
+    const source = readFileSync("src/components/LanguageSwitcher.tsx", "utf8");
+    expect(source).toContain("focusMovedOutside(event.currentTarget, event.relatedTarget)");
+    expect(source).toContain('variant === "desktop" || keyboardOpening.current');
+    expect(source).toContain("tabIndex={-1}");
+    const header = readFileSync("src/components/Header.tsx", "utf8");
+    expect(header).toContain("if (event.defaultPrevented) return");
+    expect(header).toContain('closest("[data-language-switcher]")');
   });
 });

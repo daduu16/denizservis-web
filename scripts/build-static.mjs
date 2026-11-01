@@ -71,7 +71,7 @@ try {
   }
   await cp(exported, destination, { recursive: true });
   console.log(`Cloudflare Pages static frontend: ${destination}`);
-  console.log("Use build command npm run build:static and output directory out. The email API remains in the normal server build only; static forms are disabled, phone and WhatsApp stay active.");
+  console.log("Use build command npm run build and output directory out. build:static is also supported; build:server retains the email API. Static forms are disabled, phone and WhatsApp stay active.");
 } finally {
   // This exact directory was freshly created above; no user checkout is removed.
   await rm(staging, { recursive: true, force: true });

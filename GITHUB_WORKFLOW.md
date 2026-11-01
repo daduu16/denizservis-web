@@ -31,8 +31,8 @@ npm run check:repo
 npm run lint
 npm run typecheck
 npm test
+npm run build:server
 npm run build
-npm run build:static
 npm run check:static
 npm run check:seo
 git commit -m "Describe the change"
@@ -75,7 +75,7 @@ Git integration ilə bu repository-ni seçin. Bu sənəd Cloudflare hesabına qo
 | Production branch | `prod` |
 | Preview branches | Custom branches: include `dev` |
 | Root directory | repository root |
-| Build command | `npm run build:static` |
+| Build command | `npm run build` (`npm run build:static` də uyğundur) |
 | Build output | `out` |
 | Node | `.node-version` (`24`), yaxud `NODE_VERSION=24` |
 | Production variable | `NEXT_PUBLIC_PRODUCTION_BRANCH=prod` |
@@ -83,7 +83,7 @@ Git integration ilə bu repository-ni seçin. Bu sənəd Cloudflare hesabına qo
 | Preview variable | `NEXT_PUBLIC_PRODUCTION_BRANCH=prod` |
 | Preview environment | `NEXT_PUBLIC_DEPLOYMENT_ENV=preview` |
 
-Production branch: Pages project → **Settings → Builds → Branch control**. Production build-ləri aktiv saxlayın, preview üçün `dev` seçin. Preview `noindex` qalır; canonical production domeninə yönəlir. Production qiymətini ümumi şəkildə preview-yə tətbiq etməyin.
+Production branch: Pages project → **Settings → Builds → Branch control**. Production build-ləri aktiv saxlayın, preview üçün `dev` seçin. Framework preset `Next.js Static HTML Export` ola bilər, amma standart `npx next build` əmrini `npm run build` ilə əvəz edin: layihənin hazırlıq skripti statik şəkilləri yaradır və yalnız müvəqqəti nüsxədə server API-ni export-dan çıxarır. Təkcə `output: "export"`-u məcburi etmək POST API və şəkil hazırlığı üçün kifayət deyil. Preview `noindex` qalır; canonical production domeninə yönəlir. Production qiymətini ümumi şəkildə preview-yə tətbiq etməyin.
 
 **Vacib:** Cloudflare Pages statik export-da e-mail forması deaktivdir; telefon, WhatsApp və `mailto:info@denizservis.az` keçidi işləyir. Resend forması üçün Node server build və ayrıca server hosting/config lazımdır. API açarını `NEXT_PUBLIC_` ilə adlandırmayın və statik frontend-ə yerləşdirməyin.
 
