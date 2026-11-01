@@ -62,7 +62,7 @@ export const faqs = [
   {
     question: "Usta sifarişini necə verə bilərəm?",
     answer:
-      "Sürətli sifariş formasında adınızı, telefonunuzu və cihaz növünü qeyd edin. E-mail inteqrasiyası aktivdirsə, müraciətiniz servis komandasına çatdırılacaq.",
+      "Bir neçə sadə addımla başlayaq: adınızı, telefonunuzu və cihaz növünü formaya yazıb göndərin. Müraciətiniz servis komandamıza çatacaq, təmirin detallarını isə sizinlə birlikdə dəqiqləşdirəcəyik. İstəsəniz, WhatsApp-da da yaza bilərsiniz.",
   },
   {
     question: "Hansı rayonlara xidmət göstərilir?",

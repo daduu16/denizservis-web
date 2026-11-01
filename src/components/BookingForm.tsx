@@ -20,7 +20,7 @@ type SubmitState =
 
 const inputClass = "form-control";
 
-export function BookingForm({ compact = false, hideNote = false }: { compact?: boolean; hideNote?: boolean }) {
+export function BookingForm({ compact = false }: { compact?: boolean; hideNote?: boolean }) {
   const [submitState, setSubmitState] = useState<SubmitState>({ type: "idle" });
   const {
     register,
@@ -118,7 +118,6 @@ export function BookingForm({ compact = false, hideNote = false }: { compact?: b
         {isSubmitting ? <LoaderCircle className="animate-spin" aria-hidden="true" /> : <Send aria-hidden="true" />}
         <T>{isSubmitting ? "Göndərilir..." : "Müraciəti göndər"}</T>
       </button>
-      {!hideNote && <p className="form-note"><T>Forma yalnız e-mail inteqrasiyası konfiqurasiya olunanda uğurlu göndəriş göstərir.</T></p>}
     </form>
   );
 }
