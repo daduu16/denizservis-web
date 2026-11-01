@@ -91,9 +91,9 @@ npm run check:static
 npm run preview:static
 ```
 
-Cloudflare Pages build command: `npm run build:static`; publish directory: `out`. Preview `http://localhost:3001` ünvanındadır. Bu işdə deployment edilməyib.
+Cloudflare Pages build command: `npm run build` (`npm run build:static` də uyğundur); publish directory: `out`. Framework preset-in standart `npx next build` əmrini dəyişin: o, bu layihədə hazırlıq skriptini işə salmır. Preview `http://localhost:3001` ünvanındadır. Bu işdə deployment edilməyib.
 
-Statik build təzə müvəqqəti qovluqda frontend-i hazırlayır, yalnız həmin nüsxədən `app/api` server route-larını çıxarır və `output: export` ilə HTML yaradır. Orijinal `src/app/api/bookings/route.ts` və normal `npm run build` dəyişməz server imkanlarını saxlayır. Müvəqqəti build qovluğu sonda silinir; əvvəlki, alət tərəfindən işarələnmiş `out` varsa recoverable `out.previous-*` qovluğuna keçirilir. İstifadəçiyə məxsus naməlum `out` üzərinə yazılmır.
+`npm run build` statik build-i başladır: təzə müvəqqəti qovluqda frontend-i hazırlayır, yalnız həmin nüsxədən `app/api` server route-larını çıxarır və `next.config.ts` daxilində `output: "export"` rejimi ilə HTML yaradır. Orijinal `src/app/api/bookings/route.ts` və ayrıca `npm run build:server` server imkanlarını saxlayır. Müvəqqəti build qovluğu sonda silinir; əvvəlki, alət tərəfindən işarələnmiş `out` varsa recoverable `out.previous-*` qovluğuna keçirilir. İstifadəçiyə məxsus naməlum `out` üzərinə yazılmır.
 
 **Backend olmayan statik versiyada e-mail forması deaktivdir**, aydın izah göstərilir, `/api/bookings`-ə sorğu və saxta uğur yoxdur. Zəng və WhatsApp aktivdir. E-mail göndərişi üçün adi server build və real Resend konfiqurasiyası lazımdır. `NEXT_PUBLIC_STATIC_EXPORT` yalnız build skripti tərəfindən təyin olunur; development üçün `.env.local`-a yazmayın.
 
@@ -130,8 +130,9 @@ npm run dev       # development server
 npm run typecheck # TypeScript yoxlaması
 npm run lint      # ESLint
 npm test          # validasiya testləri
-npm run build     # production build
-npm start         # production server
+npm run build        # Cloudflare static export -> out/
+npm run build:server # Node server build with POST API
+npm start            # run after build:server (not after static export)
 ```
 
 ## Səhifələr
