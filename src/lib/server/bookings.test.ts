@@ -146,6 +146,20 @@ describe("Cloudflare Pages booking email", () => {
     expect(JSON.stringify(result)).not.toContain(env.CLOUDFLARE_EMAIL_API_TOKEN);
   });
 
+  it.each([
+    [new TypeError("AbortSignal.timeout is not a function"), "cloudflare_timeout_api_unsupported"],
+    [new TypeError("Invalid header value with private data"), "cloudflare_invalid_authorization_header"],
+    [new DOMException("private request details", "TimeoutError"), "cloudflare_timeout"],
+    [new Error("private request details"), "cloudflare_transport_error"],
+  ])("classifies runtime failures without exposing their text", async (error, code) => {
+    const { handle, send } = setup();
+    send.mockRejectedValue(error);
+    const result = await (await handle(request(), env, "ip")).json();
+    expect(result.code).toBe(code);
+    expect(result).not.toHaveProperty("providerStatus");
+    expect(JSON.stringify(result)).not.toContain("private");
+  });
+
   it("limits repeated submissions and gives a retry interval without contacting the provider", async () => {
     const { handle, send } = setup();
     // A fetch Response body may only be read once.

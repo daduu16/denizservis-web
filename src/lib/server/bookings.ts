@@ -117,14 +117,20 @@ export function createBookingHandler({ send = (input, init) => fetch(input, init
       const contains = (values: string[] = []) => values.some((value) => value.toLowerCase() === recipient.toLowerCase());
       const delivery = result.data.result;
       if (contains(delivery.permanent_bounces) || contains(delivery.suppressed_recipients) || !(contains(delivery.delivered) || contains(delivery.queued))) {
-        return json(failedMessage, 502);
+        return json(failedMessage, 502, { code: "cloudflare_delivery_rejected", providerStatus: response.status });
       }
       // Accepted/queued by Cloudflare, not a claim that Gmail put it in Inbox.
       return json(successMessage, 201);
-    } catch {
+    } catch (error) {
       // Do not log customer data, recipient addresses, tokens or upstream errors.
       // No automatic retry: a timed-out request may already have been accepted.
-      return json(failedMessage, 502);
+      let code = "cloudflare_transport_error";
+      if (error instanceof Error) {
+        if (["TimeoutError", "AbortError"].includes(error.name)) code = "cloudflare_timeout";
+        else if (/AbortSignal|timeout is not a function/i.test(error.message)) code = "cloudflare_timeout_api_unsupported";
+        else if (/ByteString|invalid.*header|header.*invalid|invalid.*character/i.test(error.message)) code = "cloudflare_invalid_authorization_header";
+      }
+      return json(failedMessage, 502, { code });
     }
   };
 }
