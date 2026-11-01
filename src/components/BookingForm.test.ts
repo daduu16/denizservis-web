@@ -24,6 +24,8 @@ describe("requested form and page refinements", () => {
       const html = renderToStaticMarkup(createElement(BookingForm, { compact }));
       expect(html).toMatch(/<button\b(?=[^>]*type="submit")(?![^>]*disabled)[^>]*>/);
       expect(html).not.toContain("Statik versiyada e-mail forması aktiv deyil.");
+      expect(html).not.toContain("Forma yalnız e-mail inteqrasiyası");
+      expect(html).not.toContain('class="form-note"');
     }
   });
 
@@ -51,6 +53,8 @@ describe("requested form and page refinements", () => {
     expect(html).toContain("Bakının bütün rayonlarına");
     expect(html).toContain("Masazır və Abşeron qəsəbələrinə gəlirik.");
     expect(html).not.toContain("Xidmət zonası biznes məlumatlarında təsdiqləndikdən");
+    expect(html).not.toContain("E-mail inteqrasiyası aktivdirsə");
+    expect(html).toContain("təmirin detallarını isə sizinlə birlikdə dəqiqləşdirəcəyik");
   });
 
   it.each(["Dishwasher", "WashingMachine"])("removes only the requested %s booking kicker and description", (page) => {
