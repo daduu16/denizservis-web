@@ -18,7 +18,6 @@ type SubmitState =
   | { type: "error"; message: string };
 
 const inputClass = "form-control";
-const staticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
 
 export function BookingForm({ compact = false, hideNote = false }: { compact?: boolean; hideNote?: boolean }) {
   const [submitState, setSubmitState] = useState<SubmitState>({ type: "idle" });
@@ -34,10 +33,6 @@ export function BookingForm({ compact = false, hideNote = false }: { compact?: b
   });
 
   const onSubmit = async (values: BookingInput) => {
-    if (staticExport) {
-      setSubmitState({ type: "error", message: "Bu statik versiyada e-mail forması aktiv deyil. Zəng və ya WhatsApp vasitəsilə əlaqə saxlayın." });
-      return;
-    }
     setSubmitState({ type: "idle" });
     try {
       const response = await fetch("/api/bookings", {
@@ -126,11 +121,11 @@ export function BookingForm({ compact = false, hideNote = false }: { compact?: b
         </div>
       )}
 
-      <button className="button w-full" type="submit" disabled={isSubmitting || staticExport}>
+      <button className="button w-full" type="submit" disabled={isSubmitting}>
         {isSubmitting ? <LoaderCircle className="animate-spin" aria-hidden="true" /> : <Send aria-hidden="true" />}
         <T>{isSubmitting ? "Göndərilir..." : "Müraciəti göndər"}</T>
       </button>
-      {(!hideNote || staticExport) && <p className="form-note"><T>{staticExport ? "Statik versiyada e-mail forması aktiv deyil. Zəng və ya WhatsApp vasitəsilə müraciət edin." : "Forma yalnız e-mail inteqrasiyası konfiqurasiya olunanda uğurlu göndəriş göstərir."}</T></p>}
+      {!hideNote && <p className="form-note"><T>Forma yalnız e-mail inteqrasiyası konfiqurasiya olunanda uğurlu göndəriş göstərir.</T></p>}
     </form>
   );
 }

@@ -1,41 +1,30 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { POST } from "./route";
+import { onRequest } from "../../../../functions/api/bookings";
 
-const { send } = vi.hoisted(() => ({ send: vi.fn() }));
-vi.mock("resend", () => ({ Resend: class { emails = { send }; } }));
-vi.mock("@/lib/rate-limit", () => ({ checkRateLimit: () => ({ allowed: true }) }));
+const { handle } = vi.hoisted(() => ({ handle: vi.fn(async () => Response.json({ message: "test" }, { status: 503 })) }));
+vi.mock("@/lib/server/bookings", () => ({ handleBooking: handle }));
 
-const request = (data: unknown) => new NextRequest("http://localhost:3000/api/bookings", {
-  method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data),
-});
-const booking = { name: "Test", phone: "70.552-20-21", deviceType: "qabyuyan", consent: true, website: "" };
+describe("Next and Pages /api/bookings adapters", () => {
+  afterEach(() => { vi.unstubAllEnvs(); handle.mockClear(); });
 
-describe("booking API with freely formatted contact numbers", () => {
-  beforeEach(() => {
-    vi.stubEnv("RESEND_API_KEY", "test-key-not-real");
-    vi.stubEnv("BOOKING_TO_EMAIL", "service@example.invalid");
-    vi.stubEnv("BOOKING_FROM_EMAIL", "website@example.invalid");
-    send.mockReset();
-    send.mockResolvedValue({ error: null });
-  });
-  afterEach(() => vi.unstubAllEnvs());
-
-  it("accepts the same free phone format on the server and preserves it in the mocked email", async () => {
-    const response = await POST(request(booking));
-    expect(response.status).toBe(201);
-    expect(send).toHaveBeenCalledOnce();
-    expect(send.mock.calls[0][0].text).toContain("Telefon: 70.552-20-21");
+  it("passes only server configuration to the shared handler in a local Next build", async () => {
+    vi.stubEnv("CONTACT_RECIPIENT_EMAIL", "recipient@example.invalid");
+    vi.stubEnv("CLOUDFLARE_ACCOUNT_ID", "a".repeat(32));
+    vi.stubEnv("CLOUDFLARE_EMAIL_API_TOKEN", "dummy-not-real");
+    vi.stubEnv("TRUST_PROXY", "false");
+    const request = new NextRequest("http://localhost:3000/api/bookings", { method: "POST", headers: { "CF-Connecting-IP": "spoofed" } });
+    expect((await POST(request)).status).toBe(503);
+    expect(handle).toHaveBeenCalledWith(request, {
+      CONTACT_RECIPIENT_EMAIL: "recipient@example.invalid", CLOUDFLARE_ACCOUNT_ID: "a".repeat(32), CLOUDFLARE_EMAIL_API_TOKEN: "dummy-not-real",
+    }, "anonymous");
   });
 
-  it("rejects a name-only request without attempting email delivery", async () => {
-    expect((await POST(request({ name: "Test" }))).status).toBe(422);
-    expect(send).not.toHaveBeenCalled();
-  });
-
-  it("does not report success or send mail when the email service is not configured", async () => {
-    vi.stubEnv("RESEND_API_KEY", "");
-    expect((await POST(request(booking))).status).toBe(503);
-    expect(send).not.toHaveBeenCalled();
+  it("uses Pages runtime bindings and the Cloudflare-provided IP", async () => {
+    const request = new Request("https://denizservis.az/api/bookings", { method: "POST", headers: { "CF-Connecting-IP": "192.0.2.1", "x-forwarded-for": "not-trusted" } });
+    const env = { CONTACT_RECIPIENT_EMAIL: "recipient@example.invalid" };
+    expect((await onRequest({ request, env })).status).toBe(503);
+    expect(handle).toHaveBeenCalledWith(request, env, "192.0.2.1");
   });
 });

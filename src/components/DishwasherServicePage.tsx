@@ -1,7 +1,8 @@
 import { LocalizedNav, LocalizedAside } from "./LocalizedElements";
 import { T } from "@/components/LanguageProvider";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowUpRight, CircleAlert, Droplets, GlassWater, Power, ShieldCheck, Sparkles, Thermometer, Volume2 } from "lucide-react";
+import { ArrowDownToLine, ArrowUpRight, CircleAlert, Droplets, GlassWater, Mail, Power, ShieldCheck, Sparkles, Thermometer, Volume2 } from "lucide-react";
+import { siteConfig } from "@/config/site";
 import { services } from "../data/content";
 import { dishwasherBrandRows, dishwasherCareTips, dishwasherCodeGroups, dishwasherContent, dishwasherFaqs, dishwasherProblems } from "../data/dishwasher";
 import { ServiceHero } from "./ServiceHero";
@@ -80,7 +81,7 @@ export function DishwasherServicePage() {
 
       <FAQ items={dishwasherFaqs} showConsultation />
 
-      <section className={styles.closing} aria-labelledby="dishwasher-contact-title"><div className={`container ${styles.closingLayout}`}><div><span className="section-kicker"><T>DənizServis ilə əlaqə</T></span><h2 id="dishwasher-contact-title"><T>Qabyuyan maşınınızda problem var?</T></h2><p><T>Marka, model və nasazlığı bildirin. Uyğun yoxlama və təmir imkanlarını birlikdə dəqiqləşdirək.</T></p><Link href="/elaqe" className={styles.closingLink}><T>Əlaqə səhifəsi </T><ArrowUpRight size={17} aria-hidden="true" /></Link></div><div className={styles.closingActions}><ContactActions bookingHref={`${dishwasherContent.path}#sifaris`} /><WhatsAppButton variant="inline" /></div></div></section>
+      <section className={styles.closing} aria-labelledby="dishwasher-contact-title"><div className={`container ${styles.closingLayout}`}><div><span className="section-kicker"><T>DənizServis ilə əlaqə</T></span><h2 id="dishwasher-contact-title"><T>Qabyuyan maşınınızda problem var?</T></h2><p><T>Marka, model və nasazlığı bildirin. Uyğun yoxlama və təmir imkanlarını birlikdə dəqiqləşdirək.</T></p><Link href="/elaqe" className={styles.closingLink}><T>Əlaqə səhifəsi </T><ArrowUpRight size={17} aria-hidden="true" /></Link><a href={siteConfig.emailHref} className={styles.closingEmail}><Mail size={19} aria-hidden="true" /><span>{siteConfig.email}</span></a></div><div className={styles.closingActions}><ContactActions bookingHref={`${dishwasherContent.path}#sifaris`} /><WhatsAppButton variant="inline" /></div></div></section>
     </>
   );
 }

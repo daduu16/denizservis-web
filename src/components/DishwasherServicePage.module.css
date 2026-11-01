@@ -51,6 +51,11 @@
 .closingLayout { display: grid; gap: 28px; align-items: center; }
 .closing p { max-width: 560px; color: #c9d9e9; font-size: 16px; line-height: 1.7; }
 .closingLink { display: inline-flex; gap: 6px; align-items: center; min-height: 36px; color: var(--accent-light); font-size: 14px; font-weight: 750; }
+.closingEmail { display: flex; align-items: center; gap: 10px; width: fit-content; max-width: 100%; min-height: 44px; margin-top: 6px; color: #b7f4ec; font-size: 16px; font-weight: 650; }
+.closingEmail span { min-width: 0; overflow-wrap: anywhere; }
+.closingEmail svg { flex-shrink: 0; }
+.closingEmail:hover { color: white; text-decoration: underline; text-underline-offset: 4px; }
+.closingEmail:focus-visible { outline: 3px solid #14b8a6; outline-offset: 4px; border-radius: 4px; }
 .closingActions :global(.contact-actions) { display: grid; grid-template-columns: minmax(0, 1fr); }
 .closingActions :global(.button) { min-width: 0; }
 .closingActions :global(.hero-whatsapp) { width: 100%; max-width: none; }

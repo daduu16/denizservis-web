@@ -19,4 +19,13 @@ describe("Cloudflare static build entry point", () => {
     expect(builder).toContain('const destination = join(project, "out")');
     expect(readFileSync("src/app/api/bookings/route.ts", "utf8")).toContain("export async function POST");
   });
+
+  it("deploys the same API path through Pages Functions without turning static pages into function requests", () => {
+    const routes = JSON.parse(readFileSync("public/_routes.json", "utf8"));
+    expect(routes).toEqual({ version: 1, include: ["/api/bookings"], exclude: [] });
+    const pages = readFileSync("functions/api/bookings.ts", "utf8");
+    expect(pages).toContain('export function onRequest');
+    expect(pages).toContain('CF-Connecting-IP');
+    expect(pages).toContain('handleBooking(request, env,');
+  });
 });

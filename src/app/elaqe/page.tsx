@@ -43,7 +43,7 @@ export default function ContactPage() {
               </span>
               <span className={styles.arrow}><ArrowUpRight aria-hidden="true" /></span>
             </LocalizedAnchor>}
-            <a href={`mailto:${siteConfig.email}`} className={`${styles.method} ${styles.email}`}>
+            <a href={siteConfig.emailHref} className={`${styles.method} ${styles.email}`}>
               <span className={styles.icon}><Mail aria-hidden="true" /></span>
               <span className={styles.methodBody}>
                 <span className={styles.label}><T>E-mail</T></span>

@@ -27,7 +27,8 @@ describe("site-wide SEO", () => {
   it("uses factual Organization instead of incomplete LocalBusiness", () => {
     const org = organizationNode();
     expect(org["@type"]).toBe("Organization");
-    expect(org.contactPoint).toMatchObject({ telephone: "+994705522021" });
+    expect(org.email).toBe("info@denizservis.az");
+    expect(org.contactPoint).toMatchObject({ telephone: "+994705522021", email: "info@denizservis.az" });
     for (const field of ["address", "aggregateRating", "review", "openingHours", "sameAs"]) expect(org).not.toHaveProperty(field);
     expect(basicPageJsonLd("/haqqimizda", "AboutPage")["@graph"].some((node) => node["@type"] === "AboutPage")).toBe(true);
   });

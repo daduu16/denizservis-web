@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 
 const files = execFileSync("git", ["ls-files", "--cached", "-z"], { encoding: "utf8" }).split("\0").filter(Boolean);
 const issues = [];
-const forbidden = /(?:^|\/)(?:node_modules|\.next|out(?:\.previous-[^/]+)?|qa|\.vercel|\.wrangler|ServisPlus_Sekiller)(?:\/|$)|(?:^|\/)\.env(?:\..*)?$|\.(?:pem|key|p12|pfx|tsbuildinfo)$|(?:^|\/)(?:next-env\.d\.ts|ServisPlus_Texniki_Tapsiriq\.md)$/;
+const forbidden = /(?:^|\/)(?:node_modules|\.next|out(?:\.previous-[^/]+)?|qa|\.vercel|\.wrangler|ServisPlus_Sekiller)(?:\/|$)|(?:^|\/)\.(?:env|dev\.vars)(?:\..*)?$|\.(?:pem|key|p12|pfx|tsbuildinfo)$|(?:^|\/)(?:next-env\.d\.ts|ServisPlus_Texniki_Tapsiriq\.md)$/;
 const secretPatterns = [
   ["private key", /-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----/],
   ["GitHub token", /\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})\b/],
@@ -18,7 +18,7 @@ for (const file of files) {
   if (content.includes(0)) continue;
   const text = content.toString("utf8");
   for (const [name, pattern] of secretPatterns) if (pattern.test(text)) issues.push(`${file}: possible ${name}; value redacted`);
-  if (file === ".env.example" && /^[ \t]*(?:RESEND_API_KEY|BOOKING_TO_EMAIL|BOOKING_FROM_EMAIL)[ \t]*=[ \t]*\S/m.test(text)) issues.push(`${file}: server credential placeholders must stay empty`);
+  if (file === ".env.example" && /^[ \t]*(?:RESEND_API_KEY|BOOKING_TO_EMAIL|BOOKING_FROM_EMAIL|CONTACT_RECIPIENT_EMAIL|CLOUDFLARE_ACCOUNT_ID|CLOUDFLARE_EMAIL_API_TOKEN)[ \t]*=[ \t]*\S/m.test(text)) issues.push(`${file}: server credential placeholders must stay empty`);
 }
 if (!files.length) issues.push("No tracked/staged files found; stage the intended source before checking.");
 if (issues.length) {

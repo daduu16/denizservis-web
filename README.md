@@ -11,7 +11,7 @@ Repository: [daduu16/denizservis-web](https://github.com/daduu16/denizservis-web
 - Next.js App Router, React, TypeScript (strict)
 - Tailwind CSS 4 və layihəyə məxsus responsive CSS
 - React Hook Form + Zod (client və server validasiyası)
-- Resend e-mail inteqrasiyası
+- Cloudflare Pages Functions + Cloudflare Email Service inteqrasiyası
 - Vitest vahid testləri
 
 ## Lokal quraşdırma
@@ -41,12 +41,12 @@ WhatsApp üçün ayrıca `--whatsapp: #25D366` dəyişəni saxlanılır. Açıq 
 - `NEXT_PUBLIC_WHATSAPP_NUMBER` — WhatsApp nömrəsini dəyişmək üçün istəyə görə override.
 - `NEXT_PUBLIC_SERVICE_AREA` — real xidmət zonası.
 - `NEXT_PUBLIC_WORKING_HOURS` — real iş saatları.
-- `RESEND_API_KEY` — Resend API açarı (yalnız serverdə istifadə olunur).
-- `BOOKING_TO_EMAIL` — müraciətlərin çatacağı e-mail ünvanı.
-- `BOOKING_FROM_EMAIL` — Resend-də təsdiqlənmiş göndərən ünvanı.
+- `CLOUDFLARE_EMAIL_API_TOKEN` — yalnız seçilmiş hesab üçün Email Sending: Edit tokeni (server secret).
+- `CONTACT_RECIPIENT_EMAIL` — hesabda verified destination olan alıcı (server secret).
+- `CLOUDFLARE_ACCOUNT_ID` — Email Routing-in qurulduğu hesabın 32 simvolluq ID-si (server runtime variable).
 - `TRUST_PROXY` — etibarlı reverse proxy arxasında işləyirsə `true`; əks halda `false` saxlayın.
 
-Resend dəyişənlərindən hər hansı biri yoxdursa `POST /api/bookings` `503` qaytarır və interfeys saxta uğur mesajı göstərmir.
+Bu dəyişənlərdən biri yoxdursa `POST /api/bookings` `503` qaytarır və interfeys saxta uğur mesajı göstərmir. Göndərən `info@denizservis.az`-dır. Cloudflare verified destination-a göndəriş üçün mövcud routing domenini istifadə edir; DNS dəyişdirilmir. Dashboard addımları: [EMAIL_INTEGRATION.md](EMAIL_INTEGRATION.md).
 
 İstifadəçinin təqdim etdiyi SEO mətninə əsaslanan standart məlumatlar: DənizServis, `https://denizservis.az`, telefon/WhatsApp `+994 70 552 20 21`, Bakı. Nömrə görünüşü `src/config/contact.ts` daxilində mərkəzləşdirilir. İş saatı və dəqiq ünvan verilməyib; uydurulmur.
 
@@ -95,7 +95,7 @@ Cloudflare Pages build command: `npm run build` (`npm run build:static` də uyğ
 
 `npm run build` statik build-i başladır: təzə müvəqqəti qovluqda frontend-i hazırlayır, yalnız həmin nüsxədən `app/api` server route-larını çıxarır və `next.config.ts` daxilində `output: "export"` rejimi ilə HTML yaradır. Orijinal `src/app/api/bookings/route.ts` və ayrıca `npm run build:server` server imkanlarını saxlayır. Müvəqqəti build qovluğu sonda silinir; əvvəlki, alət tərəfindən işarələnmiş `out` varsa recoverable `out.previous-*` qovluğuna keçirilir. İstifadəçiyə məxsus naməlum `out` üzərinə yazılmır.
 
-**Backend olmayan statik versiyada e-mail forması deaktivdir**, aydın izah göstərilir, `/api/bookings`-ə sorğu və saxta uğur yoxdur. Zəng və WhatsApp aktivdir. E-mail göndərişi üçün adi server build və real Resend konfiqurasiyası lazımdır. `NEXT_PUBLIC_STATIC_EXPORT` yalnız build skripti tərəfindən təyin olunur; development üçün `.env.local`-a yazmayın.
+**Statik frontend mövcud formadan `/api/bookings` ünvanına POST edir.** Cloudflare Pages `functions/api/bookings.ts` faylını ayrıca server funksiyası kimi yığır; o, `out` daxilində statik API faylı deyil. `_routes.json` yalnız bu endpoint-i funksiyaya yönəldir. Runtime server secrets qoşulduqda Cloudflare Email Service verified alıcıya göndərir. Sirr yoxdursa və ya provider qəbul etmirsə uğur göstərilmir. Yalnız `out`-u sadə fayl serverində açmaq e-poçt funksiyasını işə salmır. `NEXT_PUBLIC_STATIC_EXPORT` şəkillər/build üçün qalır, artıq formanı söndürmür. Zəng və WhatsApp dəyişməyib.
 
 Statik şəkillər server optimizer-dən asılı deyil: Sharp əvvəlcədən responsive WebP variantları hazırlayır, custom image loader onların `srcset`-ini yaradır. SVG və artıq optimallaşdırılmış brend WebP-ləri olduğu kimi qalır. `check:static` HTML/FAQ, canonical, JSON-LD, e-mail formasının vəziyyəti, şəkil faylları, sitemap və robots-u yoxlayır. Core Web Vitals/Lighthouse skoruna və real şəbəkə nəticəsinə zəmanət verilmir.
 
@@ -152,6 +152,8 @@ npm start            # run after build:server (not after static export)
 
 ## Forma və təhlükəsizlik
 
+Mövcud formanın Cloudflare backend-i, server secrets və Dashboard quraşdırılması: [EMAIL_INTEGRATION.md](EMAIL_INTEGRATION.md). Yeni forma, database və pullu xidmət əlavə edilməyib.
+
 - Telefon sərbəst yazı formatında qəbul edilir; boş dəyər və həddən artıq uzun mətn qəbul edilmir.
 - Client və server tərəfdə eyni Zod schema işləyir.
 - Honeypot sahəsi və 10 dəqiqəlik pəncərədə IP-başına 5 cəhdlik sadə rate limit var.
@@ -167,8 +169,8 @@ Qeyd: daxili yaddaşa əsaslanan rate limit tək server prosesi üçün uyğundu
 3. Mobil menyunu açın, `Escape` ilə bağlayın və bütün linkləri klaviatura ilə gəzin.
 4. `Usta sifariş et` düyməsinin forma hissəsinə apardığını yoxlayın.
 5. Boş ad, boş telefon və seçilməmiş razılıqla submit edərək xəta mətnlərini yoxlayın. Telefon formatı sərbəstdir; məcburi sahə və təhlükəsizlik uzunluğu yoxlaması qalır.
-6. Resend dəyişənləri olmadan formanın xəta göstərdiyini və uğur mesajı göstərmədiyini təsdiqləyin.
-7. Test Resend hesabı ilə real e-mail çatdırılmasını ayrıca yoxlayın.
+6. Cloudflare server secrets olmadan formanın `503` xəta göstərdiyini və uğur mesajı göstərmədiyini təsdiqləyin.
+7. `dev` preview-də Dashboard konfiqurasiyasından sonra verified destination-a real e-mail çatdırılmasını ayrıca yoxlayın.
 8. Header və mobil menyuda “İşlərimiz” və “Niyə biz?” keçidlərini təkrar basın: düzgün bölməyə sürüşmə, menyunun bağlanması və aktiv linkin vurğulanmasını yoxlayın.
 9. “İşlərimiz” bölməsində playlist iframe-ini, YouTube-un video seçimini və fullscreen düyməsini yoxlayın. “Daha çox göstər” düzgün playlisti açmalıdır; mobil pleyer viewport enini keçməməlidir. Yeni video YouTube playlistinə əlavə edildikdən sonra səhifəni yeniləyərək yoxlayın.
 
@@ -189,6 +191,6 @@ Qeyd: daxili yaddaşa əsaslanan rate limit tək server prosesi üçün uyğundu
 ## Production TODO
 
 - Real telefon, WhatsApp, xidmət zonası və iş saatlarını `.env.local`/hosting secrets-də əlavə edin.
-- Resend domainini təsdiqləyin və real `BOOKING_FROM_EMAIL`, `BOOKING_TO_EMAIL` dəyərlərini yazın.
+- Cloudflare server secrets-i əvvəlcə yalnız `dev` Preview mühitində əlavə edin və real göndərişi yoxlayın; production-a ayrıca razılıq olmadan keçməyin.
 - Çox-instanslı hosting üçün paylaşılan rate-limit storage qoşun.
 - Real biznes məlumatları təsdiqlənəndən sonra LocalBusiness JSON-LD əlavə etmək olar.

@@ -9,6 +9,23 @@ import { FAQ } from "./FAQ";
 vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
 describe("requested form and page refinements", () => {
+  it("submits the existing form to Pages without a static-export block or client-side email secrets", () => {
+    const source = readFileSync("src/components/BookingForm.tsx", "utf8");
+    expect(source).toContain('fetch("/api/bookings", {');
+    expect(source).toContain('method: "POST"');
+    expect(source).toContain("disabled={isSubmitting}");
+    expect(source).not.toContain("staticExport");
+    expect(source).not.toContain("CONTACT_RECIPIENT_EMAIL");
+    expect(source).not.toContain("CLOUDFLARE_EMAIL_API_TOKEN");
+    expect(source).toContain('if (!response.ok)');
+    expect(source.indexOf('if (!response.ok)')).toBeLessThan(source.indexOf('setSubmitState({ type: "success"'));
+    for (const compact of [false, true]) {
+      const html = renderToStaticMarkup(createElement(BookingForm, { compact }));
+      expect(html).toMatch(/<button\b(?=[^>]*type="submit")(?![^>]*disabled)[^>]*>/);
+      expect(html).not.toContain("Statik versiyada e-mail forması aktiv deyil.");
+    }
+  });
+
   it.each([false, true])("retains a freely formatted telephone input for compact=%s", (compact) => {
     const html = renderToStaticMarkup(createElement(BookingForm, { compact }));
     expect(html).toContain('type="tel"');

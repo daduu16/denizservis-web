@@ -26,7 +26,8 @@ export function organizationNode() {
     name: siteConfig.name, url: `${canonicalOrigin}/`,
     logo: { "@type": "ImageObject", url: absoluteUrl("/images/denizservis-logo-v5.png") },
     telephone: normalizePhone(siteConfig.phone),
-    contactPoint: { "@type": "ContactPoint", telephone: normalizePhone(siteConfig.phone), contactType: "customer service", availableLanguage: ["az"] },
+    email: siteConfig.email,
+    contactPoint: { "@type": "ContactPoint", telephone: normalizePhone(siteConfig.phone), email: siteConfig.email, contactType: "customer service", availableLanguage: ["az"] },
     // Do not invent a street address, opening hours, rating, social profile or accreditation.
   };
 }
