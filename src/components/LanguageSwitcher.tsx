@@ -53,7 +53,7 @@ export function LanguageSwitcher({ variant = "desktop" }: { variant?: "desktop" 
     if (open && (variant === "desktop" || keyboardOpening.current)) focusChoice(root.current?.querySelector<HTMLButtonElement>('[aria-checked="true"]'));
   }, [open, variant]);
 
-  return <div className={`${styles.root} ${variant === "mobile" ? styles.mobile : styles.desktop}`} ref={root} onKeyDown={onKeyDown} onBlur={(event) => {
+  return <div data-language-switcher className={`${styles.root} ${variant === "mobile" ? styles.mobile : styles.desktop}`} ref={root} onKeyDown={onKeyDown} onBlur={(event) => {
     if (focusMovedOutside(event.currentTarget, event.relatedTarget)) setOpen(false);
   }}>
     <button ref={trigger} type="button" className={styles.trigger} aria-label={`${t("Dil seçimi")}: ${current.name}`} aria-haspopup="menu" aria-expanded={open} aria-controls={open ? id : undefined} aria-busy={pending} onClick={(event) => { keyboardOpening.current = event.detail === 0; setOpen((value) => !value); }}>

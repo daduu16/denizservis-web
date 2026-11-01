@@ -77,7 +77,12 @@ export function Header() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
       if (event.key === "Escape" && isOpen) {
+        // Give the nested language popup its first Escape, regardless of the
+        // ordering of native document and React delegated keyboard listeners.
+        const target = event.target instanceof Element ? event.target : null;
+        if (target?.closest("[data-language-switcher]")?.querySelector('[aria-expanded="true"]')) return;
         closeMenu();
         menuButton.current?.focus({ preventScroll: true });
       }

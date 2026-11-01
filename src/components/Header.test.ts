@@ -45,5 +45,8 @@ describe("header contact and language controls", () => {
     expect(source).toContain("focusMovedOutside(event.currentTarget, event.relatedTarget)");
     expect(source).toContain('variant === "desktop" || keyboardOpening.current');
     expect(source).toContain("tabIndex={-1}");
+    const header = readFileSync("src/components/Header.tsx", "utf8");
+    expect(header).toContain("if (event.defaultPrevented) return");
+    expect(header).toContain('closest("[data-language-switcher]")');
   });
 });
