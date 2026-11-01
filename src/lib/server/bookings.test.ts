@@ -82,6 +82,16 @@ describe("Cloudflare Pages booking email", () => {
     expect(send).not.toHaveBeenCalled();
   });
 
+  it.each(["Bearer dummy-not-real", "dummy\nnot-real", "nümunə-token", '"dummy-not-real"'])("rejects malformed token text without exposing it", async (token) => {
+    const { handle, send } = setup();
+    const response = await handle(request(), { ...env, CLOUDFLARE_EMAIL_API_TOKEN: token }, "ip");
+    const result = await response.json();
+    expect(response.status).toBe(502);
+    expect(result.code).toBe("cloudflare_token_format_invalid");
+    expect(JSON.stringify(result)).not.toContain(token);
+    expect(send).not.toHaveBeenCalled();
+  });
+
   it.each(["https://unrelated.invalid", "null", ""])("rejects cross-origin/missing origin %s without sending", async (origin) => {
     const { handle, send } = setup();
     expect((await handle(request(booking, { Origin: origin }), env, "ip")).status).toBe(403);

@@ -92,6 +92,11 @@ export function createBookingHandler({ send = (input, init) => fetch(input, init
     if (!recipient || !z.email().safeParse(recipient).success || !accountId || !/^[a-f0-9]{32}$/i.test(accountId) || !token) {
       return json(unavailableMessage, 503);
     }
+    // Cloudflare API tokens are opaque ASCII credentials, not copied UI labels,
+    // quoted values, "Bearer ..." strings or multiline text. Never echo them.
+    if (!/^[\x21-\x7e]+$/.test(token) || /^["']|["']$/.test(token)) {
+      return json(failedMessage, 502, { code: "cloudflare_token_format_invalid" });
+    }
 
     try {
       const response = await send(`https://api.cloudflare.com/client/v4/accounts/${accountId}/email/sending/send`, {
