@@ -33,6 +33,7 @@ for (const [path, { html, content, ids }] of pages) {
   const description = meta.find((m) => m.name === "description")?.content;
   assert.ok(description && !descriptions.has(description), `${path}: unique description`); descriptions.add(description);
   assert.ok(meta.some((m) => m.name === "viewport" && m.content.includes("width=device-width")));
+  assert.ok(meta.some((m) => m.name === "format-detection" && m.content.includes("telephone=no")), `${path}: iOS automatic phone detection disabled; explicit tel links retained`);
   const canonical = [...html.matchAll(/<link\b[^>]*>/g)].map((m) => attrs(m[0])).filter((a) => a.rel === "canonical");
   assert.equal(canonical.length, 1, `${path}: one canonical`);
   assert.equal(new URL(canonical[0].href).href, new URL(origin + path).href, `${path}: canonical origin`);

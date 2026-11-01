@@ -109,6 +109,12 @@ Ana səhifədə “İşlərimiz”dən dərhal sonra “Biz təmir edirik” bö
 
 CSS animasiyaları 40 və 42 saniyəlik linear dövrlərlə əks istiqamətlərə axır. Hər qrup son boşluğu ilə birlikdə eyni enli nüsxəyə malikdir; `translateX(-50%)` dövrün sonunda fasiləsiz keçid verir. Dublikatlar screen reader-dən gizlənir. Desktopda hover və hər iki görünüşdə klaviatura fokusu animasiyanı saxlayır; ayrıca dayandırma idarəsi göstərilmir. `prefers-reduced-motion: reduce` zamanı hərəkət və dublikatlar söndürülür; hər iki sətir öz daxilində manual sürüşdürülə bilir, səhifə üfüqi daşmır.
 
+## Mobil menyu və zəng keçidləri
+
+Mobil menyu səhifə aşağı sürüşdürüləndə açıldıqda fonu iOS-a uyğun fixed-body kilidi ilə saxlayır; bağlananda əvvəlki scroll mövqeyi və inline style-lar bərpa olunur. Menyu bağlananda dil dropdown-u unmount olunur və növbəti açılışda bağlı başlayır. Touch blur-un `relatedTarget=null` vəziyyəti seçim klikindən əvvəl dropdown-u bağlamır; avtomatik fokus yalnız desktop/klaviatura açılışında istifadə olunur.
+
+Zəng düymələri yalnız istifadəçinin klik etdiyi standart `tel:+994705522021` keçidləridir; avtomatik yönləndirmə, timer və proqramla çağırış yoxdur. `format-detection: telephone=no` iOS-un mətndən əlavə telefon keçidləri yaratmasının qarşısını alır, açıq `tel:` linklərini söndürmür. iOS/Safari-nin zəng təsdiqi və blok xəbərdarlığı sistem idarəsidir; sayt bu təhlükəsizlik icazəsini ləğv edə bilməz. [Apple telefon linkləri sənədi](https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html).
+
 ## “İşlərimiz” video qalereyası
 
 Header, mobil menyu və footer eyni mərkəzi menyudan istifadə edir: `Əsas səhifə → Xidmətlər → İşlərimiz → Niyə biz? → Əlaqə`. `İşlərimiz` linki `/#islerimiz` bölməsinə aparır. Əvvəlki “Necə işləyir?” bölməsi ana səhifədə bu qalereya ilə əvəz olunub.

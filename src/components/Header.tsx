@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Menu, Phone, X } from "lucide-react";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { navigation, normalizePhone, siteConfig } from "@/config/site";
 import { Logo } from "./Logo";
@@ -10,6 +10,7 @@ import { SectionLink } from "./SectionLink";
 import { resolveSectionHref } from "../lib/section-href";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "./LanguageProvider";
+import { lockPageScroll, type PageScrollPosition } from "../lib/mobile-menu";
 
 function subscribeToHash(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
@@ -29,6 +30,14 @@ export function Header() {
   const [isCompact, setIsCompact] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const menuNav = useRef<HTMLElement>(null);
+  const scrollLocked = useRef(false);
+  const unlockScroll = useRef<(() => void) | null>(null);
+  const openingScroll = useRef<PageScrollPosition | null>(null);
+  const closeMenu = useCallback(() => {
+    // Unlock before native hash/tel navigation, not in a later effect.
+    unlockScroll.current?.();
+    setIsOpen(false);
+  }, []);
   const pathname = usePathname();
   const hash = useSyncExternalStore(subscribeToHash, getHash, getServerHash);
   const phone = normalizePhone(siteConfig.phone);
@@ -38,36 +47,55 @@ export function Header() {
   };
 
   useEffect(() => {
-    const onScroll = () => setIsCompact(window.scrollY > 24);
+    const onScroll = () => { if (!scrollLocked.current) setIsCompact(window.scrollY > 24); };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+    scrollLocked.current = true;
+    // Capture before focus/layout changes, rather than after the overlay mounts.
+    const release = lockPageScroll(openingScroll.current ?? undefined);
+    openingScroll.current = null;
+    const unlock = () => {
+      release();
+      scrollLocked.current = false;
+      unlockScroll.current = null;
+    };
+    unlockScroll.current = unlock;
+    return unlock;
+  }, [isOpen]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onResize = () => { if (desktop.matches) closeMenu(); };
+    desktop.addEventListener("change", onResize);
+    return () => desktop.removeEventListener("change", onResize);
+  }, [closeMenu]);
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen) {
-        setIsOpen(false);
-        menuButton.current?.focus();
+        closeMenu();
+        menuButton.current?.focus({ preventScroll: true });
       }
       if (event.key === "Tab" && isOpen) {
-        const links = [...(menuNav.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [])];
+        const links = [...(menuNav.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [])]
+          .filter((element) => element.tabIndex >= 0 && element.getClientRects().length > 0);
         const first = menuButton.current;
         const last = links.at(-1);
-        if (event.shiftKey && document.activeElement === first && last) { event.preventDefault(); last.focus(); }
-        if (!event.shiftKey && document.activeElement === last && first) { event.preventDefault(); first.focus(); }
+        if (event.shiftKey && document.activeElement === first && last) { event.preventDefault(); last.focus({ preventScroll: true }); }
+        if (!event.shiftKey && document.activeElement === last && first) { event.preventDefault(); first.focus({ preventScroll: true }); }
       }
     };
     document.addEventListener("keydown", onKeyDown);
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, closeMenu]);
 
   return (
-    <div className={`site-header-shell ${isCompact ? "site-header-shell--compact" : ""}`}>
+    <div className={`site-header-shell ${isCompact ? "site-header-shell--compact" : ""} ${isOpen ? "site-header-shell--menu-open" : ""}`}>
       <header className={`site-header ${isCompact ? "site-header--compact" : ""}`}>
       <div className="container header-inner">
         <Link href="/" className="logo-link" aria-label={`${siteConfig.name} — ${t("Əsas səhifə")}`}>
@@ -85,7 +113,7 @@ export function Header() {
         <div className="header-actions">
           <LanguageSwitcher />
           {phone ? (
-            <a href={`tel:${phone}`} className="header-phone header-phone--primary" aria-label={`${t("Zəng et")}: ${siteConfig.phone}`}>
+            <a href={`tel:${phone}`} className="header-phone header-phone--primary" aria-label={`${t("Zəng et")}: ${siteConfig.phone}`} onClick={closeMenu}>
               <Phone aria-hidden="true" size={18} />
               <span className="header-phone-text">{siteConfig.phone}</span>
             </a>
@@ -101,8 +129,18 @@ export function Header() {
             className="icon-button lg:hidden"
             aria-label={t(isOpen ? "Menyunu bağla" : "Menyunu aç")}
             aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setIsOpen((value) => !value)}
+            aria-controls={isOpen ? "mobile-menu" : undefined}
+            onPointerDown={() => {
+              if (!isOpen) openingScroll.current = { x: window.scrollX, y: window.scrollY };
+            }}
+            onClick={() => {
+              if (isOpen) closeMenu();
+              else {
+                openingScroll.current ??= { x: window.scrollX, y: window.scrollY };
+                setIsCompact(openingScroll.current.y > 24);
+                setIsOpen(true);
+              }
+            }}
           >
             {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
@@ -110,7 +148,7 @@ export function Header() {
       </div>
       </header>
 
-      <div className={`mobile-menu-backdrop lg:hidden ${isOpen ? "is-open" : ""}`} onClick={() => setIsOpen(false)}>
+      {isOpen && <div className="mobile-menu-backdrop lg:hidden is-open" onClick={closeMenu}>
         <nav
           ref={menuNav}
           id="mobile-menu"
@@ -119,7 +157,7 @@ export function Header() {
           onClick={(event) => event.stopPropagation()}
         >
           {navigation.map((item) => (
-            <SectionLink key={item.href} href={item.href} className="mobile-nav-link" aria-current={isActive(item.href) ? (item.href.includes("#") ? "location" : "page") : undefined} onClick={() => setIsOpen(false)}>
+            <SectionLink key={item.href} href={item.href} className="mobile-nav-link" aria-current={isActive(item.href) ? (item.href.includes("#") ? "location" : "page") : undefined} onClick={closeMenu}>
               {t(item.label)}
             </SectionLink>
           ))}
@@ -127,11 +165,11 @@ export function Header() {
             <p className="mobile-language-label">{t("Dil seçimi")}</p>
             <LanguageSwitcher variant="mobile" />
           </div>
-          {phone && <a href={`tel:${phone}`} className="button mt-3 w-full" onClick={() => setIsOpen(false)}>
+          {phone && <a href={`tel:${phone}`} className="button mt-3 w-full" onClick={closeMenu}>
             <Phone aria-hidden="true" size={19} />{siteConfig.phone}
           </a>}
         </nav>
-      </div>
+      </div>}
     </div>
   );
 }
