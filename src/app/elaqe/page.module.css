@@ -22,6 +22,9 @@
 .whatsapp { border-color: #c7e5d5; background: #f0faf4; }
 .whatsapp .label, .whatsapp .icon, .whatsapp .arrow { color: #11683c; }
 .whatsapp .icon, .whatsapp .arrow { background: #dcf3e5; }
+.email { border-color: #bcebe5; color: #10284b; }
+.email .icon, .email .arrow { color: #0f766e; background: #e6f8f5; }
+.email:focus-visible { outline: 3px solid #14b8a6; outline-offset: 3px; }
 .method:hover { transform: translateY(-2px); border-color: var(--accent-dark); box-shadow: 0 10px 28px rgba(11,40,81,.08); }
 .method:hover .value { text-decoration: underline; text-underline-offset: 4px; }
 .method:hover .arrow svg { transform: translate(1px,-1px); }

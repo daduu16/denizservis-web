@@ -25,6 +25,7 @@ describe("header contact and language controls", () => {
     expect(html).not.toContain('id="mobile-menu"');
     expect(source).toContain('{isOpen && <div className="mobile-menu-backdrop');
     expect(source).toContain('<LanguageSwitcher variant="mobile" />');
+    expect(source).toContain('<a href={siteConfig.emailHref} className="mobile-email" onClick={closeMenu}>');
     expect(html).toContain("lucide-globe");
     expect(html).not.toContain("lucide-earth");
   });

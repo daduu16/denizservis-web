@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Phone, X } from "lucide-react";
+import { Mail, Menu, Phone, X } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { navigation, normalizePhone, siteConfig } from "@/config/site";
@@ -173,6 +173,9 @@ export function Header() {
           {phone && <a href={`tel:${phone}`} className="button mt-3 w-full" onClick={closeMenu}>
             <Phone aria-hidden="true" size={19} />{siteConfig.phone}
           </a>}
+          <a href={siteConfig.emailHref} className="mobile-email" onClick={closeMenu}>
+            <Mail aria-hidden="true" size={19} /><span>{siteConfig.email}</span>
+          </a>
         </nav>
       </div>}
     </div>

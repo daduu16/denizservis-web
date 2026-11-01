@@ -85,7 +85,7 @@ Git integration ilə bu repository-ni seçin. Bu sənəd Cloudflare hesabına qo
 
 Production branch: Pages project → **Settings → Builds → Branch control**. Production build-ləri aktiv saxlayın, preview üçün `dev` seçin. Framework preset `Next.js Static HTML Export` ola bilər, amma standart `npx next build` əmrini `npm run build` ilə əvəz edin: layihənin hazırlıq skripti statik şəkilləri yaradır və yalnız müvəqqəti nüsxədə server API-ni export-dan çıxarır. Təkcə `output: "export"`-u məcburi etmək POST API və şəkil hazırlığı üçün kifayət deyil. Preview `noindex` qalır; canonical production domeninə yönəlir. Production qiymətini ümumi şəkildə preview-yə tətbiq etməyin.
 
-**Vacib:** Cloudflare Pages statik export-da e-mail forması deaktivdir; telefon, WhatsApp və `mailto:info@denizservis.az` keçidi işləyir. Resend forması üçün Node server build və ayrıca server hosting/config lazımdır. API açarını `NEXT_PUBLIC_` ilə adlandırmayın və statik frontend-ə yerləşdirməyin.
+**Vacib:** Statik frontend mövcud formadan birbaşa FormSubmit AJAX API-yə göndərir. E-poçt üçün Pages Function, server secret, SMTP və ya yeni DNS ayarı lazım deyil; əvvəlki Cloudflare e-poçt backend-i çıxarılıb. İlk göndərişdə mövcud rəsmi poçt qutusuna gələn aktivasiya məktubunu təsdiqləmək lazımdır. Təlimat: [EMAIL_INTEGRATION.md](EMAIL_INTEGRATION.md). Production buraxılışı yalnız ayrıca icazə və yoxlanmış `dev` → `prod` PR ilə edin.
 
 Rəsmi mənbələr: [Cloudflare branch control](https://developers.cloudflare.com/pages/configuration/branch-build-controls/), [build image / Node](https://developers.cloudflare.com/pages/configuration/build-image/).
 

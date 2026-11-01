@@ -1,7 +1,8 @@
 import { LocalizedNav, LocalizedAside } from "./LocalizedElements";
 import { T } from "@/components/LanguageProvider";
 import Link from "next/link";
-import { ArrowDownToLine, ArrowUpRight, CircleAlert, Droplets, LockKeyhole, MoveHorizontal, Power, RotateCcw, RotateCw, ShieldCheck, Thermometer, Volume2 } from "lucide-react";
+import { ArrowDownToLine, ArrowUpRight, CircleAlert, Droplets, LockKeyhole, Mail, MoveHorizontal, Power, RotateCcw, RotateCw, ShieldCheck, Thermometer, Volume2 } from "lucide-react";
+import { siteConfig } from "@/config/site";
 import { services } from "../data/content";
 import { washingMachineBrandRows, washingMachineCareTips, washingMachineCodeGroups, washingMachineContent, washingMachineFaqs, washingMachineProblems } from "../data/washing-machine";
 import { ServiceHero } from "./ServiceHero";
@@ -119,7 +120,7 @@ export function WashingMachineServicePage() {
 
       <section className={styles.closing} aria-labelledby="washing-contact-title">
         <div className={`container ${styles.closingLayout}`}>
-          <div><span className="section-kicker"><T>DənizServis ilə əlaqə</T></span><h2 id="washing-contact-title"><T>Paltaryuyan maşınınızda problem var?</T></h2><p><T>Rahat əlaqə, modelə uyğun yoxlama və aydın məlumatlandırma. Marka, model və nasazlığı bildirin, uyğun xidmət imkanlarını birlikdə dəqiqləşdirək.</T></p><Link href="/elaqe" className={styles.closingLink}><T>Əlaqə səhifəsi </T><ArrowUpRight size={17} aria-hidden="true" /></Link></div>
+          <div><span className="section-kicker"><T>DənizServis ilə əlaqə</T></span><h2 id="washing-contact-title"><T>Paltaryuyan maşınınızda problem var?</T></h2><p><T>Rahat əlaqə, modelə uyğun yoxlama və aydın məlumatlandırma. Marka, model və nasazlığı bildirin, uyğun xidmət imkanlarını birlikdə dəqiqləşdirək.</T></p><Link href="/elaqe" className={styles.closingLink}><T>Əlaqə səhifəsi </T><ArrowUpRight size={17} aria-hidden="true" /></Link><a href={siteConfig.emailHref} className={styles.closingEmail}><Mail size={19} aria-hidden="true" /><span>{siteConfig.email}</span></a></div>
           <div className={styles.closingActions}><ContactActions bookingHref={`${washingMachineContent.path}#sifaris`} /><WhatsAppButton variant="inline" /></div>
         </div>
       </section>

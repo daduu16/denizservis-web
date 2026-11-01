@@ -9,6 +9,7 @@ export const siteConfig = {
   phone: contactConfig.phone,
   whatsapp: contactConfig.whatsapp,
   email: contactConfig.email,
+  emailHref: `mailto:${contactConfig.email}`,
   socialLinks: contactConfig.socialLinks,
   serviceArea: process.env.NEXT_PUBLIC_SERVICE_AREA?.trim() || "Bakı",
   workingHours: process.env.NEXT_PUBLIC_WORKING_HOURS?.trim() || null,

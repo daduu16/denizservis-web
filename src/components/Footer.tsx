@@ -31,7 +31,7 @@ export function Footer() {
           <ul className="footer-contact">
             <li><Phone aria-hidden="true" />{phone ? <a href={`tel:${phone}`}>{siteConfig.phone}</a> : <span><T>Telefon konfiqurasiya edilməyib</T></span>}</li>
             <li><MapPin aria-hidden="true" /><span><T>{siteConfig.serviceArea || "Xidmət zonası konfiqurasiya ediləcək"}</T></span></li>
-            <li><Mail aria-hidden="true" /><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></li>
+            <li><Mail aria-hidden="true" /><a href={siteConfig.emailHref}>{siteConfig.email}</a></li>
           </ul>
           {whatsapp && <a className="footer-whatsapp" href={whatsapp} target="_blank" rel="noreferrer"><T>WhatsApp ilə yazın</T></a>}
         </div>

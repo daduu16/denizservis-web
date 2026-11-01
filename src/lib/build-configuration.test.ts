@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 describe("Cloudflare static build entry point", () => {
@@ -17,6 +17,12 @@ describe("Cloudflare static build entry point", () => {
     expect(builder).toContain('NEXT_PUBLIC_STATIC_EXPORT: "true"');
     expect(builder).toContain('!path.startsWith(join(project, "src/app/api"))');
     expect(builder).toContain('const destination = join(project, "out")');
-    expect(readFileSync("src/app/api/bookings/route.ts", "utf8")).toContain("export async function POST");
+  });
+
+  it("uses FormSubmit directly and does not deploy the retired email backend", () => {
+    expect(existsSync("functions/api/bookings.ts")).toBe(false);
+    expect(existsSync("src/app/api/bookings/route.ts")).toBe(false);
+    expect(existsSync("public/_routes.json")).toBe(false);
+    expect(readFileSync("src/lib/formsubmit.ts", "utf8")).toContain('https://formsubmit.co/ajax/info@denizservis.az');
   });
 });
