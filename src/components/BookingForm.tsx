@@ -11,6 +11,7 @@ import { Controller, useForm } from "react-hook-form";
 import { bookingSchema, type BookingInput } from "@/lib/validation";
 import { DeviceTypeSelect } from "./DeviceTypeSelect";
 import { trackAnalyticsEvent } from "../lib/analytics";
+import { submitBooking } from "../lib/formsubmit";
 
 type SubmitState =
   | { type: "idle" }
@@ -35,16 +36,8 @@ export function BookingForm({ compact = false, hideNote = false }: { compact?: b
   const onSubmit = async (values: BookingInput) => {
     setSubmitState({ type: "idle" });
     try {
-      const response = await fetch("/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const payload = (await response.json()) as { message?: string };
-      if (!response.ok) {
-        throw new Error(payload.message || "Müraciəti göndərmək mümkün olmadı. Bir qədər sonra yenidən cəhd edin.");
-      }
-      setSubmitState({ type: "success", message: payload.message || "Müraciətiniz servisə çatdırıldı." });
+      const message = await submitBooking(values);
+      setSubmitState({ type: "success", message });
       trackAnalyticsEvent("contact_form_submit");
       reset();
     } catch (error) {

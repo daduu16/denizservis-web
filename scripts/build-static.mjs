@@ -1,4 +1,4 @@
-// Export the public frontend without changing or removing the live server API.
+// Export the frontend and responsive assets; forms use FormSubmit directly.
 import { cp, mkdtemp, readFile, readdir, rename, rm, stat, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, extname, join } from "node:path";
@@ -71,7 +71,7 @@ try {
   }
   await cp(exported, destination, { recursive: true });
   console.log(`Cloudflare Pages static frontend: ${destination}`);
-  console.log("Use build command npm run build and output directory out. Deploy functions/api/bookings.ts with Pages; configure runtime email secrets before testing form delivery. build:server retains the same API for local/server use.");
+  console.log("Use build command npm run build and output directory out. Existing forms submit directly to FormSubmit; no server email API or secrets are required. Activate the recipient using FormSubmit's first confirmation email.");
 } finally {
   // This exact directory was freshly created above; no user checkout is removed.
   await rm(staging, { recursive: true, force: true });

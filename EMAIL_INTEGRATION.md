@@ -1,56 +1,29 @@
-# Mövcud müraciət formasının Cloudflare e-poçt bağlantısı
+# Mövcud forma — FormSubmit AJAX
 
-Forma → eyni origin-də `POST /api/bookings` → Cloudflare Pages Function → Cloudflare Email Service REST API → hesabdakı verified destination.
+Mövcud `BookingForm` eyni sahələr, CSS, Zod validasiyası, razılıq, honeypot və React Hook Form axını ilə saxlanılır. Yalnız submit transport-u dəyişib: `src/lib/formsubmit.ts` birbaşa `https://formsubmit.co/ajax/info@denizservis.az` ünvanına JSON POST edir.
 
-## Cloudflare Dashboard — Preview və Production
+- Sabit subject: `DənizServis — Yeni müraciət`.
+- Ad, telefon, cihaz növü, marka, problem, rayon/ünvan və razılıq oxunaqlı sahələrlə ötürülür; `_template=table` istifadə edilir.
+- Mövcud `website` honeypot-u `_honey` kimi göndərilir. FormSubmit-in standart spam qorunması saxlanılır; `_captcha=false` əlavə edilmir.
+- Loading və düymənin deaktiv olması mövcud `isSubmitting` ilə işləyir. Uğur üçün HTTP statusu və JSON-dakı `success: true` və ya `success: "true"` tələb olunur. Yalnız bundan sonra mövcud success paneli, analytics və forma sıfırlanması işləyir.
+- Xəta, yanlış/non-JSON cavab, provider rəddi və şəbəkə kəsilməsi zamanı error paneli göstərilir; daxil edilmiş məlumatlar silinmir. 25 saniyə timeout var, avtomatik təkrar göndəriş yoxdur.
+- Uğur mətni xidmətin müraciəti qəbul etdiyini bildirir, Gmail Inbox-a çatdırılma zəmanəti vermir.
 
-1. **Email Service → Email Routing → Destination Addresses**: mövcud Gmail alıcısının `Verified` olduğunu təsdiqləyin. Mövcud `info@denizservis.az` routing qaydasını və DNS-i dəyişməyin. Yeni sending domain onboarding və Workers Paid planı seçməyin: burada yalnız mövcud routing domenindən həmin hesabdakı verified destination-a göndərilir.
-2. Eyni Cloudflare hesabının **Account ID** dəyərini kopyalayın (hesab məlumatlarında 32 simvolluq ID). **Zone ID** istifadə etməyin.
-3. **My Profile → API Tokens → Create Token → Create Custom Token**:
-   - Ad: `DenizServis form email`.
-   - İcazə: **Account → Email Sending → Edit**.
-   - Account Resources: yalnız Email Routing-in və verified alıcının olduğu hesab.
-   - Global API Key, DNS edit, bütün hesablar və əlavə geniş icazələr verməyin.
-   - Tokeni yaradıb yalnız Cloudflare Dashboard-da server secret kimi saxlayın; çata/GitHub-a yazmayın. Cloudflare edge IP-ləri dəyişdiyindən şəxsi kompüterinizin IP-si ilə tokeni məhdudlaşdırmayın.
-4. **Workers & Pages → denizservis-web → Settings → Variables and Secrets** bölməsində əvvəl **Preview**, sonra ayrıca **Production** mühitində əlavə edin:
+## İlk aktivasiya — bir dəfə istifadəçi tərəfindən
 
-   | Ad | Tip | Dəyər |
-   | --- | --- | --- |
-   | `CONTACT_RECIPIENT_EMAIL` | Secret | Cloudflare-də verified olan mövcud Gmail alıcısı |
-   | `CLOUDFLARE_EMAIL_API_TOKEN` | Secret | Yuxarıda yaradılmış məhdud token |
-   | `CLOUDFLARE_ACCOUNT_ID` | Text variable | Həmin hesabın Account ID-si |
+1. `dev` preview-dən bir test göndərin. Bu, FormSubmit-in rəsmi ünvana təsdiq məktubu göndərməsini başladır.
+2. Mövcud Cloudflare Email Routing həmin məktubu Gmail-ə yönləndirir. Inbox və Spam qovluqlarını yoxlayın.
+3. FormSubmit məktubundakı **Activate Form** keçidini açın. Bu addım avtomatik tamamlanmış sayılmır.
+4. Aktivləşdirdikdən sonra eyni formadan yenidən test göndərib bütün sahələrin məktubda olduğunu yoxlayın. FormSubmit aktivləşdirilməmiş müraciətləri müvəqqəti saxladığını bildirir.
 
-   Bu adlara `NEXT_PUBLIC_` prefiksi əlavə etməyin. Göndərən kodda `info@denizservis.az` olaraq sabitdir. SMTP/Gmail parolu və əlavə Resend hesabı lazım deyil.
-5. **Bindings** bölməsində yeni binding yaratmayın. Pages Function Email Service-in rəsmi REST API-sini istifadə edir; `send_email`, service binding, KV, D1, database və ayrıca Worker tələb olunmur.
-6. **Build configuration**: repo kökü, build `npm run build` (və ya `npm run build:static`), output `out`. Git inteqrasiyası `functions/api/bookings.ts`-i repo kökündən avtomatik yığır. Təkcə `out` qovluğunu Dashboard drag-and-drop ilə yükləmək Functions kodunu deploy etmir. Əvvəl kodun olduğu `dev` commitindən **Preview deployment** başladın. Production branch `prod` olaraq qalsın; production buraxılışı yalnız testlərdən və istifadəçi icazəsindən sonra `dev` → `prod` PR ilə edin. Secrets dəyişdikdən sonra müvafiq deployment-i yenidən başladın.
-7. `dev` preview açılıb eyni mövcud formadan test müraciəti göndərin. DevTools Network-də `/api/bookings` üçün `201` və mövcud success mesajı görünməlidir. Verified Gmail-in Inbox və Spam bölməsində real məktubu yoxlayın. `201` Cloudflare-in qəbul/queue təsdiqidir, Gmail Inbox zəmanəti deyil. Dashboard quraşdırılmadan real göndəriş baş vermir.
+API token, SMTP, yeni server, Pages Function və DNS dəyişikliyi lazım deyil. Mövcud Email Routing saxlanılır. Köhnə Cloudflare göndəriş endpoint-ləri və yalnız onlara aid helper/testlər çıxarılıb; Git tarixçəsindən bərpa oluna bilər. Köhnə Cloudflare e-poçt sirrləri artıq istifadə edilmir; hesab ayarları bu işdə dəyişdirilmir.
 
-## Dəyişməyən hissələr
+Məlumatlar istifadəçinin seçdiyi FormSubmit xidmətinə ötürülür. CAPTCHA və ya başqa insan yoxlaması göstərilərsə onu istifadəçi tamamlamalıdır; qorunma proqramla keçilmir. Yeni sahə və əlavə müştəri e-poçtu tələb olunmur.
 
-Yeni forma və yeni sahə yoxdur. Client və server eyni mövcud Zod schema-dan istifadə edir; telefonun sərbəst yazılışı, razılıq, honeypot, compact forma, error/success paneli və forma təmizlənməsi saxlanılıb. Formadan yalnız statik-export göndərmə blokadası götürülüb; submit hələ də mövcud `/api/bookings`-ə JSON göndərir. Dizayn/CSS, SEO, WhatsApp və DNS bu tapşırıqda dəyişdirilmir. Əvvəldən lokalda qalan əlaqə/SEO dəyişiklikləri ayrıca saxlanılıb.
-
-`src/app/api/bookings/route.ts` local/server build-də, `functions/api/bookings.ts` isə Pages-də eyni server handler-i çağırır. Köhnə Resend yolundan göndəriş yoxdur. Server vars yalnız runtime-da oxunur; müştəri POST məlumatı `to`, `from` və subject-i əvəz edə bilməz. Alıcının real ünvanı kodda və frontend-də saxlanılmır.
-
-## Təhlükəsizlik və nəticələr
-
-- Yalnız same-origin JSON POST; başqa origin və CORS sorğuları rədd edilir.
-- Mövcud field validasiyası, razılıq və honeypot yoxlaması dəyişməyib.
-- Streaming body üçün 16 KiB real UTF-8 həddi; HTML məzmunu escape olunur; həm mətn, həm oxunaqlı cədvəl göndərilir.
-- Sadə per-isolate limit: IP başına 5 cəhd/10 dəqiqə, ümumi 50 cəhd/10 dəqiqə. Database olmadığı üçün qlobal/paylaşılan rate limit deyil; isolate yenidən başlasa limit sıfırlana bilər. Bu, sadə spam maneəsidir, tam bot müdafiəsi zəmanəti deyil.
-- Yalnız sabit Cloudflare API hostu; server Account ID formatı yoxlanır; token redirect-ə ötürülmür; 12 saniyəlik timeout. Müştəri məlumatları/tokenlər loglanmır.
-- Provider uğursuzluğu, suppression, permanent bounce, boş və yanlış cavabda `502`; konfiqurasiya yoxdursa `503`; etibarsız sahələrdə `422`; böyük body-də `413`; limitdə `429`.
-- Uğur yalnız Cloudflare həmin alıcını `delivered` və ya `queued` siyahısında təsdiqlədikdə göstərilir. Timeout-dan sonra avtomatik retry yoxdur: əvvəlki sorğu qəbul olunmuş ola bilər. İstifadəçi xəta zamanı məlumatlarını saxlayır.
-
-## Lokal yoxlama
+## Yoxlama
 
 `npm test`, `npm run lint`, `npm run typecheck`, `npm run build:static`, `npm run check:static`, `npm run check:seo`.
 
-`npx wrangler pages functions build functions` Pages backend-in ayrıca yığılmasını yoxlayır. `npx wrangler pages dev out` statik frontend-i və Functions-u birlikdə lokal işlədir. Lokal runtime sirrləri yalnız ignor edilmiş `.dev.vars`-da saxlanıla bilər; `.env.example` boş nümunədir. Heç bir real sirr repoya əlavə edilmir. Unit testlər Cloudflare cavablarını mock edir; canlı hesab və real məktub göndərişini təsdiqləmir.
+Unit testlər tam payload-u, dəqiq subject-i, provider qəbul/rədd cavablarını, aktivasiya bildirişini, şəbəkə xətası və timeout-u, spam qorunmasının saxlanmasını yoxlayır. Unit testlər real məktub çatdırılmasını təsdiqləmir. Dəyişikliklər yalnız `dev`-dədir; `prod`-a toxunulmur.
 
-## Rəsmi mənbələr
-
-- [Email Service REST API — Pages Function-dan binding olmadan göndərmə](https://developers.cloudflare.com/email-service/api/send-emails/rest-api/)
-- [Verified destination-a pulsuz göndəriş və routing domeni şərti](https://developers.cloudflare.com/email-service/platform/limits/)
-- [Pages Functions: repo kökündə functions qovluğu](https://developers.cloudflare.com/pages/functions/get-started/)
-
-Kod yalnız `dev`-də dəyişdirilir. İstifadəçinin son deploy göstərişinə uyğun production buraxılışı `dev` → `prod` PR ilə edilir; `prod`-a birbaşa push edilmir.
+Rəsmi sənədlər: [AJAX](https://formsubmit.co/ajax-documentation), [subject, table və honeypot](https://formsubmit.co/documentation), [aktivasiya və spam qorunması](https://formsubmit.co/help).

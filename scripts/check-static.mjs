@@ -82,8 +82,7 @@ for (const page of ["index.html", "haqqimizda.html", "elaqe.html", "mexfilik.htm
     assert.ok(!visible.includes("Statik versiyada e-mail forması aktiv deyil."), page);
   }
 }
-const routes = JSON.parse(await readFile(join(output, "_routes.json"), "utf8"));
-assert.deepEqual(routes, { version: 1, include: ["/api/bookings"], exclude: [] });
-assert.ok((await stat(new URL("../functions/api/bookings.ts", import.meta.url))).isFile());
+assert.equal(await stat(join(output, "_routes.json")).catch(() => null), null);
+assert.equal(await stat(new URL("../functions/api/bookings.ts", import.meta.url)).catch(() => null), null);
 console.log("Official email QA passed: visible native mailto links, contact blocks and structured data.");
-console.log(`Static QA passed: existing forms enabled for Pages Functions, scoped API routing, ${images.length} image references, SEO, sitemap, robots and WhatsApp.`);
+console.log(`Static QA passed: existing forms enabled without a server API, ${images.length} image references, SEO, sitemap, robots and WhatsApp.`);

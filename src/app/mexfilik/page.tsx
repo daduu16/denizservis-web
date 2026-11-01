@@ -14,9 +14,9 @@ export default function PrivacyPage() {
       <h2><T>Toplanan məlumatlar</T></h2>
       <p><T>Ad və telefon məcburi, marka, problem təsviri və ünvan isə istəyə bağlıdır. Sayt ödəniş və ya həssas şəxsiyyət məlumatı toplamır.</T></p>
       <h2><T>Göndərilmə</T></h2>
-      <p><T>Forma məlumatları server tərəfdə yoxlanılır və konfiqurasiya olunmuş e-mail xidmətindən servis ünvanına göndərilir. E-mail xidməti qurulmayıbsa müraciət uğurlu kimi qeydə alınmır.</T></p>
+      <p><T>Müraciətin göndərilməsi üçün forma məlumatlarınız FormSubmit xidmətinə ötürülür və rəsmi e-poçt ünvanımıza yönləndirilir. Uğur mesajı yalnız xidmət müraciəti qəbul etdikdə göstərilir.</T></p>
       <h2><T>Təhlükəsizlik</T></h2>
-      <p><T>Spamın qarşısını almaq üçün sürət məhdudiyyəti və gizli yoxlama sahəsi tətbiq olunur. İnternet üzərindən məlumat ötürülməsinin tam risksiz olduğuna zəmanət verilmir.</T></p>
+      <p><T>Spamın qarşısını almaq üçün gizli yoxlama sahəsi və FormSubmit-in spam qorunması istifadə olunur. İnternet üzərindən məlumat ötürülməsinin tam risksiz olduğuna zəmanət verilmir.</T></p>
       <h2><T>YouTube və WhatsApp</T></h2>
       <p><T>Təmir videoları YouTube-un rəsmi player-i ilə göstərilir. Video bölməsinə yaxınlaşdıqda YouTube-a bağlantı qurula bilər; həmin xidmətin məxfilik və cookie qaydaları tətbiq olunur. WhatsApp keçidini açdıqda Meta-nın xidmətinə keçirsiniz. Sayt şəxsi yazışmalarınızı analytics-ə göndərmir.</T></p>
       <h2><T>İstəyə bağlı analitika</T></h2>

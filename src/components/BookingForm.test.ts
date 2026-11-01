@@ -9,16 +9,17 @@ import { FAQ } from "./FAQ";
 vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
 describe("requested form and page refinements", () => {
-  it("submits the existing form to Pages without a static-export block or client-side email secrets", () => {
+  it("submits the unchanged form through FormSubmit without a static-export block or client-side secrets", () => {
     const source = readFileSync("src/components/BookingForm.tsx", "utf8");
-    expect(source).toContain('fetch("/api/bookings", {');
-    expect(source).toContain('method: "POST"');
+    expect(source).toContain('await submitBooking(values)');
+    expect(source).not.toContain('/api/bookings');
     expect(source).toContain("disabled={isSubmitting}");
     expect(source).not.toContain("staticExport");
     expect(source).not.toContain("CONTACT_RECIPIENT_EMAIL");
     expect(source).not.toContain("CLOUDFLARE_EMAIL_API_TOKEN");
-    expect(source).toContain('if (!response.ok)');
-    expect(source.indexOf('if (!response.ok)')).toBeLessThan(source.indexOf('setSubmitState({ type: "success"'));
+    expect(source.indexOf('await submitBooking(values)')).toBeLessThan(source.indexOf('setSubmitState({ type: "success"'));
+    expect(source.indexOf('setSubmitState({ type: "success"')).toBeLessThan(source.indexOf('reset();'));
+    expect(source).toContain('isSubmitting ? "Göndərilir..." : "Müraciəti göndər"');
     for (const compact of [false, true]) {
       const html = renderToStaticMarkup(createElement(BookingForm, { compact }));
       expect(html).toMatch(/<button\b(?=[^>]*type="submit")(?![^>]*disabled)[^>]*>/);

@@ -10,8 +10,8 @@ Repository: [daduu16/denizservis-web](https://github.com/daduu16/denizservis-web
 
 - Next.js App Router, React, TypeScript (strict)
 - Tailwind CSS 4 və layihəyə məxsus responsive CSS
-- React Hook Form + Zod (client və server validasiyası)
-- Cloudflare Pages Functions + Cloudflare Email Service inteqrasiyası
+- React Hook Form + Zod (mövcud forma validasiyası)
+- FormSubmit AJAX e-poçt inteqrasiyası (server və API token olmadan)
 - Vitest vahid testləri
 
 ## Lokal quraşdırma
@@ -41,12 +41,8 @@ WhatsApp üçün ayrıca `--whatsapp: #25D366` dəyişəni saxlanılır. Açıq 
 - `NEXT_PUBLIC_WHATSAPP_NUMBER` — WhatsApp nömrəsini dəyişmək üçün istəyə görə override.
 - `NEXT_PUBLIC_SERVICE_AREA` — real xidmət zonası.
 - `NEXT_PUBLIC_WORKING_HOURS` — real iş saatları.
-- `CLOUDFLARE_EMAIL_API_TOKEN` — yalnız seçilmiş hesab üçün Email Sending: Edit tokeni (server secret).
-- `CONTACT_RECIPIENT_EMAIL` — hesabda verified destination olan alıcı (server secret).
-- `CLOUDFLARE_ACCOUNT_ID` — Email Routing-in qurulduğu hesabın 32 simvolluq ID-si (server runtime variable).
-- `TRUST_PROXY` — etibarlı reverse proxy arxasında işləyirsə `true`; əks halda `false` saxlayın.
 
-Bu dəyişənlərdən biri yoxdursa `POST /api/bookings` `503` qaytarır və interfeys saxta uğur mesajı göstərmir. Göndərən `info@denizservis.az`-dır. Cloudflare verified destination-a göndəriş üçün mövcud routing domenini istifadə edir; DNS dəyişdirilmir. Dashboard addımları: [EMAIL_INTEGRATION.md](EMAIL_INTEGRATION.md).
+Forma birbaşa `https://formsubmit.co/ajax/info@denizservis.az` ünvanına göndərir; e-poçt üçün env, API token, SMTP və ya Pages Function lazım deyil. İlk göndərişin aktivasiya məktubunu mövcud poçt qutusunda təsdiqləyin. Təlimat: [EMAIL_INTEGRATION.md](EMAIL_INTEGRATION.md).
 
 İstifadəçinin təqdim etdiyi SEO mətninə əsaslanan standart məlumatlar: DənizServis, `https://denizservis.az`, telefon/WhatsApp `+994 70 552 20 21`, Bakı. Nömrə görünüşü `src/config/contact.ts` daxilində mərkəzləşdirilir. İş saatı və dəqiq ünvan verilməyib; uydurulmur.
 
@@ -93,9 +89,9 @@ npm run preview:static
 
 Cloudflare Pages build command: `npm run build` (`npm run build:static` də uyğundur); publish directory: `out`. Framework preset-in standart `npx next build` əmrini dəyişin: o, bu layihədə hazırlıq skriptini işə salmır. Preview `http://localhost:3001` ünvanındadır. Bu işdə deployment edilməyib.
 
-`npm run build` statik build-i başladır: təzə müvəqqəti qovluqda frontend-i hazırlayır, yalnız həmin nüsxədən `app/api` server route-larını çıxarır və `next.config.ts` daxilində `output: "export"` rejimi ilə HTML yaradır. Orijinal `src/app/api/bookings/route.ts` və ayrıca `npm run build:server` server imkanlarını saxlayır. Müvəqqəti build qovluğu sonda silinir; əvvəlki, alət tərəfindən işarələnmiş `out` varsa recoverable `out.previous-*` qovluğuna keçirilir. İstifadəçiyə məxsus naməlum `out` üzərinə yazılmır.
+`npm run build` statik build-i başladır: təzə müvəqqəti qovluqda frontend-i və responsive şəkilləri hazırlayır, `next.config.ts` daxilində `output: "export"` rejimi ilə HTML yaradır. Köhnə Cloudflare e-poçt API-si çıxarılıb; forma serverdən asılı deyil. Müvəqqəti build qovluğu sonda silinir; əvvəlki, alət tərəfindən işarələnmiş `out` varsa recoverable `out.previous-*` qovluğuna keçirilir. İstifadəçiyə məxsus naməlum `out` üzərinə yazılmır.
 
-**Statik frontend mövcud formadan `/api/bookings` ünvanına POST edir.** Cloudflare Pages `functions/api/bookings.ts` faylını ayrıca server funksiyası kimi yığır; o, `out` daxilində statik API faylı deyil. `_routes.json` yalnız bu endpoint-i funksiyaya yönəldir. Runtime server secrets qoşulduqda Cloudflare Email Service verified alıcıya göndərir. Sirr yoxdursa və ya provider qəbul etmirsə uğur göstərilmir. Yalnız `out`-u sadə fayl serverində açmaq e-poçt funksiyasını işə salmır. `NEXT_PUBLIC_STATIC_EXPORT` şəkillər/build üçün qalır, artıq formanı söndürmür. Zəng və WhatsApp dəyişməyib.
+**Statik frontend mövcud formadan FormSubmit AJAX API-yə POST edir.** Uğur yalnız həm HTTP statusu, həm də provider-in açıq `success` cavabı müsbət olduqda göstərilir. İlk aktivasiya ayrıca poçt təsdiqi tələb edir. `NEXT_PUBLIC_STATIC_EXPORT` şəkillər/build üçün qalır, formanı söndürmür. Zəng və WhatsApp dəyişməyib.
 
 Statik şəkillər server optimizer-dən asılı deyil: Sharp əvvəlcədən responsive WebP variantları hazırlayır, custom image loader onların `srcset`-ini yaradır. SVG və artıq optimallaşdırılmış brend WebP-ləri olduğu kimi qalır. `check:static` HTML/FAQ, canonical, JSON-LD, e-mail formasının vəziyyəti, şəkil faylları, sitemap və robots-u yoxlayır. Core Web Vitals/Lighthouse skoruna və real şəbəkə nəticəsinə zəmanət verilmir.
 
@@ -137,7 +133,7 @@ npm run typecheck # TypeScript yoxlaması
 npm run lint      # ESLint
 npm test          # validasiya testləri
 npm run build        # Cloudflare static export -> out/
-npm run build:server # Node server build with POST API
+npm run build:server # optional normal Next build (email needs no server)
 npm start            # run after build:server (not after static export)
 ```
 
@@ -152,15 +148,13 @@ npm start            # run after build:server (not after static export)
 
 ## Forma və təhlükəsizlik
 
-Mövcud formanın Cloudflare backend-i, server secrets və Dashboard quraşdırılması: [EMAIL_INTEGRATION.md](EMAIL_INTEGRATION.md). Yeni forma, database və pullu xidmət əlavə edilməyib.
+Mövcud formanın FormSubmit bağlantısı və ilk aktivasiya: [EMAIL_INTEGRATION.md](EMAIL_INTEGRATION.md). Yeni forma, database, server və pullu xidmət əlavə edilməyib.
 
 - Telefon sərbəst yazı formatında qəbul edilir; boş dəyər və həddən artıq uzun mətn qəbul edilmir.
-- Client və server tərəfdə eyni Zod schema işləyir.
-- Honeypot sahəsi və 10 dəqiqəlik pəncərədə IP-başına 5 cəhdlik sadə rate limit var.
-- E-mail məzmunu HTML-ə yerləşdirilməzdən əvvəl escape olunur.
-- Secret dəyişənlər client bundle-a ötürülmür.
-
-Qeyd: daxili yaddaşa əsaslanan rate limit tək server prosesi üçün uyğundur. Çox-instanslı production mühitində Upstash Redis və ya Cloudflare KV/D1 kimi ortaq saxlama ilə əvəz etmək məsləhətdir.
+- Mövcud Zod validasiyası, razılıq və gizli honeypot sahəsi dəyişməyib.
+- FormSubmit-in spam qorunması söndürülmür; `_captcha=false` göndərilmir və honeypot `_honey` kimi ötürülür.
+- Bütün forma məlumatları FormSubmit-ə ötürülür; bu, istifadəçinin seçdiyi üçüncü tərəf form xidmətidir.
+- API token və server secret tələb olunmur. Köhnə Cloudflare sirrləri artıq kodda istifadə edilmir.
 
 ## Manual QA ssenariləri
 
@@ -169,8 +163,8 @@ Qeyd: daxili yaddaşa əsaslanan rate limit tək server prosesi üçün uyğundu
 3. Mobil menyunu açın, `Escape` ilə bağlayın və bütün linkləri klaviatura ilə gəzin.
 4. `Usta sifariş et` düyməsinin forma hissəsinə apardığını yoxlayın.
 5. Boş ad, boş telefon və seçilməmiş razılıqla submit edərək xəta mətnlərini yoxlayın. Telefon formatı sərbəstdir; məcburi sahə və təhlükəsizlik uzunluğu yoxlaması qalır.
-6. Cloudflare server secrets olmadan formanın `503` xəta göstərdiyini və uğur mesajı göstərmədiyini təsdiqləyin.
-7. `dev` preview-də Dashboard konfiqurasiyasından sonra verified destination-a real e-mail çatdırılmasını ayrıca yoxlayın.
+6. FormSubmit-in HTTP və ya JSON `success=false` cavabında xəta göstərildiyini, dəyərlərin saxlandığını yoxlayın.
+7. İlk aktivasiya məktubunu təsdiqlədikdən sonra `dev` preview-dən real e-mail çatdırılmasını ayrıca yoxlayın.
 8. Header və mobil menyuda “İşlərimiz” və “Niyə biz?” keçidlərini təkrar basın: düzgün bölməyə sürüşmə, menyunun bağlanması və aktiv linkin vurğulanmasını yoxlayın.
 9. “İşlərimiz” bölməsində playlist iframe-ini, YouTube-un video seçimini və fullscreen düyməsini yoxlayın. “Daha çox göstər” düzgün playlisti açmalıdır; mobil pleyer viewport enini keçməməlidir. Yeni video YouTube playlistinə əlavə edildikdən sonra səhifəni yeniləyərək yoxlayın.
 
@@ -191,6 +185,5 @@ Qeyd: daxili yaddaşa əsaslanan rate limit tək server prosesi üçün uyğundu
 ## Production TODO
 
 - Real telefon, WhatsApp, xidmət zonası və iş saatlarını `.env.local`/hosting secrets-də əlavə edin.
-- Cloudflare server secrets-i əvvəlcə yalnız `dev` Preview mühitində əlavə edin və real göndərişi yoxlayın; production-a ayrıca razılıq olmadan keçməyin.
-- Çox-instanslı hosting üçün paylaşılan rate-limit storage qoşun.
+- FormSubmit-in aktivasiya məktubunu təsdiqləyin və `dev`-dən real göndərişi yoxlayın; production-a ayrıca razılıq olmadan keçməyin.
 - Real biznes məlumatları təsdiqlənəndən sonra LocalBusiness JSON-LD əlavə etmək olar.
