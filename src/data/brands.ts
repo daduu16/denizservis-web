@@ -1,0 +1,25 @@
+export const brandRows = [
+  [
+    { name: "Mitsubishi", slug: "mitsubishi" },
+    { name: "Electrolux", slug: "electrolux" },
+    { name: "Toshiba", slug: "toshiba" },
+    { name: "Sony", slug: "sony" },
+    { name: "Beko", slug: "beko" },
+    { name: "Samsung", slug: "samsung" },
+    { name: "Bosch", slug: "bosch" },
+    { name: "Siemens", slug: "siemens" },
+    { name: "LG", slug: "lg" },
+    { name: "Philips", slug: "philips" },
+  ],
+  [
+    { name: "Hitachi", slug: "hitachi" },
+    { name: "Panasonic", slug: "panasonic" },
+    { name: "AEG", slug: "aeg" },
+    { name: "Sharp", slug: "sharp" },
+    { name: "Ariston", slug: "ariston" },
+    { name: "Indesit", slug: "indesit" },
+    { name: "Moulinex", slug: "moulinex" },
+    { name: "Gorenje", slug: "gorenje" },
+    { name: "Vestel", slug: "vestel" },
+  ],
+] as const;

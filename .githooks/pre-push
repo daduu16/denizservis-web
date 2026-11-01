@@ -1,0 +1,8 @@
+#!/bin/sh
+# Initial prod is created from the tested dev SHA; subsequent releases use a PR.
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$remote_ref" = "refs/heads/prod" ]; then
+    echo "prod-a birbaşa push qadağandır. dev -> prod Pull Request açın." >&2
+    exit 1
+  fi
+done

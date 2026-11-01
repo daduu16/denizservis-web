@@ -1,0 +1,24 @@
+node_modules/
+.next/
+out/
+out.previous-*/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+.wrangler/
+*.pem
+*.key
+*.p12
+*.pfx
+# Local screenshots, generated audits and original private source materials.
+qa/
+ServisPlus_Sekiller/
+ServisPlus_Texniki_Tapsiriq.md

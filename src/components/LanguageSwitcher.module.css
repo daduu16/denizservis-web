@@ -1,0 +1,24 @@
+.root { position: relative; width: 72px; color: var(--primary); }
+.desktop { display: none; }
+.trigger { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 6px; border: 0; border-radius: 12px; background: transparent; color: inherit; font: inherit; font-size: 14px; font-weight: 650; cursor: pointer; white-space: nowrap; }
+.trigger:hover, .trigger[aria-expanded="true"] { background: var(--soft-blue); }
+.trigger svg { flex-shrink: 0; }
+.fullName { display: none; }
+.shortName { font-size: 12px; letter-spacing: .02em; }
+.chevron { color: #7c8fa4; transition: transform 160ms ease; }
+.expanded { transform: rotate(180deg); }
+.menu { position: absolute; z-index: 60; top: calc(100% + 7px); right: 0; width: 178px; max-width: calc(100vw - 32px); padding: 4px; border: 1px solid #dce6ef; border-radius: 13px; background: #fff; box-shadow: 0 10px 26px rgba(11, 40, 81, .1), 0 2px 4px rgba(11, 40, 81, .05); }
+.option { width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px; border: 0; border-radius: 9px; background: transparent; color: var(--primary); font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+.option:hover, .option:focus-visible, .option[aria-checked="true"] { background: #f2f6fa; }
+.dot { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: currentColor; opacity: 0; }
+.option[aria-checked="true"] .dot { opacity: 1; }
+.error { display: block; padding: 8px; background: white; color: var(--danger); font-size: 12px; }
+.mobile { width: 100%; }
+.mobile .trigger { justify-content: flex-start; padding: 11px 13px; border: 1px solid var(--border); background: var(--soft-blue); }
+.mobile .fullName { display: inline; }
+.mobile .shortName { display: none; }
+.mobile .chevron { margin-left: auto; }
+.mobile .menu { position: static; width: 100%; max-width: none; margin-top: 7px; box-shadow: none; }
+@media (min-width: 1024px) { .desktop { display: block; } }
+@media (min-width: 1200px) { .desktop { width: 174px; } .fullName { display: inline; } .shortName { display: none; } .trigger { padding-inline: 10px; } .menu { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .chevron { transition: none; } }

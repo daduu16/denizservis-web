@@ -1,0 +1,10 @@
+# Cloudflare Pages preview/default project hostnames must not be indexed.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+https://:branch.:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

@@ -1,0 +1,3 @@
+.consultation { margin-top: 24px; max-width: 320px; }
+.consultation :global(.hero-whatsapp) { width: 100%; max-width: none; margin-top: 0; }
+.consultation :global(.whatsapp-button--inline) { font-size: 18px; }

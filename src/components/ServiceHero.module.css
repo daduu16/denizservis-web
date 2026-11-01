@@ -1,0 +1,86 @@
+.hero {
+  --service-scene: clamp(340px, 90vw, 460px);
+  --service-bg: #f7fbfe;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--service-bg);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: var(--service-scene);
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--service-bg), rgba(247,251,254,.99) 30%, rgba(247,251,254,.95) 48%, rgba(247,251,254,.82) 60%, rgba(247,251,254,.28) 73%, transparent 86%);
+  -webkit-mask-image: linear-gradient(180deg, #000 76%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 76%, transparent 100%);
+}
+.layout { padding-block: 30px 32px; }
+.copy { min-width: 0; }
+.intro { min-height: var(--service-scene); }
+.title { width: 75%; margin: 0 0 18px; font-size: clamp(30px, 8.4vw, 46px); line-height: 1.05; font-weight: 900; letter-spacing: -.045em; }
+.lead { width: 60%; max-width: 570px; margin: 0; font-size: 14px; line-height: 1.6; color: #40516b; }
+.media {
+  position: absolute;
+  z-index: -2;
+  top: 36px;
+  right: -7%;
+  width: 88%;
+  height: var(--service-scene);
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 96%, transparent), linear-gradient(180deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 96%, transparent), linear-gradient(180deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.photo { object-fit: contain; }
+.actions :global(.hero-actions), .actions :global(.hero-whatsapp) { width: 100%; max-width: none; }
+.actions :global(.hero-actions .button) { min-width: 0; }
+
+@media (min-width: 560px) and (max-width: 767px) {
+  .title { width: 62%; }
+  .lead { width: 52%; font-size: 16px; }
+  .media { right: -2%; width: 78%; }
+}
+@media (min-width: 768px) {
+  .layout { min-height: 540px; display: flex; align-items: center; padding-block: 46px; }
+  .copy { width: 55%; }
+  .intro { min-height: 0; margin-bottom: 28px; }
+  .title { width: 100%; margin-bottom: 22px; font-size: clamp(46px, 5.5vw, 76px); }
+  .lead { width: 100%; font-size: 17px; line-height: 1.7; }
+  .media { inset: auto -4% auto auto; top: 50%; width: min(70vw, 580px); height: min(70vw, 580px); transform: translateY(-50%); }
+  .hero::after { inset: 0; height: auto; background: linear-gradient(90deg, var(--service-bg), rgba(247,251,254,.98) 26%, rgba(247,251,254,.86) 39%, rgba(247,251,254,.22) 54%, transparent 72%); -webkit-mask-image: none; mask-image: none; }
+  .actions :global(.hero-actions) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .actions :global(.hero-actions .button) { gap: 8px; min-height: 56px; padding-inline: 12px; font-size: 15px; }
+  .actions :global(.hero-actions .cta-arrow) { display: none; }
+}
+@media (min-width: 1024px) {
+  .layout { min-height: 570px; padding-block: 64px; }
+  .copy { width: 48%; }
+  .lead { font-size: 18px; }
+  .media { right: 4%; width: min(54vw, 620px); height: min(54vw, 620px); }
+  .hero::after { background: linear-gradient(90deg, var(--service-bg), rgba(247,251,254,.99) 27%, rgba(247,251,254,.92) 37%, rgba(247,251,254,.4) 46%, transparent 59%); }
+  .actions :global(.hero-actions .button) { min-height: 60px; font-size: 16px; }
+}
+@media (min-width: 1280px) { .layout { min-height: 610px; } }
+
+/* The longer SEO heading remains readable without pushing mobile contact out of view. */
+.seoHero { --service-scene: clamp(270px, 76vw, 360px); }
+.seoHero .layout { padding-block: 22px 28px; }
+.seoHero .title { width: 100%; font-size: clamp(26px, 6.8vw, 40px); line-height: 1.12; }
+.seoHero .media { top: 62px; }
+.seoHero .actions :global(.hero-actions) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.seoHero .actions :global(.hero-actions .button) { gap: 6px; padding-inline: 8px; font-size: 13px; }
+.seoHero .actions :global(.hero-actions .cta-arrow) { display: none; }
+@media (max-width: 359px) {
+  .seoHero .actions :global(.hero-actions .button--secondary > svg) { width: 18px; height: 18px; }
+  .seoHero .actions :global(.hero-actions .button small) { font-size: 10px; white-space: nowrap; }
+}
+@media (min-width: 768px) {
+  .seoHero .layout { padding-block: 46px; }
+  .seoHero .title { font-size: clamp(42px, 4.3vw, 62px); }
+  .seoHero .media { top: 50%; }
+  .seoHero .actions :global(.hero-actions .button) { font-size: 15px; padding-inline: 12px; }
+}
