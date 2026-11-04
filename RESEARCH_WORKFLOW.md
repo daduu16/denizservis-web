@@ -57,7 +57,7 @@ Təsnifat sadə qaydadır, insan tərəfindən nəzərdən keçirilməlidir. Goo
 
 Əvvəl 10–20 real müşahidə ilə başlayın. Mövzuları faydasına görə seçin, mövcud xidmət səhifələrində cavab olub-olmadığını yoxlayın. Təkrarlanan rayon/marka səhifələri və kütləvi, yoxlanmamış məqalələr yaratmayın. Hər məqalə orijinal və real müştəri problemini həll edən məzmun olmalıdır. Texniki izahlar model təlimatı və usta ilə təsdiqlənməlidir; qiymət, rəy, təcrübə və zəmanət uydurulmamalıdır.
 
-Blog interfeysi, yeni public route-lar, avtomatik generasiya və API ilə sorğu mərhələsi bu ilkin versiyada qəsdən yoxdur. Onlar ayrıca scope və xərc təsdiqi tələb edir. Hesabatlar review olunmadan sayta köçürülməməlidir.
+Araşdırma CLI-si özü səhifə yaratmır. Sonrakı ayrıca tapşırıqla `dev`-də `/blog` və üç məqalə önizləməsi hazırlanıb; onlar `noindex`-dir və dərc edilmiş səhifələrin sitemap-ına daxil deyil. Bax: [BLOG_PREVIEW.md](BLOG_PREVIEW.md). Avtomatik generasiya və API ilə sorğu mərhələsi yoxdur. Hesabatlar review olunmadan sayta köçürülməməlidir.
 
 AI cavablarında görünməyə zəmanət yoxdur. OpenAI-nin rəsmi sənədi ChatGPT axtarışı üçün `OAI-SearchBot` girişinə icazə verilməsini tövsiyə edir; bu da konkret cavabda görünmə vədi deyil: https://developers.openai.com/api/docs/bots
 

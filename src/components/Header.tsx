@@ -42,6 +42,7 @@ export function Header() {
   const hash = useSyncExternalStore(subscribeToHash, getHash, getServerHash);
   const phone = normalizePhone(siteConfig.phone);
   const isActive = (href: string) => {
+    if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/");
     const [path, section] = resolveSectionHref(pathname, href).split("#");
     return pathname === path && hash === (section ? `#${section}` : "");
   };

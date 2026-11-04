@@ -1,0 +1,40 @@
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, ChevronRight, Clock3, Info, MessageCircle, Phone, ShieldCheck } from "lucide-react";
+import { LocalizedImage, LocalizedNav } from "@/components/LocalizedElements";
+import { T } from "@/components/LanguageProvider";
+import { blogPath, blogPosts, readingMinutes, type BlogPost } from "@/data/blog";
+import { normalizePhone, siteConfig, whatsappHref } from "@/config/site";
+import styles from "./Blog.module.css";
+
+export function BlogArticle({ post }: { post: BlogPost }) {
+  const related = blogPosts.filter(item => item.slug !== post.slug);
+  return <div className={styles.blog}>
+    <div className={`container ${styles.articleWrap}`}>
+      <LocalizedNav className={styles.breadcrumb} aria-label="Səhifə yolu"><Link href="/"><T>Əsas səhifə</T></Link><ChevronRight size={13} aria-hidden="true" /><Link href="/blog"><T>Bloq</T></Link><ChevronRight size={13} aria-hidden="true" /><span aria-current="page"><T>{post.category}</T></span></LocalizedNav>
+      <Link className={styles.backLink} href="/blog"><ArrowLeft size={16} aria-hidden="true" /><T>Bütün məqalələr</T></Link>
+      <header className={styles.articleHeader}>
+        <div className={styles.cardMeta}><span className={styles.tag}><T>{post.category}</T></span><span><Clock3 size={14} aria-hidden="true" />{readingMinutes(post)} <T>dəq. oxu</T></span><span><T>Redaksiya önizləməsi</T></span></div>
+        <h1><T>{post.title}</T></h1><p><T>{post.excerpt}</T></p>
+      </header>
+      <div className={styles.articleLayout}>
+        <article className={styles.articleBody}>
+          <div className={styles.articleVisual}><LocalizedImage src={post.image} alt={post.alt} fill sizes="(min-width: 1024px) 800px, 92vw" priority /><span className={styles.imageCaption}><BookOpen size={15} aria-hidden="true" /><T>DənizServis · Faydalı bələdçi</T></span></div>
+          <p className={styles.articleIntro}><T>{post.intro}</T></p>
+          <details className={styles.mobileContents}><summary><T>Bu məqalədə</T></summary><ol>{post.sections.map(section => <li key={section.id}><a href={`#${section.id}`}><T>{section.title}</T></a></li>)}</ol></details>
+          {post.sections.map((section, index) => <section id={section.id} key={section.id} className={styles.articleSection}>
+            <span className={styles.sectionNumber}>{String(index + 1).padStart(2, "0")}</span><h2><T>{section.title}</T></h2><p><T>{section.text}</T></p>
+            {section.points && <ul>{section.points.map(point => <li key={point}><T>{point}</T></li>)}</ul>}
+          </section>)}
+          <aside className={styles.safetyNote}><ShieldCheck size={22} aria-hidden="true" /><div><h2><T>Yadda saxlayaq</T></h2><p><T>{post.note}</T></p></div></aside>
+          {post.source && <div className={styles.source}><Info size={17} aria-hidden="true" /><div><span><T>Əlavə oxu · Rəsmi mənbə</T></span><a href={post.source.url} target="_blank" rel="noopener noreferrer"><T>{post.source.label}</T><ArrowUpRight size={15} aria-hidden="true" /></a></div></div>}
+          <div className={styles.serviceLink}><span><T>Xidmət haqqında ətraflı</T></span><Link href="/xidmetler/paltaryuyan-temiri"><T>Paltaryuyan təmiri</T><ArrowRight size={18} aria-hidden="true" /></Link></div>
+        </article>
+        <aside className={styles.articleSidebar}>
+          <LocalizedNav className={styles.contents} aria-label="Məqalənin bölmələri"><p className={styles.eyebrow}><T>Bu məqalədə</T></p><ol>{post.sections.map((section, i) => <li key={section.id}><a href={`#${section.id}`}><span>{String(i + 1).padStart(2, "0")}</span><T>{section.title}</T></a></li>)}</ol></LocalizedNav>
+          <div className={styles.helpCard}><MessageCircle size={28} aria-hidden="true" /><h2><T>Birlikdə dəqiqləşdirək.</T></h2><p><T>Cihazınızın markasını və əlamətini bizə yazın.</T></p><a href={whatsappHref(siteConfig.whatsapp) ?? "/elaqe"} target="_blank" rel="noopener noreferrer" className={styles.lightButton}><T>WhatsApp-da yazın</T><ArrowUpRight size={18} aria-hidden="true" /></a><a className={styles.sidebarPhone} href={`tel:${normalizePhone(siteConfig.phone)}`}><Phone size={15} aria-hidden="true" />{siteConfig.phone}</a></div>
+        </aside>
+      </div>
+      <section className={styles.related} aria-labelledby="related-title"><div className={styles.relatedHeading}><h2 id="related-title"><T>Oxumağa davam edin</T></h2><Link href="/blog"><T>Bütün məqalələr</T><ArrowRight size={17} aria-hidden="true" /></Link></div><div className={styles.relatedGrid}>{related.map(item => <Link key={item.slug} href={blogPath(item)}><span className={styles.tag}><T>{item.category}</T></span><h3><T>{item.title}</T></h3><span className={styles.relatedBottom}>{readingMinutes(item)} <T>dəq. oxu</T><ArrowUpRight aria-hidden="true" size={21} /></span></Link>)}</div></section>
+    </div>
+  </div>;
+}

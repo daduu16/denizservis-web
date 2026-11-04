@@ -10,7 +10,8 @@ const root = join(project, "out");
 const origin = "https://denizservis.az";
 const indexable = process.env.SEO_EXPECT_INDEXABLE !== "false";
 const expectedPublic = ["/", "/xidmetler/paltaryuyan-temiri", "/xidmetler/qabyuyan-temiri", "/elaqe", "/haqqimizda"];
-const paths = [...expectedPublic, "/mexfilik"];
+const previewBlogPaths = ["/blog", "/blog/paltaryuyan-suyu-bosaltmir", "/blog/paltaryuyan-temiri-qiymeti", "/blog/bakida-paltaryuyan-ustasi-cagirmaq"];
+const paths = [...expectedPublic, "/mexfilik", ...previewBlogPaths];
 const fileFor = (path) => path === "/" ? "index.html" : `${path.slice(1)}.html`;
 const decode = (text) => text.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&#(\d+);/g, (_, num) => String.fromCodePoint(Number(num)));
 const attrs = (tag) => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((m) => [m[1], decode(m[2])]));
@@ -37,7 +38,7 @@ for (const [path, { html, content, ids }] of pages) {
   const canonical = [...html.matchAll(/<link\b[^>]*>/g)].map((m) => attrs(m[0])).filter((a) => a.rel === "canonical");
   assert.equal(canonical.length, 1, `${path}: one canonical`);
   assert.equal(new URL(canonical[0].href).href, new URL(origin + path).href, `${path}: canonical origin`);
-  const shouldIndex = indexable && path !== "/mexfilik";
+  const shouldIndex = indexable && path !== "/mexfilik" && !previewBlogPaths.includes(path);
   const robots = meta.filter((m) => m.name === "robots").map((m) => m.content).join(",");
   assert.equal(robots.includes("noindex"), !shouldIndex, `${path}: robots`);
   assert.ok(meta.some((m) => m.property === "og:url" && new URL(m.content).href === new URL(origin + path).href));
@@ -79,7 +80,7 @@ for (const [path, { html, content, ids }] of pages) {
   }
   const scriptFiles = [...new Set([...html.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map((m) => m[1]))].filter((src) => src.startsWith("/_next/"));
   let jsBytes = 0, gzipBytes = 0;
-  for (const src of scriptFiles) { const data = await readFile(join(root, src)); jsBytes += data.length; gzipBytes += gzipSync(data).length; }
+  for (const src of scriptFiles) { const data = await readFile(join(root, decodeURIComponent(src))); jsBytes += data.length; gzipBytes += gzipSync(data).length; }
   results.push({ path, title, canonical: canonical[0].href, indexable: shouldIndex, h1: 1, schemaTypes: nodes.map((n) => n["@type"]), jsBytes, gzipBytes });
 }
 const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");
