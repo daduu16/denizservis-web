@@ -15,6 +15,9 @@
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
     "check:repo": "node scripts/check-repository.mjs",
+    "research:plan": "node scripts/research.mjs plan",
+    "research:import": "node scripts/research.mjs import",
+    "research:demo": "node scripts/research.mjs demo",
     "test": "vitest run"
   },
   "dependencies": {
