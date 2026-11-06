@@ -20,6 +20,7 @@ describe("responsive editorial blog", () => {
     for (const post of blogPosts) expect(html).toContain(`href="${blogPath(post)}"`);
     expect(html.match(/aria-pressed="true"/g)).toHaveLength(1);
     expect(html).toContain('role="status"');
+    expect(html).toContain('<h2 id="articles-title">Faydalı oxu</h2>');
     for (const removed of ['aria-label="Səhifə yolu"', "DənizServis jurnalı", "Kiçik məlumat.", "Daha aydın növbəti addım.", "Qabyuyan bələdçiləri ön planda", "redaksiya baxışındadır", "dəq. oxu"]) expect(html).not.toContain(removed);
     expect(html).toContain("https://wa.me/994705522021");
   });

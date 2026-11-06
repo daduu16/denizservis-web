@@ -7,7 +7,6 @@
 .lead { max-width: 600px; margin: 21px 0 0; color: #5d6d82; font-size: 16px; line-height: 1.85; }
 .libraryHeader { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 25px 0 21px; border-top: 1px solid #cddfe7; }
 .libraryHeader h2 { display: flex; align-items: center; gap: 10px; font-size: 23px; letter-spacing: -.04em; margin: 0; }
-.libraryHeader h2 > span { font-size: 11px; font-weight: 600; color: #66788c; align-self: flex-start; padding-top: 4px; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 25px; }
 .filters button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; gap: 12px; padding: 9px 16px; border-radius: 999px; border: 1px solid #d9e5eb; background: #fff; color: #536579; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .18s, border-color .18s, color .18s; }
 .filters button > span { font-size: 10px; opacity: .75; }

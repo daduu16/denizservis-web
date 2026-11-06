@@ -22,7 +22,7 @@ export function BlogIndex() {
       </header>
 
       <section aria-labelledby="articles-title" className={styles.library}>
-        <div className={styles.libraryHeader}><h2 id="articles-title"><T>Faydalı oxu</T><span>{String(blogPosts.length).padStart(2, "0")}</span></h2></div>
+        <div className={styles.libraryHeader}><h2 id="articles-title"><T>Faydalı oxu</T></h2></div>
         <LocalizedGroup className={styles.filters} role="group" aria-label="Mövzu filtrləri">
           {(["Hamısı", ...blogCategories] as const).map(item => <button key={item} type="button" onClick={() => setCategory(item)} aria-pressed={category === item} className={category === item ? styles.filterActive : ""}><T>{item}</T><span>{item === "Hamısı" ? blogPosts.length : blogPosts.filter(p => p.category === item).length}</span></button>)}
         </LocalizedGroup>
