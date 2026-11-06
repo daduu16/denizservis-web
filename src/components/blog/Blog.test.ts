@@ -20,7 +20,7 @@ describe("responsive editorial blog", () => {
     for (const post of blogPosts) expect(html).toContain(`href="${blogPath(post)}"`);
     expect(html.match(/aria-pressed="true"/g)).toHaveLength(1);
     expect(html).toContain('role="status"');
-    expect(html).toContain("redaksiya baxışındadır");
+    for (const removed of ['aria-label="Səhifə yolu"', "DənizServis jurnalı", "Kiçik məlumat.", "Daha aydın növbəti addım.", "Qabyuyan bələdçiləri ön planda", "redaksiya baxışındadır", "dəq. oxu"]) expect(html).not.toContain(removed);
     expect(html).toContain("https://wa.me/994705522021");
   });
 
@@ -42,6 +42,7 @@ describe("responsive editorial blog", () => {
     expect(html).not.toContain("DənizServis · Faydalı bələdçi");
     expect(html).not.toContain("Servisə nə göndərək?");
     expect(html).not.toContain("servise-gonder");
+    expect(html).not.toContain("dəq. oxu");
     // Keep the useful list link at the bottom; only the upper back link is removed.
     expect(html).toContain("Bütün məqalələr");
     expect(readingMinutes(post)).toBeGreaterThan(0);

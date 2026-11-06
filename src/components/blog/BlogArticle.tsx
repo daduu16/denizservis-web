@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Info, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import { LocalizedImage, LocalizedNav } from "@/components/LocalizedElements";
 import { T } from "@/components/LanguageProvider";
-import { blogPath, blogPosts, readingMinutes, type BlogPost } from "@/data/blog";
+import { blogPath, blogPosts, type BlogPost } from "@/data/blog";
 import { normalizePhone, siteConfig, whatsappHref } from "@/config/site";
 import styles from "./Blog.module.css";
 
@@ -37,7 +37,7 @@ export function BlogArticle({ post }: { post: BlogPost }) {
           <div className={styles.helpCard}><MessageCircle size={28} aria-hidden="true" /><h2><T>Birlikdə dəqiqləşdirək.</T></h2><p><T>Cihazınızın markasını və əlamətini bizə yazın.</T></p><a href={whatsappHref(siteConfig.whatsapp) ?? "/elaqe"} target="_blank" rel="noopener noreferrer" className={styles.lightButton}><T>WhatsApp-da yazın</T><ArrowUpRight size={18} aria-hidden="true" /></a><a className={styles.sidebarPhone} href={`tel:${normalizePhone(siteConfig.phone)}`}><Phone size={15} aria-hidden="true" />{siteConfig.phone}</a></div>
         </aside>
       </div>
-      <section className={styles.related} aria-labelledby="related-title"><div className={styles.relatedHeading}><h2 id="related-title"><T>Oxumağa davam edin</T></h2><Link href="/blog"><T>Bütün məqalələr</T><ArrowRight size={17} aria-hidden="true" /></Link></div><div className={styles.relatedGrid}>{related.map(item => <Link key={item.slug} href={blogPath(item)}><span className={styles.tag}><T>{item.category}</T></span><h3><T>{item.title}</T></h3><span className={styles.relatedBottom}>{readingMinutes(item)} <T>dəq. oxu</T><ArrowUpRight aria-hidden="true" size={21} /></span></Link>)}</div></section>
+      <section className={styles.related} aria-labelledby="related-title"><div className={styles.relatedHeading}><h2 id="related-title"><T>Oxumağa davam edin</T></h2><Link href="/blog"><T>Bütün məqalələr</T><ArrowRight size={17} aria-hidden="true" /></Link></div><div className={styles.relatedGrid}>{related.map(item => <Link key={item.slug} href={blogPath(item)}><span className={styles.tag}><T>{item.category}</T></span><h3><T>{item.title}</T></h3><span className={styles.relatedBottom}><ArrowUpRight aria-hidden="true" size={21} /></span></Link>)}</div></section>
     </div>
   </div>;
 }

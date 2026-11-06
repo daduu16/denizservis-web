@@ -1,23 +1,13 @@
 .blog { --ink: #10284b; --teal: #227e8c; color: var(--ink); background: linear-gradient(180deg, #f0f7fa 0, #f8fbfc 470px, #fff 950px); padding-bottom: 88px; }
 .wrap, .articleWrap { padding-top: 28px; }
-.breadcrumb { display: flex; align-items: center; gap: 9px; min-height: 24px; flex-wrap: wrap; color: #67788c; font-size: 12px; }
-.breadcrumb a { transition: color .18s ease; }
-.breadcrumb a:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 4px; }
-.breadcrumb [aria-current] { color: var(--ink); }
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) 280px; align-items: center; gap: 60px; padding: 62px 0 58px; }
+.hero { padding: 38px 0 48px; }
 .eyebrow { display: flex; align-items: center; gap: 8px; margin: 0 0 17px; font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--teal); }
 .hero h1 { margin: 0; font-size: clamp(32px, 4.1vw, 55px); line-height: 1.18; letter-spacing: -.055em; font-weight: 800; }
 .hero h1 > span { color: var(--teal); }
 .lead { max-width: 600px; margin: 21px 0 0; color: #5d6d82; font-size: 16px; line-height: 1.85; }
-.heroAside { position: relative; padding: 0 0 0 28px; border-left: 1px solid #c9dfe5; }
-.asideIcon { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: #dfedf1; color: var(--teal); margin-bottom: 14px; }
-.heroAside p { font-size: 17px; line-height: 1.65; letter-spacing: -.02em; margin: 0 0 17px; }
-.heroAside strong { font-weight: 800; }
-.asideFoot { font-size: 11px; color: #67788c; }
 .libraryHeader { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 25px 0 21px; border-top: 1px solid #cddfe7; }
 .libraryHeader h2 { display: flex; align-items: center; gap: 10px; font-size: 23px; letter-spacing: -.04em; margin: 0; }
 .libraryHeader h2 > span { font-size: 11px; font-weight: 600; color: #66788c; align-self: flex-start; padding-top: 4px; }
-.libraryHeader > p { margin: 0; font-size: 11px; color: #647589; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 25px; }
 .filters button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; gap: 12px; padding: 9px 16px; border-radius: 999px; border: 1px solid #d9e5eb; background: #fff; color: #536579; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .18s, border-color .18s, color .18s; }
 .filters button > span { font-size: 10px; opacity: .75; }
@@ -121,7 +111,6 @@
 .codeList dd > div > span { display: block; margin-bottom: 5px; color: #2c7c88; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
 .card h2, .articleSection h2, .relatedHeading h2, .relatedGrid h3, .contactBand h2, .helpCard h2 { font-weight: 800; }
 @media (max-width: 1099px) {
-  .hero { grid-template-columns: minmax(0, 1fr) 225px; gap: 35px; }
   .feed { grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: 16px; }
   .card:not(.featured) { grid-template-columns: minmax(0, 1fr); }
   .card:not(.featured) .cardVisual { display: none; }
@@ -134,13 +123,11 @@
   .blog { padding-bottom: 55px; }
   .wrap, .articleWrap { padding-top: 20px; }
   .hero { display: block; padding: 38px 0 34px; }
-  .heroAside { display: none; }
   .hero h1 { font-size: clamp(29px, 5.9vw, 43px); }
   .eyebrow { font-size: 10px; letter-spacing: .09em; }
   .lead { font-size: 14px; line-height: 1.85; margin-top: 17px; max-width: 500px; }
   .libraryHeader { align-items: flex-start; flex-direction: column; gap: 9px; padding-block: 21px; }
   .libraryHeader h2 { font-size: 21px; }
-  .libraryHeader > p { font-size: 10px; }
   .filters { gap: 7px; }
   .filters button { padding: 9px 12px; font-size: 11px; gap: 9px; }
   .feed, .filteredFeed { grid-template-columns: minmax(0, 1fr); gap: 17px; }

@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight, BookOpen, ChevronRight, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { T } from "@/components/LanguageProvider";
-import { LocalizedGroup, LocalizedNav } from "@/components/LocalizedElements";
+import { LocalizedGroup } from "@/components/LocalizedElements";
 import { blogCategories, blogPosts, type BlogCategory } from "@/data/blog";
 import { siteConfig, whatsappHref } from "@/config/site";
 import { BlogCard } from "./BlogCard";
@@ -15,22 +14,15 @@ export function BlogIndex() {
   const visible = blogPosts.filter(post => category === "Hamısı" || post.category === category);
   return <div className={styles.blog}>
     <div className={`container ${styles.wrap}`}>
-      <LocalizedNav className={styles.breadcrumb} aria-label="Səhifə yolu"><Link href="/"><T>Əsas səhifə</T></Link><ChevronRight size={13} aria-hidden="true" /><span aria-current="page"><T>Bloq</T></span></LocalizedNav>
       <header className={styles.hero}>
         <div>
-          <p className={styles.eyebrow}><BookOpen size={15} aria-hidden="true" /><T>DənizServis jurnalı</T></p>
           <h1><T>Texnikanı anlayın.</T><br /><span><T>Daha rahat qərar verin.</T></span></h1>
           <p className={styles.lead}><T>Gündəlik suallara aydın cavablar. Cihazınıza qulluqdan usta çağırışına qədər, lazım olan məlumat bir yerdə.</T></p>
-        </div>
-        <div className={styles.heroAside}>
-          <span className={styles.asideIcon}><Sparkles aria-hidden="true" size={23} /></span>
-          <p><T>Kiçik məlumat.</T><br /><strong><T>Daha aydın növbəti addım.</T></strong></p>
-          <span className={styles.asideFoot}><T>Qabyuyan bələdçiləri ön planda</T></span>
         </div>
       </header>
 
       <section aria-labelledby="articles-title" className={styles.library}>
-        <div className={styles.libraryHeader}><h2 id="articles-title"><T>Faydalı oxu</T><span>{String(blogPosts.length).padStart(2, "0")}</span></h2><p><T>Önizləmə · Mətnlər redaksiya baxışındadır</T></p></div>
+        <div className={styles.libraryHeader}><h2 id="articles-title"><T>Faydalı oxu</T><span>{String(blogPosts.length).padStart(2, "0")}</span></h2></div>
         <LocalizedGroup className={styles.filters} role="group" aria-label="Mövzu filtrləri">
           {(["Hamısı", ...blogCategories] as const).map(item => <button key={item} type="button" onClick={() => setCategory(item)} aria-pressed={category === item} className={category === item ? styles.filterActive : ""}><T>{item}</T><span>{item === "Hamısı" ? blogPosts.length : blogPosts.filter(p => p.category === item).length}</span></button>)}
         </LocalizedGroup>
