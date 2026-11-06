@@ -31,7 +31,6 @@ export const blogPosts: BlogPost[] = [
         { code: "LC / LE", meaning: "Sızma ilə bağlı xəbərdarlıqdır.", action: "Cihazı təkrar işə salmayın, su və elektrik riskindən uzaq durun, servisə müraciət edin." },
       ] },
       { id: "tehlukesiz-addim", title: "Reset hər zaman həll deyil", text: "Kodu silmək səbəbi aradan qaldırmır. Sızma, yanıq qoxusu və ya elektrik riski varsa təkrar sınaq etməyin. Yaş prizə toxunmayın, cihazı sökməyin və qoruyucu sistemi keçməyin. Təhlükəsiz dayandırma üçün model təlimatına əməl edin." },
-      { id: "servise-gonder", title: "Servisə nə göndərək?", text: "Marka, tam model nömrəsi, kodun fotosu və proqramın hansı mərhələdə dayandığı ilkin qiymətləndirməyə kömək edir. Kodu göstərmək üçün nasazlığı yenidən yaratmağa çalışmayın.", points: ["Marka və tam model nömrəsi", "Ekrandakı kodun dəyişdirilməmiş fotosu", "Su qalması, səs və ya görünən sızma barədə qısa qeyd", "Xidmət tələb olunan rayon və əlaqə nömrəsi"] },
     ],
     note: "Kod siyahısı model təlimatını və diaqnostikanı əvəz etmir. Texniki qaralama dərcdən əvvəl usta baxışından keçməlidir.",
     sources: [

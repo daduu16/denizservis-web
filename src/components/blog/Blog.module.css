@@ -59,16 +59,13 @@
 .contactBand .lightButton { margin-left: auto; }
 .lightButton:hover { background: #b9e4e6; }
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-.backLink { display: inline-flex; gap: 8px; align-items: center; margin-top: 31px; color: #47667a; font-size: 12px; font-weight: 700; }
-.backLink:hover { color: var(--teal); }
 .articleHeader { padding: 32px 0 35px; max-width: 920px; }
 .articleHeader h1 { font-size: clamp(30px, 4vw, 49px); font-weight: 800; line-height: 1.2; letter-spacing: -.045em; margin: 21px 0; }
 .articleHeader > p { font-size: 17px; color: #63758b; line-height: 1.85; margin: 0; max-width: 760px; }
 .articleLayout { display: grid; grid-template-columns: minmax(0, 1fr) 285px; gap: 65px; align-items: start; }
 .articleBody { min-width: 0; }
 .articleVisual { height: 350px; position: relative; overflow: hidden; background: radial-gradient(ellipse at 50% 70%, #dae8ed, #eff5f7); border: 1px solid #dce7ed; border-radius: 25px; }
-.articleVisual > img { object-fit: contain; padding: 20px 30px 45px; mix-blend-mode: multiply; }
-.imageCaption { position: absolute; left: 21px; bottom: 18px; display: flex; align-items: center; gap: 8px; font-size: 10px; color: #526e7b; }
+.articleVisual > img { object-fit: contain; padding: 20px 30px; mix-blend-mode: multiply; }
 .articleIntro { font-size: 18px; line-height: 1.9; color: #344d64; margin: 32px 0 22px; }
 .articleSection { scroll-margin-top: 115px; padding: 25px 0 10px; border-top: 1px solid #e2eaf0; margin-top: 25px; }
 .sectionNumber { display: block; color: #327d8d; font-size: 11px; letter-spacing: .08em; font-weight: 800; margin-bottom: 10px; }
@@ -115,8 +112,6 @@
 .relatedBottom > svg { margin-left: auto; color: #347e8d; }
 .mobileContents { display: none; }
 .card .editorialVisual .cardImage, .articleVisual.editorialVisual > img { object-fit: cover; padding: 0; mix-blend-mode: normal; }
-.editorialVisual .imageCaption { max-width: calc(100% - 34px); padding: 7px 10px; border-radius: 8px; background: #ffffffed; color: #244354; line-height: 1.5; }
-.editorialVisual .imageCaption > svg { flex-shrink: 0; }
 .codeList { display: grid; gap: 12px; margin: 22px 0 0; }
 .codeList > div { display: grid; grid-template-columns: 115px minmax(0, 1fr); gap: 18px; padding: 21px; border: 1px solid #d8e6ec; border-radius: 17px; background: #f6fafb; }
 .codeList dt code { display: inline-flex; align-items: center; justify-content: center; min-height: 41px; padding: 9px 12px; border-radius: 9px; background: #102e4d; color: #c1edf0; font-size: 14px; font-weight: 700; white-space: nowrap; }

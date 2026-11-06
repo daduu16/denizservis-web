@@ -36,6 +36,14 @@ describe("responsive editorial blog", () => {
     expect(new Set(post.sections.map(s => s.id)).size).toBe(post.sections.length);
     expect(html).toContain('href="tel:+994705522021"');
     expect(html).not.toContain("20–60");
+    expect(html).not.toContain('aria-label="Səhifə yolu"');
+    expect(html).not.toContain("Redaksiya önizləməsi");
+    expect(html).not.toContain("AI ilə hazırlanmış redaksiya təsviri");
+    expect(html).not.toContain("DənizServis · Faydalı bələdçi");
+    expect(html).not.toContain("Servisə nə göndərək?");
+    expect(html).not.toContain("servise-gonder");
+    // Keep the useful list link at the bottom; only the upper back link is removed.
+    expect(html).toContain("Bütün məqalələr");
     expect(readingMinutes(post)).toBeGreaterThan(0);
   });
 
@@ -72,7 +80,7 @@ describe("responsive editorial blog", () => {
     for (const code of ["E15", "E24 / E-24", "E09", "4C / 4E", "5C / 5E", "LC / LE"]) expect(html).toContain(code);
     expect(html).toContain("universal siyahı deyil");
     expect(html).toContain('href="/xidmetler/qabyuyan-temiri"');
-    expect(html).toContain("AI ilə hazırlanmış redaksiya təsviri");
+    expect(html).not.toContain("AI ilə hazırlanmış redaksiya təsviri");
     for (const source of post.sources!) expect(html).toContain(source.url);
   });
 
