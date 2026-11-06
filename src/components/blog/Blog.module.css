@@ -114,6 +114,16 @@
 .relatedBottom { display: flex; gap: 4px; align-items: center; font-size: 11px; color: #667d8f; }
 .relatedBottom > svg { margin-left: auto; color: #347e8d; }
 .mobileContents { display: none; }
+.card .editorialVisual .cardImage, .articleVisual.editorialVisual > img { object-fit: cover; padding: 0; mix-blend-mode: normal; }
+.editorialVisual .imageCaption { max-width: calc(100% - 34px); padding: 7px 10px; border-radius: 8px; background: #ffffffed; color: #244354; line-height: 1.5; }
+.editorialVisual .imageCaption > svg { flex-shrink: 0; }
+.codeList { display: grid; gap: 12px; margin: 22px 0 0; }
+.codeList > div { display: grid; grid-template-columns: 115px minmax(0, 1fr); gap: 18px; padding: 21px; border: 1px solid #d8e6ec; border-radius: 17px; background: #f6fafb; }
+.codeList dt code { display: inline-flex; align-items: center; justify-content: center; min-height: 41px; padding: 9px 12px; border-radius: 9px; background: #102e4d; color: #c1edf0; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.codeList dd { min-width: 0; margin: 0; }
+.codeList dd p { margin: 0; font-size: 14px; color: #455e73; line-height: 1.85; }
+.codeList dd > div { border-top: 1px solid #dce7ed; margin-top: 13px; padding-top: 12px; }
+.codeList dd > div > span { display: block; margin-bottom: 5px; color: #2c7c88; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
 .card h2, .articleSection h2, .relatedHeading h2, .relatedGrid h3, .contactBand h2, .helpCard h2 { font-weight: 800; }
 @media (max-width: 1099px) {
   .hero { grid-template-columns: minmax(0, 1fr) 225px; gap: 35px; }
@@ -165,6 +175,7 @@
   .relatedHeading h2 { font-size: 24px; }
 }
 @media (max-width: 429px) {
+  .codeList > div { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 18px; }
   .card:not(.featured) { grid-template-columns: minmax(0, 1fr); }
   .card:not(.featured) .cardVisual { min-height: 165px; }
   .card:not(.featured) .cardImage { padding: 10px 25px; }

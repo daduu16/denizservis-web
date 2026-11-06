@@ -25,7 +25,7 @@ export function BlogIndex() {
         <div className={styles.heroAside}>
           <span className={styles.asideIcon}><Sparkles aria-hidden="true" size={23} /></span>
           <p><T>Kiçik məlumat.</T><br /><strong><T>Daha aydın növbəti addım.</T></strong></p>
-          <span className={styles.asideFoot}><T>Paltaryuyan və qabyuyan haqqında</T></span>
+          <span className={styles.asideFoot}><T>Qabyuyan bələdçiləri ön planda</T></span>
         </div>
       </header>
 
