@@ -70,7 +70,7 @@ export function WashingMachineServicePage() {
         </div>
       </section>
 
-      <BrandMarquee rows={washingMachineBrandRows} title="Paltaryuyanınız hansı markadır?" description="Candy, Haier, Zanussi, Atlant və Arçelik modelləri üzrə də müraciət edə bilərsiniz." />
+      <BrandMarquee rows={washingMachineBrandRows} title="Paltaryuyanınız hansı markadır?" description="Bütün modellər üzrə müraciət edə bilərsiniz." />
 
       <section className={`${styles.section} ${styles.boardSection}`} id="elektron-plata" aria-labelledby="board-title">
         <div className={`container ${styles.twoColumns}`}>
