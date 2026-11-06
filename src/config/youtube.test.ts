@@ -7,9 +7,14 @@ describe("official YouTube playlist embed", () => {
     expect(embed.origin).toBe("https://www.youtube.com");
     expect(embed.pathname).toBe("/embed");
     expect(embed.searchParams.get("listType")).toBe("playlist");
-    expect(embed.searchParams.get("list")).toBe("PLP-tan1dbfMQ");
+    expect(embed.searchParams.get("list")).toBe("UUSHVsiP_P9SZohnAEy6vtdzyg");
     expect(embed.searchParams.has("key")).toBe(false);
     expect(embed.searchParams.has("enablejsapi")).toBe(false);
+  });
+
+  it("shows only four entries from the channel's automatic Shorts playlist", () => {
+    expect(youtubePlaylist.id).toBe("UUSHVsiP_P9SZohnAEy6vtdzyg");
+    expect(youtubePlaylist.previewLimit).toBe(4);
   });
 
   it("opens the same playlist in YouTube and does not autoplay", () => {
