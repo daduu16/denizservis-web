@@ -22,5 +22,6 @@ next-env.d.ts
 *.pfx
 # Local screenshots, generated audits and original private source materials.
 qa/
+research-local/
 ServisPlus_Sekiller/
 ServisPlus_Texniki_Tapsiriq.md

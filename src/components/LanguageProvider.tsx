@@ -6,7 +6,10 @@ import { isLanguage, languageStorageKey, translate, type Dictionary, type Langua
 
 const loadDictionary = async (language: Language): Promise<Dictionary> => {
   if (language === "az") return {};
-  return language === "en" ? (await import("@/i18n/en.json")).default : (await import("@/i18n/ru.json")).default;
+  const [base, blog] = await Promise.all(language === "en"
+    ? [import("@/i18n/en.json"), import("@/i18n/blog.en.json")]
+    : [import("@/i18n/ru.json"), import("@/i18n/blog.ru.json")]);
+  return { ...base.default, ...blog.default };
 };
 
 type LanguageContextValue = {

@@ -182,7 +182,7 @@
   "Marka və modeli qeyd edin, xidmət imkanını dəqiqləşdirək.": "Укажите марку и модель — уточним возможность ремонта.",
   "Qabyuyanınız hansı markadır?": "Какая марка у вашей посудомоечной машины?",
   "Paltaryuyanınız hansı markadır?": "Какая марка у вашей стиральной машины?",
-  "Candy, Haier, Zanussi, Atlant və Arçelik modelləri üzrə də müraciət edə bilərsiniz.": "Также можно обратиться по поводу моделей Candy, Haier, Zanussi, Atlant и Arçelik.",
+  "Bütün modellər üzrə müraciət edə bilərsiniz.": "Вы можете обратиться по поводу любых моделей.",
   "İdarəetmə elektronikası": "Электроника управления",
   "Qabyuyan maşının elektron plata təmiri": "Ремонт электронной платы посудомоечной машины",
   "Paltaryuyan maşının elektron plata təmiri": "Ремонт электронной платы стиральной машины",
@@ -401,5 +401,6 @@
   "Gördüyümüz İşlər | DənizServis": "Наши работы | DənizServis",
   "hero.dishwasher": "и посудомоечных машин",
   "Paltaryuyan təmiri haqqında ətraflı": "Подробнее о ремонте стиральных машин",
-  "Qabyuyan təmiri haqqında ətraflı": "Подробнее о ремонте посудомоечных машин"
+  "Qabyuyan təmiri haqqında ətraflı": "Подробнее о ремонте посудомоечных машин",
+  "Bloq": "Блог"
 }

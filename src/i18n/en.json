@@ -182,7 +182,7 @@
   "Marka və modeli qeyd edin, xidmət imkanını dəqiqləşdirək.": "Share the brand and model so we can confirm service availability.",
   "Qabyuyanınız hansı markadır?": "What brand is your dishwasher?",
   "Paltaryuyanınız hansı markadır?": "What brand is your washing machine?",
-  "Candy, Haier, Zanussi, Atlant və Arçelik modelləri üzrə də müraciət edə bilərsiniz.": "You can also enquire about Candy, Haier, Zanussi, Atlant and Arçelik models.",
+  "Bütün modellər üzrə müraciət edə bilərsiniz.": "You can enquire about all models.",
   "İdarəetmə elektronikası": "Control electronics",
   "Qabyuyan maşının elektron plata təmiri": "Dishwasher control board repair",
   "Paltaryuyan maşının elektron plata təmiri": "Washing machine control board repair",
@@ -401,5 +401,6 @@
   "Gördüyümüz İşlər | DənizServis": "Our repair work | DənizServis",
   "hero.dishwasher": "dishwasher repair",
   "Paltaryuyan təmiri haqqında ətraflı": "Learn more about washing machine repair",
-  "Qabyuyan təmiri haqqında ətraflı": "Learn more about dishwasher repair"
+  "Qabyuyan təmiri haqqında ətraflı": "Learn more about dishwasher repair",
+  "Bloq": "Blog"
 }

@@ -20,6 +20,7 @@ export const navigation = [
   { label: "Xidmətlər", href: "/#xidmetler" },
   { label: "İşlərimiz", href: "/#islerimiz" },
   { label: "Niyə biz?", href: "/#niye-biz" },
+  { label: "Bloq", href: "/blog" },
   { label: "Əlaqə", href: "/elaqe" },
 ] as const;
 

@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 
 const files = execFileSync("git", ["ls-files", "--cached", "-z"], { encoding: "utf8" }).split("\0").filter(Boolean);
 const issues = [];
-const forbidden = /(?:^|\/)(?:node_modules|\.next|out(?:\.previous-[^/]+)?|qa|\.vercel|\.wrangler|ServisPlus_Sekiller)(?:\/|$)|(?:^|\/)\.(?:env|dev\.vars)(?:\..*)?$|\.(?:pem|key|p12|pfx|tsbuildinfo)$|(?:^|\/)(?:next-env\.d\.ts|ServisPlus_Texniki_Tapsiriq\.md)$/;
+const forbidden = /(?:^|\/)(?:node_modules|\.next|out(?:\.previous-[^/]+)?|qa|research-local|\.vercel|\.wrangler|ServisPlus_Sekiller)(?:\/|$)|(?:^|\/)\.(?:env|dev\.vars)(?:\..*)?$|\.(?:pem|key|p12|pfx|tsbuildinfo)$|(?:^|\/)(?:next-env\.d\.ts|ServisPlus_Texniki_Tapsiriq\.md)$/;
 const secretPatterns = [
   ["private key", /-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----/],
   ["GitHub token", /\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})\b/],

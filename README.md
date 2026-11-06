@@ -182,6 +182,10 @@ Mövcud formanın FormSubmit bağlantısı və ilk aktivasiya: [EMAIL_INTEGRATIO
 - Bütün əsas route-lar, `sitemap.xml` və `robots.txt` lokal serverdə `200` qaytardı.
 - Brauzer konsolunda xəta və xəbərdarlıq aşkarlanmadı.
 
+## Lokal AI axtarış araşdırması (yalnız dev)
+
+Xərcsiz, şəbəkə sorğusuz JSON importu, 100 suallıq plan, Excel üçün CSV və redaksiya blog planı: [RESEARCH_WORKFLOW.md](RESEARCH_WORKFLOW.md). `npm run research:demo` ilə sintetik nümunəni yoxlamaq olar. Şəxsi giriş və hesabatlar `research-local/` daxilində Git-dən kənarda qalır; sayt və production dəyişmir.
+
 ## Production TODO
 
 - Real telefon, WhatsApp, xidmət zonası və iş saatlarını `.env.local`/hosting secrets-də əlavə edin.
