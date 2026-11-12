@@ -42,13 +42,11 @@ export function BlogIndex() {
           {pagination.items.map((post, i) => <BlogCard key={post.slug} post={post} featured={category === "Hamısı" && i === 0} />)}
         </div>
         {pagination.pageCount > 1 && <LocalizedNav className={styles.pagination} aria-label="Məqalə səhifələri">
-          <div className={styles.pageSummary}><span><T>Kəşf etməyə davam edin</T></span><p><strong>{pagination.first}–{pagination.last}</strong> / {visible.length} <T>məqalə</T></p></div>
           <div className={styles.pageControls}>
-            <button className={styles.pageArrow} type="button" disabled={pagination.page === 1} onClick={() => changePage(pagination.page - 1)} aria-controls="blog-feed"><ArrowLeft size={18} aria-hidden="true" /><span><T>Əvvəlki</T></span></button>
-            <div className={styles.pageNumbers}>{Array.from({ length: pagination.pageCount }, (_, i) => i + 1).map(number => <button type="button" key={number} aria-current={pagination.page === number ? "page" : undefined} aria-controls="blog-feed" onClick={() => changePage(number)}><span className={styles.srOnly}><T>Səhifə</T> </span>{String(number).padStart(2, "0")}</button>)}</div>
-            <button className={styles.pageArrow} type="button" disabled={pagination.page === pagination.pageCount} onClick={() => changePage(pagination.page + 1)} aria-controls="blog-feed"><span><T>Növbəti</T></span><ArrowRight size={18} aria-hidden="true" /></button>
+            <button className={styles.pageArrow} type="button" disabled={pagination.page === 1} onClick={() => changePage(pagination.page - 1)} aria-controls="blog-feed"><ArrowLeft size={18} aria-hidden="true" /><span className={styles.srOnly}><T>Əvvəlki</T></span></button>
+            <div className={styles.pageNumbers}>{Array.from({ length: pagination.pageCount }, (_, i) => i + 1).map(number => <button type="button" key={number} aria-current={pagination.page === number ? "page" : undefined} aria-controls="blog-feed" onClick={() => changePage(number)}><span className={styles.srOnly}><T>Səhifə</T> </span>{number}</button>)}</div>
+            <button className={styles.pageArrow} type="button" disabled={pagination.page === pagination.pageCount} onClick={() => changePage(pagination.page + 1)} aria-controls="blog-feed"><span className={styles.srOnly}><T>Növbəti</T></span><ArrowRight size={18} aria-hidden="true" /></button>
           </div>
-          <div className={styles.pageProgress} aria-hidden="true"><span style={{ width: `${100 / pagination.pageCount}%`, transform: `translateX(${(pagination.page - 1) * 100}%)` }} /></div>
         </LocalizedNav>}
       </section>
 

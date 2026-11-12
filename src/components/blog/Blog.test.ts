@@ -23,6 +23,8 @@ describe("responsive editorial blog", () => {
     expect(html).toContain('aria-label="Məqalə səhifələri"');
     expect(html).toContain('aria-current="page"');
     expect(html).toContain('aria-controls="blog-feed"');
+    expect(html).not.toContain("Kəşf etməyə davam edin");
+    expect(html).not.toContain("Önə çıxan məqalə");
     expect(html.match(/aria-pressed="true"/g)).toHaveLength(1);
     expect(html).toContain('role="status"');
     expect(html).toContain('<h2 id="articles-title" tabindex="-1">Faydalı oxu</h2>');
