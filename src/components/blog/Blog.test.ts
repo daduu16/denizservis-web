@@ -6,6 +6,7 @@ import { BlogIndex } from "./BlogIndex";
 import { BlogArticle } from "./BlogArticle";
 import { blogPosts, blogPath, blogPost, readingMinutes } from "../../data/blog";
 import { blogPreviewJsonLd } from "../../lib/blog-seo";
+import { BLOG_PAGE_SIZE } from "../../lib/blog-pagination";
 import { generateStaticParams, generateMetadata } from "../../app/blog/[slug]/page";
 import { metadata } from "../../app/blog/page";
 import en from "../../i18n/blog.en.json";
@@ -14,13 +15,17 @@ import ru from "../../i18n/blog.ru.json";
 vi.mock("next/navigation", () => ({ notFound: () => { throw new Error("404"); }, usePathname: () => "/blog" }));
 
 describe("responsive editorial blog", () => {
-  it("renders one H1, all article links and accessible category controls before hydration", () => {
+  it("renders one H1, the first article page and accessible pagination before hydration", () => {
     const html = renderToStaticMarkup(createElement(BlogIndex));
     expect(html.match(/<h1\b/g)).toHaveLength(1);
-    for (const post of blogPosts) expect(html).toContain(`href="${blogPath(post)}"`);
+    for (const post of blogPosts.slice(0, BLOG_PAGE_SIZE)) expect(html).toContain(`href="${blogPath(post)}"`);
+    for (const post of blogPosts.slice(BLOG_PAGE_SIZE)) expect(html).not.toContain(`href="${blogPath(post)}"`);
+    expect(html).toContain('aria-label="Məqalə səhifələri"');
+    expect(html).toContain('aria-current="page"');
+    expect(html).toContain('aria-controls="blog-feed"');
     expect(html.match(/aria-pressed="true"/g)).toHaveLength(1);
     expect(html).toContain('role="status"');
-    expect(html).toContain('<h2 id="articles-title">Faydalı oxu</h2>');
+    expect(html).toContain('<h2 id="articles-title" tabindex="-1">Faydalı oxu</h2>');
     for (const removed of ['aria-label="Səhifə yolu"', "DənizServis jurnalı", "Kiçik məlumat.", "Daha aydın növbəti addım.", "Qabyuyan bələdçiləri ön planda", "redaksiya baxışındadır", "dəq. oxu"]) expect(html).not.toContain(removed);
     expect(html).toContain("https://wa.me/994705522021");
   });
@@ -71,7 +76,7 @@ describe("responsive editorial blog", () => {
   it.each([en, ru])("translates article text and common blog chrome", dictionary => {
     const messages = blogPosts.flatMap(p => [p.title, p.excerpt, p.intro, p.category, p.alt, p.note,
       ...(p.source ? [p.source.label] : []), ...(p.sources ?? []).map(s => s.label), ...p.sections.flatMap(s => [s.title, s.text, ...(s.points ?? []), ...(s.codes ?? []).flatMap(c => [c.meaning, c.action])])]);
-    messages.push("Məqaləni oxu", "Bu məqalədə", "Texnikanı anlayın.", "Daha rahat qərar verin.", "Mövzu filtrləri");
+    messages.push("Məqaləni oxu", "Bu məqalədə", "Texnikanı anlayın.", "Daha rahat qərar verin.", "Mövzu filtrləri", "Məqalə səhifələri", "Səhifə", "Əvvəlki", "Növbəti", "Kəşf etməyə davam edin", "məqalə");
     for (const text of messages) expect((dictionary as Record<string, string>)[text], text).toBeTruthy();
   });
 

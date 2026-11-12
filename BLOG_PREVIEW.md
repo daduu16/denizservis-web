@@ -2,7 +2,7 @@
 
 ## Hazır olanlar
 
-- `/blog`: önə çıxan məqalə, mövzu filtrləri, kliklənən məqalə kartları və WhatsApp keçidi.
+- `/blog`: önə çıxan məqalə, mövzu filtrləri, kliklənən məqalə kartları və WhatsApp keçidi. Siyahının altında hər səhifədə 3 məqalə göstərən nömrəli səhifələmə, əvvəlki/növbəti düymələri və irəliləyiş xətti var. Filtr dəyişdikdə səhifə 1-ə sıfırlanır; tək səhifəlik kateqoriyada naviqasiya gizlənir. Keçidlər klaviatura, ekran oxuyucusu və reduced-motion seçimi üçün uyğunlaşdırılıb; pagination yalnız bloq siyahısına tətbiq olunur.
 - Səkkiz statik məqalə: qabyuyan xəta kodları və su boşaltma bələdçisi ön plandadır; əvvəlki məqalələr saxlanılıb.
 - 12 noyabr əlavələri: `/blog/qabyuyan-qablari-yaxsi-yumur`, `/blog/paltaryuyan-sixmada-titreyir`, `/blog/paltaryuyandan-pis-qoxu-gelir`. Hərəsi üçün ayrıca optimallaşdırılmış redaksiya şəkli, rəsmi mənbə və AZ/EN/RU mətnləri var.
 - Yeni ünvanlar: `/blog/qabyuyan-xeta-kodlari` və `/blog/qabyuyan-suyu-bosaltmir`. “Xəta kodları” filtri, marka üzrə kod blokları, model xəbərdarlıqları və Bosch/Samsung rəsmi mənbələri əlavə edilib.
