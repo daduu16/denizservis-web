@@ -4,14 +4,15 @@ import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
+import { blogPath, blogPosts } from "../src/data/blog.ts";
 
 const project = fileURLToPath(new URL("../", import.meta.url));
 const root = join(project, "out");
 const origin = "https://denizservis.az";
 const indexable = process.env.SEO_EXPECT_INDEXABLE !== "false";
 const expectedPublic = ["/", "/xidmetler/paltaryuyan-temiri", "/xidmetler/qabyuyan-temiri", "/elaqe", "/haqqimizda"];
-const previewBlogPaths = ["/blog", "/blog/qabyuyan-xeta-kodlari", "/blog/qabyuyan-suyu-bosaltmir", "/blog/paltaryuyan-suyu-bosaltmir", "/blog/paltaryuyan-temiri-qiymeti", "/blog/bakida-paltaryuyan-ustasi-cagirmaq"];
-const paths = [...expectedPublic, "/mexfilik", ...previewBlogPaths];
+const blogPaths = ["/blog", ...blogPosts.map(blogPath)];
+const paths = [...expectedPublic, "/mexfilik", ...blogPaths];
 const fileFor = (path) => path === "/" ? "index.html" : `${path.slice(1)}.html`;
 const decode = (text) => text.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&#(\d+);/g, (_, num) => String.fromCodePoint(Number(num)));
 const attrs = (tag) => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((m) => [m[1], decode(m[2])]));
@@ -38,7 +39,7 @@ for (const [path, { html, content, ids }] of pages) {
   const canonical = [...html.matchAll(/<link\b[^>]*>/g)].map((m) => attrs(m[0])).filter((a) => a.rel === "canonical");
   assert.equal(canonical.length, 1, `${path}: one canonical`);
   assert.equal(new URL(canonical[0].href).href, new URL(origin + path).href, `${path}: canonical origin`);
-  const shouldIndex = indexable && path !== "/mexfilik" && !previewBlogPaths.includes(path);
+  const shouldIndex = indexable && path !== "/mexfilik";
   const robots = meta.filter((m) => m.name === "robots").map((m) => m.content).join(",");
   assert.equal(robots.includes("noindex"), !shouldIndex, `${path}: robots`);
   assert.ok(meta.some((m) => m.property === "og:url" && new URL(m.content).href === new URL(origin + path).href));
@@ -85,7 +86,10 @@ for (const [path, { html, content, ids }] of pages) {
 }
 const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => decode(m[1]));
-assert.deepEqual([...locations].sort(), indexable ? expectedPublic.map((path) => origin + path).sort() : []);
+assert.deepEqual([...locations].sort(), indexable ? [...expectedPublic, ...blogPaths].map((path) => origin + path).sort() : []);
+assert.equal(new Set(locations).size, locations.length, "No duplicate sitemap URLs");
+assert.match(sitemap, /<urlset\s+xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9"/);
+for (const location of locations) assert.equal(new URL(location).origin, origin);
 const robots = await readFile(join(root, "robots.txt"), "utf8");
 assert.ok(robots.includes("Allow: /"));
 assert.ok(!robots.includes("Disallow: /\n"));
@@ -94,7 +98,9 @@ const notFound = await readFile(join(root, "404.html"), "utf8");
 assert.ok(notFound.includes("Səhifə tapılmadı"));
 assert.match(notFound, /name="robots" content="[^"]*noindex/);
 assert.equal(await stat(join(root, "api")).catch(() => null), null);
-assert.ok((await readFile(join(root, "_headers"), "utf8")).includes("X-Robots-Tag: noindex"));
+const headers = await readFile(join(root, "_headers"), "utf8");
+assert.ok(headers.includes("X-Robots-Tag: noindex"));
+assert.match(headers, /\/sitemap\.xml\n\s+Content-Type: application\/xml; charset=utf-8/);
 assert.ok((await stat(join(root, "icon.svg"))).isFile());
 
 const httpResults = [];
