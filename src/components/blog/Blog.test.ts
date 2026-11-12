@@ -92,4 +92,15 @@ describe("responsive editorial blog", () => {
       expect(existsSync(`public${post.image}`)).toBe(true);
     }
   });
+
+  it("adds two washer guides and one dishwasher guide with three distinct covers and official sources", () => {
+    const posts = ["paltaryuyan-sixmada-titreyir", "paltaryuyandan-pis-qoxu-gelir", "qabyuyan-qablari-yaxsi-yumur"].map(slug => blogPost(slug)!);
+    expect(posts.map(p => p.appliance)).toEqual(["Paltaryuyan", "Paltaryuyan", "Qabyuyan"]);
+    expect(new Set(posts.map(p => p.image)).size).toBe(3);
+    for (const post of posts) {
+      expect(post.sections.length).toBeGreaterThanOrEqual(4);
+      expect(post.imageKind).toBe("editorial");
+      expect(post.source?.url).toMatch(/^https:\/\/(?:www\.bosch-home\.(?:com\.sg|co\.uk)|www\.samsung\.com)\//);
+    }
+  });
 });

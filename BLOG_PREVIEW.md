@@ -3,7 +3,8 @@
 ## Hazır olanlar
 
 - `/blog`: önə çıxan məqalə, mövzu filtrləri, kliklənən məqalə kartları və WhatsApp keçidi.
-- Beş statik məqalə: qabyuyan xəta kodları və su boşaltma bələdçisi ön plandadır; əvvəlki üç paltaryuyan məqaləsi saxlanılıb.
+- Səkkiz statik məqalə: qabyuyan xəta kodları və su boşaltma bələdçisi ön plandadır; əvvəlki məqalələr saxlanılıb.
+- 12 noyabr əlavələri: `/blog/qabyuyan-qablari-yaxsi-yumur`, `/blog/paltaryuyan-sixmada-titreyir`, `/blog/paltaryuyandan-pis-qoxu-gelir`. Hərəsi üçün ayrıca optimallaşdırılmış redaksiya şəkli, rəsmi mənbə və AZ/EN/RU mətnləri var.
 - Yeni ünvanlar: `/blog/qabyuyan-xeta-kodlari` və `/blog/qabyuyan-suyu-bosaltmir`. “Xəta kodları” filtri, marka üzrə kod blokları, model xəbərdarlıqları və Bosch/Samsung rəsmi mənbələri əlavə edilib.
 - Desktop-da yapışqan bölmə naviqasiyası və əlaqə kartı; mobil görünüşdə açılıb-bağlanan mündəricat.
 - Əlaqəli məqalələr, xidmət səhifəsinə keçid, telefon və mövcud WhatsApp düyməsi.
@@ -12,7 +13,7 @@
 
 ## Kontent və dərc sərhədi
 
-Bu dizayn/redaksiya önizləməsidir. Bütün bloq səhifələri deployment-dən asılı olmayaraq `noindex` saxlanılır. Dərc edilmiş səhifələrin sitemap-ı dəyişdirilməyib. Səhifələr görünən redaksiya önizləməsi qeydi daşıyır; texniki məqalənin usta və konkret model təlimatı ilə yoxlanması tələb olunur.
+Bütün bloq səhifələri deployment-dən asılı olmayaraq `noindex` saxlanılır. Dərc edilmiş səhifələrin sitemap-ı dəyişdirilməyib. Görünən önizləmə etiketləri istifadəçinin istəyi ilə çıxarılıb; texniki məqalənin usta və konkret model təlimatı ilə yoxlanması yenə tələb olunur. Yeni əlavələr yalnız dev üçündür; əvvəlki buraxılışın production-da olması yeni deploy icazəsi deyil.
 
 Kontent `src/data/blog.ts`, tərcümələr `src/i18n/blog.en.json` və `blog.ru.json`, komponentlər və scoped CSS isə `src/components/blog/` daxilindədir. Yeni slug `generateStaticParams` vasitəsilə build vaxtı çıxarılır; başqa slug-lar 404 olmalıdır. Yeni məqalə əlavə ediləndə `scripts/check-seo.mjs` daxilindəki önizləmə path siyahısını da yeniləyin.
 
@@ -37,3 +38,7 @@ Production-a keçid yalnız ayrıca istifadəçi təsdiqi, kontent yoxlaması v�
 ## 6 noyabr 2026 yoxlaması
 
 Qabyuyan əlavəsi üçün 178 test, lint/typecheck, server/static build və 12 səhifəlik static SEO yoxlaması keçib. Desktop önizləməsində filtr, məqalə keçidi, marka üzrə kod blokları, rəsmi mənbələr və uyğun xidmət keçidi yoxlanıb. Bu sessiyada viewport override ölçünü faktiki dəyişmədiyindən yeni mobil ölçü testinin nəticəsi yoxdur; əvvəlki blog görünüşünün mobil üslubları qorunub, yeni kod blokları 429 px və aşağıda tək sütuna keçir. Production təsdiqindən əvvəl real mobil yoxlama təkrar aparılmalıdır.
+
+## 12 noyabr 2026 yoxlaması
+
+183 test, lint/typecheck, server/static build və 15 səhifəlik static SEO yoxlaması keçib. Üç yeni şəkil build tərəfindən responsive variantlara çevrilir. Yeni məqalələr eyni BlogArticle/BlogCard və dəyişməyən mobil CSS-dən istifadə edir. Brauzerin viewport aləti 390 px sorğusuna baxmayaraq 1280 px saxladığı üçün bu sessiyada ayrıca dar-ekran sınağı təsdiqlənmir; desktop-da səhifələr, şəkillər və keçidlər yoxlanıb. Port 3000-də əvvəlcədən açıq server köhnə route siyahısını saxlaya bilər; yeni statik önizləmə port 3001-dədir.

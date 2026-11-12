@@ -10,7 +10,7 @@ const root = join(project, "out");
 const origin = "https://denizservis.az";
 const indexable = process.env.SEO_EXPECT_INDEXABLE !== "false";
 const expectedPublic = ["/", "/xidmetler/paltaryuyan-temiri", "/xidmetler/qabyuyan-temiri", "/elaqe", "/haqqimizda"];
-const previewBlogPaths = ["/blog", "/blog/qabyuyan-xeta-kodlari", "/blog/qabyuyan-suyu-bosaltmir", "/blog/paltaryuyan-suyu-bosaltmir", "/blog/paltaryuyan-temiri-qiymeti", "/blog/bakida-paltaryuyan-ustasi-cagirmaq"];
+const previewBlogPaths = ["/blog", "/blog/qabyuyan-xeta-kodlari", "/blog/qabyuyan-suyu-bosaltmir", "/blog/qabyuyan-qablari-yaxsi-yumur", "/blog/paltaryuyan-sixmada-titreyir", "/blog/paltaryuyandan-pis-qoxu-gelir", "/blog/paltaryuyan-suyu-bosaltmir", "/blog/paltaryuyan-temiri-qiymeti", "/blog/bakida-paltaryuyan-ustasi-cagirmaq"];
 const paths = [...expectedPublic, "/mexfilik", ...previewBlogPaths];
 const fileFor = (path) => path === "/" ? "index.html" : `${path.slice(1)}.html`;
 const decode = (text) => text.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&#(\d+);/g, (_, num) => String.fromCodePoint(Number(num)));
