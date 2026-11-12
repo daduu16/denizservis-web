@@ -1,4 +1,4 @@
-# Bloq önizləməsi — yalnız dev
+# Bloq — dərc və indeksasiya
 
 ## Hazır olanlar
 
@@ -13,7 +13,7 @@
 
 ## Kontent və dərc sərhədi
 
-Bütün bloq səhifələri deployment-dən asılı olmayaraq `noindex` saxlanılır. Dərc edilmiş səhifələrin sitemap-ı dəyişdirilməyib. Görünən önizləmə etiketləri istifadəçinin istəyi ilə çıxarılıb; texniki məqalənin usta və konkret model təlimatı ilə yoxlanması yenə tələb olunur. Yeni əlavələr yalnız dev üçündür; əvvəlki buraxılışın production-da olması yeni deploy icazəsi deyil.
+İstifadəçinin 12 noyabr indeksasiya tələbinə uyğun olaraq `/blog` və `src/data/blog.ts` siyahısındakı bütün dərc olunmuş məqalələr production-da indekslənə bilər. `src/app/sitemap.ts` həmin siyahını `generateStaticParams` ilə eyni mənbədən götürür; növbəti build yeni məqaləni avtomatik sitemap-ə əlavə edir. Beş əsas səhifə, Bloq və 8 məqalə birlikdə 14 URL edir. Canonical-lar `https://denizservis.az` domenindədir. Dev/Cloudflare preview deployment-ləri əvvəlki kimi noindex qalır və sitemap boşdur. Texniki məqalələr konkret model təlimatını və peşəkar diaqnostikanı əvəz etmir.
 
 Kontent `src/data/blog.ts`, tərcümələr `src/i18n/blog.en.json` və `blog.ru.json`, komponentlər və scoped CSS isə `src/components/blog/` daxilindədir. Yeni slug `generateStaticParams` vasitəsilə build vaxtı çıxarılır; başqa slug-lar 404 olmalıdır. Yeni məqalə əlavə ediləndə `scripts/check-seo.mjs` daxilindəki önizləmə path siyahısını da yeniləyin.
 
@@ -31,7 +31,7 @@ npm run check:static
 npm run check:seo
 ```
 
-Brauzerdə `/blog` və məqalələri 320, 390, 430, 768, 1024 və 1440 px-də yoxlayın. Filtrlər, bütün kart keçidləri, mobil mündəricat, bölmə anchor-ları, AZ/EN/RU dil keçidi və mobil menyu ayrıca yoxlanmalıdır. Yeni blog səhifələrinin `noindex` və sitemap-dan kənar qalması static SEO yoxlamasına daxildir.
+Brauzerdə `/blog` və məqalələri 320, 390, 430, 768, 1024 və 1440 px-də yoxlayın. Filtrlər, bütün kart keçidləri, mobil mündəricat, bölmə anchor-ları, AZ/EN/RU dil keçidi və mobil menyu ayrıca yoxlanmalıdır. Static SEO yoxlaması production-da blog URL-lərinin indekslənə bildiyini və sitemap-də olduğunu, preview-da isə noindex qorunmasını yoxlayır.
 
 Production-a keçid yalnız ayrıca istifadəçi təsdiqi, kontent yoxlaması və adi `dev → prod` PR prosesi ilə mümkündür. Bu iş production-a deploy icazəsi deyil.
 

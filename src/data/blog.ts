@@ -10,7 +10,7 @@ export type BlogPost = {
   sources?: { label: string; url: string }[];
 };
 
-// Editorial previews, not reviewed repair instructions. No rankings, tariffs or warranty promises.
+// Published editorial guides, not reviewed repair instructions. No rankings, tariffs or warranty promises.
 export const blogPosts: BlogPost[] = [
   {
     slug: "qabyuyan-xeta-kodlari", category: "Xəta kodları", appliance: "Qabyuyan",

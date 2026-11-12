@@ -1,7 +1,7 @@
 import { type BlogPost, blogPath } from "../data/blog";
 import { absoluteUrl, organizationNode } from "./seo";
 
-// Preview pages stay noindex and outside the published sitemap until editorial approval.
+// Published blog pages share the site's production-only indexing policy.
 // Do not label unreviewed copy as expert-reviewed or fabricate author credentials.
 export function blogPreviewJsonLd(post?: BlogPost) {
   const path = post ? blogPath(post) : "/blog";

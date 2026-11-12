@@ -7,6 +7,7 @@ import { BlogArticle } from "./BlogArticle";
 import { blogPosts, blogPath, blogPost, readingMinutes } from "../../data/blog";
 import { blogPreviewJsonLd } from "../../lib/blog-seo";
 import { BLOG_PAGE_SIZE } from "../../lib/blog-pagination";
+import { indexableDeployment } from "../../config/seo";
 import { generateStaticParams, generateMetadata } from "../../app/blog/[slug]/page";
 import { metadata } from "../../app/blog/page";
 import en from "../../i18n/blog.en.json";
@@ -62,11 +63,11 @@ describe("responsive editorial blog", () => {
     expect(new Set(blogPosts.map(p => p.slug)).size).toBe(blogPosts.length);
   });
 
-  it("keeps preview metadata noindex with canonical URLs, without invented publication dates or expert claims", async () => {
-    expect(metadata.robots).toMatchObject({ index: false });
+  it("uses production-only indexing with canonical URLs, without invented publication dates or expert claims", async () => {
+    expect(metadata.robots).toMatchObject({ index: indexableDeployment });
     for (const post of blogPosts) {
       const meta = await generateMetadata({ params: Promise.resolve({ slug: post.slug }) });
-      expect(meta.robots).toMatchObject({ index: false });
+      expect(meta.robots).toMatchObject({ index: indexableDeployment });
       expect(meta.alternates?.canonical).toBe(`https://denizservis.az${blogPath(post)}`);
       const graph = blogPreviewJsonLd(post)["@graph"];
       expect(graph.some(n => n["@type"] === "BreadcrumbList")).toBe(true);

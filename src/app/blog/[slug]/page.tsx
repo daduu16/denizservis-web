@@ -9,7 +9,7 @@ export function generateStaticParams() { return blogPosts.map(post => ({ slug: p
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const post = blogPost((await params).slug);
   if (!post) return {};
-  return metadataForPage(blogPath(post), `${post.title} | DənizServis`, post.excerpt, post.image, true);
+  return metadataForPage(blogPath(post), `${post.title} | DənizServis`, post.excerpt, post.image);
 }
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const post = blogPost((await params).slug);
