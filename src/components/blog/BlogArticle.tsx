@@ -2,12 +2,12 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Info, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import { LocalizedImage, LocalizedNav } from "@/components/LocalizedElements";
 import { T } from "@/components/LanguageProvider";
-import { blogPath, blogPosts, type BlogPost } from "@/data/blog";
+import { blogPath, relatedBlogPosts, type BlogPost } from "@/data/blog";
 import { normalizePhone, siteConfig, whatsappHref } from "@/config/site";
 import styles from "./Blog.module.css";
 
 export function BlogArticle({ post }: { post: BlogPost }) {
-  const related = blogPosts.filter(item => item.slug !== post.slug).slice(0, 2);
+  const related = relatedBlogPosts(post);
   const sources = post.sources ?? (post.source ? [post.source] : []);
   const serviceTitle = post.appliance === "Qabyuyan" ? "Qabyuyan təmiri" : "Paltaryuyan təmiri";
   const servicePath = post.appliance === "Qabyuyan" ? "/xidmetler/qabyuyan-temiri" : "/xidmetler/paltaryuyan-temiri";

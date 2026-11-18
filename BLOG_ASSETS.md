@@ -1,5 +1,50 @@
 # Blog şəkilləri — mənşə və promptlar
 
+## 18 noyabr 2026 — dörd fərqli qabyuyan şəkli
+
+Mənbə: built-in ImageGen. Konseptual redaksiya təsvirləridir, real müştəri işi deyil. Şəkillər ayrıca yaradılıb və vizual yoxlanılıb; hər biri 1440 × 960 px WebP (quality 84). Mövcud responsive şəkil komponentləri və mobil kəsim saxlanılıb.
+
+### blog-dishwasher-drying.webp
+
+Fayl: `public/images/blog-dishwasher-drying.webp`
+
+Orijinal: `/Users/bakirgahramanov/.codex/generated_images/01a1822a-30ff-7063-9bfc-5d19f5a2707c/exec-d0359ffd-10da-4413-988b-4e290ec13d91.png`
+
+Final prompt:
+
+Use case: photorealistic-natural. Asset: landscape 3:2 editorial blog cover about a dishwasher not drying. An intimate slightly overhead close-up of a pulled-out dishwasher upper rack: matte sage plastic lunchbox and its lid with visible realistic water droplets, clear tumblers and white ceramic cups spaced naturally. Modern stainless dishwasher recognizable around the rack, warm oak kitchen, soft late-afternoon light and dark navy background. Premium natural editorial photography, realistic appliance construction and tactile surfaces. Central 70 percent contains the subject so mobile cover crops work. No logos, no lettering, no watermark, no steam clouds, no tools, no electrical repair. Conceptual editorial scene, not a real customer job.
+
+### blog-dishwasher-water-inlet.webp
+
+Fayl: `public/images/blog-dishwasher-water-inlet.webp`
+
+Orijinal: `/Users/bakirgahramanov/.codex/generated_images/01a1822a-30ff-7063-9bfc-5d19f5a2707c/exec-c5ee6d77-28fe-4018-baeb-3bae1b5ef7dd.png`
+
+Final prompt:
+
+Use case: photorealistic-natural. Asset: landscape 3:2 editorial blog cover about a dishwasher not taking water. Distinct low three-quarter kitchen photograph of a modern stainless dishwasher with its door slightly open, neatly arranged empty rack glimpsed inside, beside a deep navy sink cabinet with a brushed brass faucet visible in background. Cool morning window light, teal towel on the dry countertop, clean stone floor. Emphasize the appliance and quiet waiting-for-water mood, tasteful editorial composition, realistic proportions. Appliance central 70 percent for mobile crops. No people, no text, no logos, no warning codes, no water spraying, no exposed plumbing or electrical parts, no tools. Conceptual editorial image, not a real repair.
+
+### blog-dishwasher-white-residue.webp
+
+Fayl: `public/images/blog-dishwasher-white-residue.webp`
+
+Orijinal: `/Users/bakirgahramanov/.codex/generated_images/01a1822a-30ff-7063-9bfc-5d19f5a2707c/exec-3c7f0566-1087-4364-94cd-65c432078442.png`
+
+Final prompt:
+
+Use case: photorealistic-natural. Asset: landscape 3:2 editorial blog cover about white residue left by a dishwasher. Dramatic editorial macro still life of two transparent drinking glasses with subtle chalky mineral rings and dried water spots, sitting on a pulled-out dishwasher rack with a white plate behind. Side sunlight catches the delicate glass texture, deep teal kitchen softly out of focus, warm highlights, rich realistic metal. Main glasses stay central for responsive crops. Photograph must look distinct from an overall open-appliance photo. No people, no chemicals, no text, no logos, no watermark, no excessive dirt. Conceptual editorial image, not technical diagnostic evidence.
+
+### blog-dishwasher-leak.webp
+
+Fayl: `public/images/blog-dishwasher-leak.webp`
+
+Orijinal: `/Users/bakirgahramanov/.codex/generated_images/01a1822a-30ff-7063-9bfc-5d19f5a2707c/exec-fdec08be-5862-474e-8b51-733c171efc56.png`
+
+Final prompt:
+
+Use case: photorealistic-natural. Asset: landscape 3:2 editorial blog cover about dishwasher water leakage. A carefully composed floor-level photograph of the lower front corner and closed stainless door of a modern dishwasher in a warm grey kitchen, a few clear water droplets and a small shallow reflective patch on a light stone floor near the door edge. Dry folded teal cloth nearby but no human intervention. Directional soft window light reveals realistic stainless texture and water reflections, restrained cinematic editorial mood. Recognizable dishwasher and water remain in central 70 percent for mobile crops. No flood, no sockets, no cables, no people, no detached panels, no tools, no text, no brands or watermark. Conceptual illustration of a leak, not a real customer repair.
+
+
 
 ## 12 noyabr 2026 — üç yeni məqalə
 

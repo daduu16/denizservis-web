@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { existsSync } from "node:fs";
 import { BlogIndex } from "./BlogIndex";
 import { BlogArticle } from "./BlogArticle";
-import { blogPosts, blogPath, blogPost, readingMinutes } from "../../data/blog";
+import { blogPosts, blogPath, blogPost, readingMinutes, relatedBlogPosts } from "../../data/blog";
 import { blogPreviewJsonLd } from "../../lib/blog-seo";
 import { BLOG_PAGE_SIZE } from "../../lib/blog-pagination";
 import { indexableDeployment } from "../../config/seo";
@@ -61,6 +61,39 @@ describe("responsive editorial blog", () => {
     expect(generateStaticParams()).toEqual(blogPosts.map(p => ({ slug: p.slug })));
     expect(blogPost("missing-post")).toBeUndefined();
     expect(new Set(blogPosts.map(p => p.slug)).size).toBe(blogPosts.length);
+  });
+
+  it("makes the four new dishwasher articles crawlable through ordinary related links", () => {
+    const slugs = ["qabyuyan-qablari-qurutmur", "qabyuyan-su-goturmur", "qabyuyan-qablarda-ag-iz-saxlayir", "qabyuyan-su-sizdirir"];
+    const covers = slugs.map(slug => blogPost(slug)!.image);
+    expect(new Set(covers).size).toBe(4);
+    expect(covers).toEqual([
+      "/images/blog-dishwasher-drying.webp",
+      "/images/blog-dishwasher-water-inlet.webp",
+      "/images/blog-dishwasher-white-residue.webp",
+      "/images/blog-dishwasher-leak.webp",
+    ]);
+    const queue = blogPosts.slice(0, BLOG_PAGE_SIZE);
+    const visited = new Set(queue.map(post => post.slug));
+    while (queue.length) {
+      const current = queue.shift()!;
+      const html = renderToStaticMarkup(createElement(BlogArticle, { post: current }));
+      for (const next of relatedBlogPosts(current)) {
+        expect(html).toContain(`href="${blogPath(next)}"`);
+        expect(next.slug).not.toBe(current.slug);
+        expect(next.appliance).toBe(current.appliance);
+        if (!visited.has(next.slug)) { visited.add(next.slug); queue.push(next); }
+      }
+    }
+    for (const slug of slugs) {
+      const post = blogPost(slug)!;
+      expect(visited.has(slug)).toBe(true);
+      expect(post.appliance).toBe("Qabyuyan");
+      expect(post.sections).toHaveLength(4);
+      expect(post.source?.url).toMatch(/^https:\/\/www\.(?:bosch-home\.co\.uk|samsung\.com)\//);
+      const html = renderToStaticMarkup(createElement(BlogArticle, { post }));
+      expect(html).toContain('href="/xidmetler/qabyuyan-temiri"');
+    }
   });
 
   it("uses production-only indexing with canonical URLs, without invented publication dates or expert claims", async () => {

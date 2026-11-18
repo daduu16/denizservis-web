@@ -72,6 +72,66 @@ export const blogPosts: BlogPost[] = [
     source: { label: "Bosch: qabyuyanın yaxşı yumaması haqqında rəsmi bələdçi", url: "https://www.bosch-home.co.uk/customer-service/get-support/dishwashers/not-cleaning" },
   },
   {
+    slug: "qabyuyan-qablari-qurutmur", category: "Nasazlıq", appliance: "Qabyuyan",
+    title: "Qabyuyan qabları qurutmur: səbəblər və düzgün addımlar",
+    excerpt: "Yuma bitib, amma qablar yaşdır? Plastik qabların fərqi, yaxalayıcı, proqram və isitmə nasazlığını ayırmaq üçün bələdçi.",
+    intro: "Qabyuyanda bir neçə plastik qabın yaş qalması ilə bütün yükün nəm çıxması eyni hal deyil. Qurutma nəticəsi materialdan, düzülüşdən və seçilmiş proqramdan asılıdır. Yaş qab görmək qızdırıcının mütləq xarab olduğunu göstərmir.",
+    image: "/images/blog-dishwasher-drying.webp", alt: "Qabyuyan rəfində su damcılı plastik qablar və fincanlar", imageKind: "editorial",
+    sections: [
+      { id: "hansi-qablar", title: "Yalnız plastik qablar yaşdırsa", text: "Plastik istiliyi keramika və şüşə kimi saxlamadığından daha zəif quruya bilər. Fincan dibindəki çökəklikdə qalan su da ayrıca müşahidədir. Hansı materialın və hansı rəfin yaş qaldığını ayırın; bu, texniki problem ilə adi qurutma fərqini anlamağa kömək edir." },
+      { id: "duzulus-yaxalayici", title: "Düzülüş və yaxalayıcıya baxın", text: "Qablar arasında məsafə saxlayın və uyğun əşyaları su yığılmayacaq şəkildə yerləşdirin. Yaxalayıcı göstəricisini və model üçün tövsiyə edilən dozanı təlimatdan yoxlayın. Tabletdə yaxalayıcı olması ayrıca bölmənin bütün modellərdə lazımsız olduğu demək deyil." },
+      { id: "qurutma-proqrami", title: "Seçilmiş proqramda qurutma varmı?", text: "Proqramların qurutma imkanları fərqlənə bilər. Cihazda əlavə qurutma seçimi varsa, onu yalnız model təlimatına uyğun istifadə edin. Qapını proqramın ortasında açmaqla sınaq etməyin: isti buxar riski var və proses yarımçıq qala bilər." },
+      { id: "isitme-yoxlamasi", title: "Nə vaxt usta yoxlaması lazımdır?", text: "Düzgün proqram və qulluqla nəticə dəyişmirsə, yaxud isitmə ilə bağlı kod görünürsə, servis yoxlaması lazımdır. Suyu əllə yoxlamayın və elektrik hissələrini açmayın. Modeli, proqramın adını və problemin bütün qablarda olub-olmadığını qeyd edin." },
+    ],
+    note: "Yaş qab təkbaşına hissə dəyişdirmək üçün əsas deyil. İsti səthlərə toxunmayın; qurutma və isitmə qaydaları üçün öz modelinizin təlimatına baxın.",
+    source: { label: "Bosch: qabyuyanda isitmə və qurutma haqqında rəsmi bələdçi", url: "https://www.bosch-home.co.uk/customer-service/get-support/dishwashers/not-heating-or-drying" },
+  },
+  {
+    slug: "qabyuyan-su-goturmur", category: "Nasazlıq", appliance: "Qabyuyan",
+    title: "Qabyuyan su götürmür: nəyi yoxlamaq olar?",
+    excerpt: "Proqram başlayır, amma su gəlmir? Su təchizatı, qapı, görünən şlanq və xəta koduna görə təhlükəsiz növbəti addımı seçin.",
+    intro: "Qabyuyan su götürməyəndə səbəb həm evin su təchizatında, həm quraşdırmada, həm də cihazın özündə ola bilər. Proqramın başlanğıcındakı səsi təkbaşına nasazlıq saymayın; əsas suyun daxil olub-olmaması və xəbərdarlıqdır.",
+    image: "/images/blog-dishwasher-water-inlet.webp", alt: "Mətbəxdə paslanmaz qabyuyan və arxa planda su kranı", imageKind: "editorial",
+    sections: [
+      { id: "su-techizati", title: "Evdə su təchizatı varmı?", text: "Əvvəl digər kranlarda suyun olub-olmadığını və yaxın zamanda kəsinti yaşanıb-yaşanmadığını dəqiqləşdirin. Qabyuyanın su giriş kranı təhlükəsiz və rahat əlçatandırsa, vəziyyətini təlimata uyğun yoxlayın. Cihazı dartıb çıxarmayın və təzyiqi təsadüfi üsulla artırmağa çalışmayın." },
+      { id: "qapi-slanq", title: "Qapı və görünən şlanq", text: "Qapının normal bağlanmasına qabın mane olub-olmadığına baxın; kilidi zorlamayın. Əlçatan şlanqda görünən bükülmə quraşdırma probleminə işarə edə bilər. Şlanqı ayırmaq və giriş filtrini açmaq ümumi ilkin yoxlama deyil; su basması riski var." },
+      { id: "xeta-qeydi", title: "Su işarəsi və ya kod görünürsə", text: "Ekrandakı işarəni tam qeyd edin. Kodun mənasını marka və model təlimatı ilə tutuşdurun: eyni simvol bütün cihazlarda eyni diaqnoz deyil. Təkrar reset su təchizatı və ya daxili nasazlığı aradan qaldırmaya bilər." },
+      { id: "diaqnostika-serhedi", title: "Su var, amma problem qalırsa", text: "Su təchizatı qaydasındadırsa və qapı normal bağlanırsa, giriş sistemi və digər hissələr diaqnostika tələb edə bilər. Klapanı birbaşa elektriklə sınaqdan keçirməyin və qoruyucu sistemi keçməyin. Xidmətə müraciətdə kəsinti, yeni quraşdırma və kod barədə məlumat verin." },
+    ],
+    note: "Sızma, yanıq qoxusu və ya elektrik riski varsa cihazı təkrar işlətməyin. Şlanq və elektrik birləşmələrinin yoxlanmasını mütəxəssisə həvalə edin.",
+    source: { label: "Bosch: qabyuyanın su götürməməsi haqqında rəsmi məlumat", url: "https://www.bosch-home.co.uk/customer-service/get-support/dishwashers/not-filling" },
+  },
+  {
+    slug: "qabyuyan-qablarda-ag-iz-saxlayir", category: "Nasazlıq", appliance: "Qabyuyan",
+    title: "Qabyuyan qabların üzərində ağ iz saxlayır: səbəb nədir?",
+    excerpt: "Stəkanda ağ örtük və boşqabda ləkələr: suyun sərtliyi, yuyucu dozası, duz və yaxalayıcı ayarlarını bir-birindən ayıraq.",
+    intro: "Ağ iz qalması qabın üzərində yemək qalması ilə eyni problem deyil. Sərt su və uyğun olmayan yuyucu miqdarı mümkün səbəblərdəndir. Hər ağ ləkəni dərhal cihazın xarab olması kimi qəbul etmədən istifadə və su ayarlarını dəqiqləşdirin.",
+    image: "/images/blog-dishwasher-white-residue.webp", alt: "Qabyuyan rəfində ağ mineral izləri görünən şüşə stəkanlar", imageKind: "editorial",
+    sections: [
+      { id: "izin-gorunusu", title: "İz harada və necə görünür?", text: "Ləkənin yalnız stəkanda, yoxsa müxtəlif qablarda olduğunu qeyd edin. Yemək qalıqları, su damcısı izi və ağ örtük eyni əlamət deyil. Qabın görünüşü təkbaşına suyun sərtliyini və ya dəyişdiriləcək hissəni müəyyən etmir." },
+      { id: "sertlik-ayari", title: "Suyun sərtliyi və duz ayarı", text: "Modeldə su yumşaltma sistemi varsa, sərtlik ayarını və duz göstəricisini onun təlimatına əsasən yoxlayın. Yerli suyun sərtliyini su təchizatçısından dəqiqləşdirə bilərsiniz. İnternetdə başqa model üçün verilmiş ayar rəqəmini olduğu kimi tətbiq etməyin." },
+      { id: "yuyucu-miqdari", title: "Daha çox yuyucu həmişə daha yaxşı deyil", text: "Həddən artıq yuyucu ağ qalıqla əlaqəli ola bilər. Dozanı vasitənin göstərişinə və model təlimatına uyğun seçin; yaxalayıcı ayarını da nəzərdən keçirin. Qabyuyan üçün nəzərdə tutulmuş məhsul istifadə edin, əl ilə qab yuma mayesi əlavə etməyin." },
+      { id: "iz-qalarsa", title: "Ayarlar düzgündür, iz yenə qalır", text: "Dəyişdirdiyiniz ayarları və nəticəni qeyd edin. Problem davam edirsə, su yumşaltma və dozalama kimi sistemlər modelə uyğun yoxlanmalıdır. Turşu və xlorlu vasitələri qarışdırmayın; ağ izi silmək üçün təsadüfi kimyəvi qarışıqları maşına tökməyin." },
+    ],
+    note: "Duz və yaxalayıcı bütün cihazlarda eyni qaydada tənzimlənmir. Dəqiq doza, uyğun məhsul və qabın maşında yuyula bilməsi barədə təlimatlara əməl edin.",
+    source: { label: "Samsung: yuyulmuş qablardakı ağ qalıq haqqında rəsmi izah", url: "https://www.samsung.com/uk/support/home-appliances/why-is-there-white-residue-on-my-dishes-after-washing/" },
+  },
+  {
+    slug: "qabyuyan-su-sizdirir", category: "Nasazlıq", appliance: "Qabyuyan",
+    title: "Qabyuyan su sızdırır: ilk təhlükəsiz addımlar",
+    excerpt: "Qapıdan su, döşəmədə gölməçə və ya sızma kodu: təkrar sınaq etmədən nəyi dayandırmaq və hansı məlumatları qeyd etmək lazımdır?",
+    intro: "Qabyuyanın yanında su göründükdə ilk məqsəd sızmanı yenidən yaratmaq deyil, elektrik və su riskindən uzaq durmaqdır. Su qapıdan, şlanqdan və ya başqa hissədən gələ bilər; yerdəki iz dəqiq mənbəni göstərmir.",
+    image: "/images/blog-dishwasher-leak.webp", alt: "Qapalı qabyuyanın alt kənarında döşəmə üzərində su damcıları", imageKind: "editorial",
+    sections: [
+      { id: "tehlukesiz-dayan", title: "Əvvəl öz təhlükəsizliyinizi qoruyun", text: "Yaş prizə, kabelə və suyun içindəki cihaza toxunmayın. Təhlükəsiz əlçatan su kranını bağlayın; elektrikdən ayırma yalnız quru, təhlükəsiz şəraitdə mümkündür. Belə şərait yoxdursa uzaq durun və mütəxəssis çağırın. Maşını təkrar işə salmayın." },
+      { id: "qapi-kopuk", title: "Qapıdan su və çox köpük", text: "Yanlış yuyucu və artıq köpük sızmaya səbəb ola bilər. Əl ilə qab yuma mayesi avtomatik qabyuyan üçün uyğun deyil. Qapı rezinində görünən çirk və zədə də məlumat ola bilər, amma rezini zorla yerinə salmayın və işləyən proqramı açaraq yoxlamayın." },
+      { id: "sizma-kodu", title: "Kod var, görünən su yoxdur", text: "Bəzi modellərdə sızma sensoru nəm aşkarladıqda xəbərdarlıq verir. Gözlə su görməmək kodu əhəmiyyətsiz etmir. Cihazı əyərək, alt hissəni açaraq və ya sensoru keçərək xəbərdarlığı gizlətməyin; model üzrə səbəb yoxlanmalıdır." },
+      { id: "servis-yoxlamasi", title: "Servis hansı halları ayırmalıdır?", text: "Su girişi və boşaltma bağlantıları, səviyyələnmə və qapı kipliyi mümkün yoxlama sahələridir. Sızmanın proqramın hansı mərhələsində başladığını və yeni quraşdırma olub-olmadığını qeyd edin. Foto yalnız quru və təhlükəsiz yerdən çəkilə bilər; sübut üçün nasazlığı təkrar yaratmayın." },
+    ],
+    note: "Sızmanı müvəqqəti lent, əymə və davamlı reset ilə örtməyin. Yaş elektrik hissələrindən uzaq durun; təhlükəsiz dayandırma və təmir üçün mütəxəssis köməyi alın.",
+    source: { label: "Samsung: qabyuyan sızması və sızma xəbərdarlığı haqqında rəsmi bələdçi", url: "https://www.samsung.com/us/support/troubleshoot/TSG10010593/" },
+  },
+  {
     slug: "paltaryuyan-sixmada-titreyir", category: "Nasazlıq", appliance: "Paltaryuyan",
     title: "Paltaryuyan sıxmada yerindən tərpənir: normaldır?",
     excerpt: "Güclü titrəmə və döyüntü səsini adi sıxma səsindən ayıraq: quraşdırma, döşəmə və peşəkar yoxlamanın rolu.",
@@ -148,6 +208,13 @@ export const blogPosts: BlogPost[] = [
 export const blogCategories: BlogCategory[] = ["Xəta kodları", "Nasazlıq", "Qiymət", "Usta çağırışı"];
 export const blogPost = (slug: string) => blogPosts.find(post => post.slug === slug);
 export const blogPath = (post: BlogPost) => `/blog/${post.slug}`;
+// A topic-specific ring gives later pages ordinary HTML incoming links,
+// even when a crawler does not interact with client-side pagination.
+export function relatedBlogPosts(post: BlogPost) {
+  const peers = blogPosts.filter(item => item.appliance === post.appliance);
+  const index = peers.findIndex(item => item.slug === post.slug);
+  return [...peers.slice(index + 1), ...peers.slice(0, Math.max(0, index))].filter(item => item.slug !== post.slug).slice(0, 2);
+}
 export function readingMinutes(post: BlogPost) {
   const text = [post.intro, ...post.sections.flatMap(s => [s.title, s.text, ...(s.points ?? []), ...(s.codes ?? []).flatMap(c => [c.code, c.meaning, c.action])])].join(" ");
   return Math.max(1, Math.ceil(text.split(/\s+/).length / 180));
