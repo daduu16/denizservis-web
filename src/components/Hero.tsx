@@ -12,12 +12,9 @@ export function Hero() {
         <Image src="/images/denizservis-hero.png" alt="Paltaryuyan maşını yoxlayan DənizServis ustası" fill priority sizes="(min-width: 1024px) 66vw, 100vw" className="hero-photo" />
       </div>
       <div className={styles.warranty}>
-        <span className={styles.seal}><ShieldCheck aria-hidden="true" /></span>
-        <div className={styles.ticket}>
-          <span className={styles.brand}>DənizServis</span>
-          <strong><T>Zəmanət talonu</T></strong>
-          <span className={styles.ticketLines} aria-hidden="true"><i /><i /><i /></span>
-        </div>
+        <ShieldCheck className={styles.seal} aria-hidden="true" />
+        <strong><T>Zəmanətli təmir</T></strong>
+        <span className={styles.brand}>DənizServis</span>
       </div>
       <div className="container hero-grid">
         <div className="hero-copy">

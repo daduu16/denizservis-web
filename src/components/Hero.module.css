@@ -4,44 +4,44 @@
   top: 28px;
   right: max(30px, calc((100% - 1380px) / 2));
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 206px;
-  padding: 16px;
-  gap: 12px;
-  border: 1px solid #d2e8e8;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #fff, #f0faf8);
-  box-shadow: 0 10px 30px #10284b1a, 0 2px 6px #10284b0a;
-  color: #10284b;
-  transform: rotate(3deg);
+  justify-content: center;
+  width: 144px;
+  height: 144px;
+  padding: 22px;
+  gap: 7px;
+  border: 2px solid #c99735;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff1b7 0%, #e3b44e 30%, #fce7a0 52%, #d7a23d 78%, #f5d77b 100%);
+  box-shadow: inset 0 0 0 4px #fff1ba80, 0 8px 24px #72511826;
+  color: #5b3b09;
+  text-align: center;
   pointer-events: none;
 }
 
-.seal { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 48px; color: #16877f; }
-.seal svg { width: 38px; height: 38px; stroke-width: 1.6; }
-.ticket { min-width: 0; padding-left: 12px; border-left: 1px dashed #a8ceca; }
-.brand { display: block; margin-bottom: 4px; color: #48736f; font-size: 10px; font-weight: 700; letter-spacing: .06em; }
-.ticket strong { display: block; font-size: 17px; line-height: 1.25; }
-.ticketLines { display: flex; gap: 4px; margin-top: 10px; }
-.ticketLines i { height: 2px; width: 20px; border-radius: 2px; background: #c7e1dc; }
-.ticketLines i:last-child { width: 10px; background: #14b8a6; }
+.warranty::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px dashed #95681a99;
+  border-radius: 50%;
+}
 
-@media (max-width: 1023px) {
-  .warranty { width: 174px; top: 20px; right: 22px; padding: 12px; gap: 8px; }
-  .ticket { padding-left: 8px; }
-  .ticket strong { font-size: 15px; }
-  .seal { flex-basis: 30px; width: 30px; }
-  .seal svg { width: 30px; height: 30px; }
+.seal { width: 29px; height: 29px; flex-shrink: 0; stroke-width: 1.7; }
+.warranty strong { position: relative; display: block; font-size: 16px; line-height: 1.15; font-weight: 800; }
+.brand { font-size: 8px; font-weight: 700; letter-spacing: .07em; }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .warranty { width: 122px; height: 122px; top: 20px; right: 22px; padding: 19px; gap: 5px; }
+  .warranty strong { font-size: 14px; }
+  .seal { width: 25px; height: 25px; }
 }
 
 @media (max-width: 767px) {
-  .warranty { top: 12px; right: 12px; width: 124px; padding: 9px; gap: 6px; border-radius: 10px; }
-  .seal { flex-basis: 23px; width: 23px; height: 32px; }
-  .seal svg { width: 23px; height: 23px; }
-  .ticket { padding-left: 6px; }
-  .brand { font-size: 7px; margin-bottom: 3px; letter-spacing: .02em; }
-  .ticket strong { font-size: 11px; }
-  .ticketLines { margin-top: 6px; gap: 3px; }
-  .ticketLines i { width: 12px; }
-  .ticketLines i:last-child { width: 6px; }
+  .warranty { top: 10px; right: 12px; width: 88px; height: 88px; padding: 14px; gap: 3px; border-width: 1px; box-shadow: inset 0 0 0 3px #fff1ba80, 0 4px 14px #72511826; }
+  .warranty::before { inset: 6px; }
+  .seal { width: 20px; height: 20px; }
+  .warranty strong { font-size: 10px; line-height: 1.15; }
+  .brand { font-size: 6px; letter-spacing: .02em; }
 }

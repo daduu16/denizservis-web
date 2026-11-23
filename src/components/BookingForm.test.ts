@@ -46,14 +46,17 @@ describe("requested form and page refinements", () => {
     expect(html).not.toContain("Nasazlığa uyğun");
   });
 
-  it("shows a warranty ticket on the home hero without inventing a warranty period", () => {
+  it("shows a round gold warranty seal on the home hero without inventing a warranty period", () => {
     const html = renderToStaticMarkup(createElement(Hero));
-    expect(html).toContain("Zəmanət talonu");
+    expect(html).toContain("Zəmanətli təmir");
+    expect(html).not.toContain("Zəmanət talonu");
     expect(html).toContain("lucide-shield-check");
     expect(html).not.toMatch(/(?:12|24) ay/);
     const css = readFileSync("src/components/Hero.module.css", "utf8");
     expect(css).toContain("@media (max-width: 767px)");
     expect(css).toContain("pointer-events: none");
+    expect(css).toContain("border-radius: 50%");
+    expect(css).toContain("#e3b44e");
   });
 
   it("adds free WhatsApp advice and the owner's confirmed service areas to the home FAQ", () => {
