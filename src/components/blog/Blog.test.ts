@@ -16,6 +16,27 @@ import ru from "../../i18n/blog.ru.json";
 vi.mock("next/navigation", () => ({ notFound: () => { throw new Error("404"); }, usePathname: () => "/blog" }));
 
 describe("responsive editorial blog", () => {
+  it("publishes three brand-specific dishwasher code guides with distinct covers and official sources", () => {
+    const guides = [
+      { brand: "Bosch", slug: "bosch-qabyuyan-xeta-kodlari", host: "bosch-home.com", codes: ["E15", "E24 / E:24", "E25 / E:25", "E09", "E18"] },
+      { brand: "Samsung", slug: "samsung-qabyuyan-xeta-kodlari", host: "samsung.com", codes: ["4C / 4E", "5C / 5E", "LC / LE", "OC / 0C / oE", "HC"] },
+      { brand: "LG", slug: "lg-qabyuyan-xeta-kodlari", host: "lg.com", codes: ["IE", "OE", "AE", "FE", "HE", "tE"] },
+    ];
+    expect(new Set(guides.map(({ slug }) => blogPost(slug)!.image)).size).toBe(3);
+    for (const guide of guides) {
+      const post = blogPost(guide.slug)!;
+      expect(post.category).toBe("Xəta kodları");
+      expect(post.appliance).toBe("Qabyuyan");
+      expect(post.title).toContain(guide.brand);
+      expect(post.alt).toContain(guide.brand);
+      expect(post.sections).toHaveLength(4);
+      expect(post.sections.flatMap(section => section.codes ?? []).map(item => item.code)).toEqual(guide.codes);
+      expect(post.sources!.some(source => new URL(source.url).hostname.endsWith(guide.host))).toBe(true);
+      const html = renderToStaticMarkup(createElement(BlogArticle, { post }));
+      expect(html).toContain('href="/xidmetler/qabyuyan-temiri"');
+      for (const item of post.sections.flatMap(section => section.codes ?? [])) expect(html).toContain(item.code);
+    }
+  });
   it("renders one H1, the first article page and accessible pagination before hydration", () => {
     const html = renderToStaticMarkup(createElement(BlogIndex));
     expect(html.match(/<h1\b/g)).toHaveLength(1);
