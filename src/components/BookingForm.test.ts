@@ -57,6 +57,11 @@ describe("requested form and page refinements", () => {
     expect(css).toContain("pointer-events: none");
     expect(css).toContain("border-radius: 50%");
     expect(css).toContain("#e3b44e");
+    expect(css).toContain("width: 120px");
+    expect(css).toContain("width: 76px");
+    expect(css).toContain("warrantyShine 3s ease-in-out infinite");
+    expect(css).toContain("overflow: hidden");
+    expect(css).toContain("@media (prefers-reduced-motion: reduce)");
   });
 
   it("adds free WhatsApp advice and the owner's confirmed service areas to the home FAQ", () => {

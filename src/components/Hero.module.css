@@ -7,10 +7,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 144px;
-  height: 144px;
-  padding: 22px;
-  gap: 7px;
+  width: 120px;
+  height: 120px;
+  padding: 18px;
+  gap: 5px;
+  overflow: hidden;
   border: 2px solid #c99735;
   border-radius: 50%;
   background: linear-gradient(135deg, #fff1b7 0%, #e3b44e 30%, #fce7a0 52%, #d7a23d 78%, #f5d77b 100%);
@@ -28,20 +29,44 @@
   border-radius: 50%;
 }
 
-.seal { width: 29px; height: 29px; flex-shrink: 0; stroke-width: 1.7; }
-.warranty strong { position: relative; display: block; font-size: 16px; line-height: 1.15; font-weight: 800; }
-.brand { font-size: 8px; font-weight: 700; letter-spacing: .07em; }
+.warranty::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 35%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, #fff9 50%, transparent);
+  opacity: 0;
+  transform: translateX(-250%) skewX(-20deg);
+  animation: warrantyShine 3s ease-in-out infinite;
+}
+
+@keyframes warrantyShine {
+  0%, 10% { transform: translateX(-250%) skewX(-20deg); opacity: 0; }
+  14% { opacity: .75; }
+  36% { transform: translateX(450%) skewX(-20deg); opacity: .75; }
+  40%, 100% { transform: translateX(450%) skewX(-20deg); opacity: 0; }
+}
+
+.seal { width: 25px; height: 25px; flex-shrink: 0; stroke-width: 1.7; }
+.warranty strong { position: relative; display: block; font-size: 14px; line-height: 1.15; font-weight: 800; }
+.brand { font-size: 7px; font-weight: 700; letter-spacing: .07em; }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .warranty { width: 122px; height: 122px; top: 20px; right: 22px; padding: 19px; gap: 5px; }
-  .warranty strong { font-size: 14px; }
-  .seal { width: 25px; height: 25px; }
+  .warranty { width: 104px; height: 104px; top: 20px; right: 22px; padding: 16px; gap: 4px; }
+  .warranty strong { font-size: 12px; }
+  .seal { width: 22px; height: 22px; }
 }
 
 @media (max-width: 767px) {
-  .warranty { top: 10px; right: 12px; width: 88px; height: 88px; padding: 14px; gap: 3px; border-width: 1px; box-shadow: inset 0 0 0 3px #fff1ba80, 0 4px 14px #72511826; }
+  .warranty { top: 10px; right: 12px; width: 76px; height: 76px; padding: 11px; gap: 2px; border-width: 1px; box-shadow: inset 0 0 0 3px #fff1ba80, 0 4px 14px #72511826; }
   .warranty::before { inset: 6px; }
-  .seal { width: 20px; height: 20px; }
-  .warranty strong { font-size: 10px; line-height: 1.15; }
+  .seal { width: 18px; height: 18px; }
+  .warranty strong { font-size: 9px; line-height: 1.15; }
   .brand { font-size: 6px; letter-spacing: .02em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .warranty::after { animation: none; opacity: 0; }
 }
