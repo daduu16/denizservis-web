@@ -13,6 +13,224 @@ export type BlogPost = {
 // Published editorial guides, not reviewed repair instructions. No rankings, tariffs or warranty promises.
 export const blogPosts: BlogPost[] = [
   {
+    "slug": "bosch-qabyuyan-xeta-kodlari",
+    "category": "Xəta kodları",
+    "appliance": "Qabyuyan",
+    "title": "Bosch qabyuyan xəta kodları: E15, E24, E25 və E09",
+    "excerpt": "Bosch ekranında E15, E24 və ya E09 görünür? Sızma, boşaltma və isitmə xəbərdarlıqlarının fərqini, təhlükəsiz ilkin addımları öyrənin.",
+    "intro": "Bosch qabyuyanın kodu nasazlığın istiqamətini göstərir, amma hansı hissənin dəyişdirilməli olduğunu təkbaşına sübut etmir. Məsələn, E24 boşaltma yolunun bir neçə nöqtəsi ilə bağlı ola bilər. Kodu silməzdən əvvəl tam yazılışını, proqramın mərhələsini və cihazın E-Nr model nömrəsini qeyd edin.",
+    "image": "/images/blog-bosch-dishwasher-codes.webp",
+    "alt": "Mətbəxdə Bosch markalı paslanmaz qabyuyanın konseptual təsviri",
+    "imageKind": "editorial",
+    "sections": [
+      {
+        "id": "bosch-model",
+        "title": "E:24 ilə E24 eyni cür oxunurmu?",
+        "text": "Ekranda iki nöqtə və əlavə rəqəmlər varsa onları da saxlayın. Bu məqalədəki qısa kodlar rəsmi Bosch bələdçilərindən seçilib; yeni modellərin daha uzun kodları üçün öz model təlimatını yoxlayın. Xəta kodunu cihazın model adı ilə qarışdırmayın."
+      },
+      {
+        "id": "bosch-kod-siyahisi",
+        "title": "Bosch kodları və növbəti addım",
+        "text": "Aşağıdakı izahlar ilkin istiqamət üçündür. Xüsusilə sızma və isitmə xətalarında cihazı sökmədən servis yoxlamasına keçin.",
+        "codes": [
+          {
+            "code": "E15",
+            "meaning": "Alt hissədə su aşkarlanıb; sızmadan qorunma aktivdir.",
+            "action": "Təhlükəsiz əlçatan su girişini bağlayın və servisə müraciət edin. Cihazı əyməyin."
+          },
+          {
+            "code": "E24 / E:24",
+            "meaning": "Boşaltma problemi; şlanq, çıxış və ya nasos qapağı ilə əlaqəli ola bilər.",
+            "action": "Görünən əlaməti qeyd edin. Nasosu dəyişdirməyə tələsməyin; qulluq yalnız təlimata uyğun aparılmalıdır."
+          },
+          {
+            "code": "E25 / E:25",
+            "meaning": "Boşaltma nasosunda maneə və ya qapağın düzgün oturmaması mümkündür.",
+            "action": "İsti su və şüşə qırığı riski var. Nasosa əl salmayın; modelə uyğun yoxlama tələb edin."
+          },
+          {
+            "code": "E09",
+            "meaning": "İstilik nasosunun daxili qızdırıcısı ilə bağlı xəta.",
+            "action": "Elektrik ölçməsi və hissə dəyişimini ustaya həvalə edin."
+          },
+          {
+            "code": "E18",
+            "meaning": "Su axını və dolma səviyyəsi ilə bağlı xəbərdarlıq.",
+            "action": "Evdə suyun olub-olmadığını və əlçatan kranı yoxlayın; cihazı dartıb çıxarmayın."
+          }
+        ]
+      },
+      {
+        "id": "bosch-reset",
+        "title": "Reset nə vaxt yetərli deyil?",
+        "text": "Kodun yox olması təmirin başa çatması demək deyil. E15 təkrarlanırsa su mənbəyi, E24/E25 təkrarlanırsa boşaltma yolu araşdırılmalıdır. Su axması, yanıq qoxusu və ya avtomatın atması varsa yeni proqram başlatmayın. Yaş prizə və kabelə toxunmayın."
+      },
+      {
+        "id": "bosch-diaqnostika",
+        "title": "Diaqnostikanı asanlaşdıran məlumatlar",
+        "text": "E-Nr, tam kod, suyun içəridə qalıb-qalmaması və problemin yeni quraşdırmadan sonra başlayıb-başlamaması faydalıdır. DənizServis ilə əlaqə saxlayarkən bunları qeyd edin; xidmət və təmir şərtləri yoxlamaya əsasən dəqiqləşdirilir. Bu bələdçi rəsmi Bosch servis statusu iddiası deyil."
+      }
+    ],
+    "note": "Kodlar model və bazara görə fərqlənə bilər. Bu məlumat Bosch model təlimatını və peşəkar diaqnostikanı əvəz etmir.",
+    "sources": [
+      {
+        "label": "Bosch: rəsmi qabyuyan kod bələdçisi",
+        "url": "https://www.bosch-home.com/us/owner-support/error-codes/dishwashers/"
+      },
+      {
+        "label": "Bosch: E:24 və E:25 üçün model təlimatı nümunəsi",
+        "url": "https://media3.bosch-home.com/Documents/9000786346_F.pdf"
+      }
+    ]
+  },
+  {
+    "slug": "samsung-qabyuyan-xeta-kodlari",
+    "category": "Xəta kodları",
+    "appliance": "Qabyuyan",
+    "title": "Samsung qabyuyan xəta kodları: 4C, 5C, LC və OC",
+    "excerpt": "4C su girişini, 5C boşaltmanı, LC isə sızma xəbərdarlığını göstərə bilər. Samsung kodlarını modelə uyğun və təhlükəsiz izah edirik.",
+    "intro": "Samsung qabyuyanlarda oxşar görünən kodlar ayrı sistemləri bildirə bilər. 4C ilə 5C-ni, OC ilə LC-ni qarışdırmaq düzgün yoxlamanı gecikdirir. Ekransız modellərdə isə xəbərdarlıq yanıb-sönən lampalarla göstərilə bilər; onların kombinasiyası ayrıca model təlimatı ilə oxunmalıdır.",
+    "image": "/images/blog-samsung-dishwasher-codes.webp",
+    "alt": "Samsung markalı qabyuyan və ağ boşqablarla konseptual mətbəx təsviri",
+    "imageKind": "editorial",
+    "sections": [
+      {
+        "id": "samsung-kodu-oxu",
+        "title": "Əvvəl kodun şəklini çəkin",
+        "text": "Yalnız quru və təhlükəsiz yerdən ekranı çəkin. Hərf-rəqəm yazılışını model etiketindəki məlumatla birlikdə saxlayın. Samsung-un region və seriyalarında bəzi işarələrin mənası fərqlənir; başqa modelin reset düymə kombinasiyasını tətbiq etməyin."
+      },
+      {
+        "id": "samsung-kod-siyahisi",
+        "title": "Samsung su və isitmə kodları",
+        "text": "Bu qısa siyahı rəsmi dəstək bələdçilərinə əsaslanır. Kod cihazın nəyi qeydə aldığını göstərir; nasaz hissəni müəyyən etmək ayrıca yoxlama tələb edir.",
+        "codes": [
+          {
+            "code": "4C / 4E",
+            "meaning": "Su təchizatı lazımi şərtlərə uyğun deyil.",
+            "action": "Evdə su kəsintisini və əlçatan giriş kranını yoxlayın. Şlanqı ayırmayın."
+          },
+          {
+            "code": "5C / 5E",
+            "meaning": "Cihaz suyu düzgün boşalda bilmir.",
+            "action": "Filtr və görünən boşaltma yolunu yalnız modelin icazə verdiyi qulluq qaydası ilə yoxlayın."
+          },
+          {
+            "code": "LC / LE",
+            "meaning": "Sızma sensoru nəm və ya mümkün sızma qeydə alıb.",
+            "action": "Su girişini təhlükəsiz bağlayın və servis çağırın. Görünən su olmaması xəbərdarlığı ləğv etmir."
+          },
+          {
+            "code": "OC / 0C / oE",
+            "meaning": "Cihazda su səviyyəsi həddən artıqdır.",
+            "action": "Yeni proqramla sınaq etməyin; dolma və boşaltma sistemi yoxlanmalıdır."
+          },
+          {
+            "code": "HC",
+            "meaning": "Yüksək temperatur və isitmə ilə bağlı xəbərdarlıq.",
+            "action": "İsti suya toxunmayın və qızdırıcıya müdaxilə etməyin. Dəqiq addımı model təlimatından və servisdən öyrənin."
+          }
+        ]
+      },
+      {
+        "id": "samsung-lc-reset",
+        "title": "LC görünəndə cihaz niyə boşaltmağa davam edir?",
+        "text": "Bəzi Samsung modelləri sızma xəbərdarlığı zamanı qoruyucu olaraq boşaltmağa çalışır və adi söndürmə əmrinə cavab verməyə bilər. Bu, kodu təkrar reset etməyə səbəb deyil. Qoruyucu sensoru keçməyin, maşını əyməyin və alt hissəsini açmayın."
+      },
+      {
+        "id": "samsung-yoxlama",
+        "title": "Kod qayıdırsa nə edin?",
+        "text": "Təkrar kod, su sızması, yanıq qoxusu və ya elektrik problemi olduqda cihazı işlətməyin. Modeli, kodu və dayanma mərhələsini DənizServis-ə bildirin. Hissə alınması və təmir qərarı yalnız diaqnostikadan sonra verilməlidir; biz rəsmi Samsung servis statusu iddia etmirik."
+      }
+    ],
+    "note": "HC, HE, IE və digər kodlar müxtəlif Samsung seriyalarında fərqli izah oluna bilər. Öz modelinizin təlimatı əsasdır; bu siyahı bütün modelləri əhatə etmir.",
+    "sources": [
+      {
+        "label": "Samsung Gulf: su, sızma və isitmə kodları",
+        "url": "https://www.samsung.com/ae/support/home-appliances/displayed-information-codes-on-my-dishwasher/"
+      },
+      {
+        "label": "Samsung US: kodlar və reset xəbərdarlığı",
+        "url": "https://www.samsung.com/us/support/troubleshoot/TSG10004499/"
+      }
+    ]
+  },
+  {
+    "slug": "lg-qabyuyan-xeta-kodlari",
+    "category": "Xəta kodları",
+    "appliance": "Qabyuyan",
+    "title": "LG qabyuyan xəta kodları: IE, OE, AE, HE və tE",
+    "excerpt": "LG qabyuyanda IE və OE nə deməkdir? AE, FE, HE və tE xəbərdarlıqlarını ayırın, modelə uyğun təhlükəsiz növbəti addımı seçin.",
+    "intro": "LG qabyuyanda IE ilə OE yalnız bir hərflə fərqlənir, amma biri su girişinə, digəri boşaltmaya işarə edir. AE və FE isə ayrıca su təhlükəsizliyi yoxlaması tələb edə bilər. Ekrandakı hərfləri dəqiq qeyd etmək yanlış hissə sifarişinin və lazımsız resetlərin qarşısını almağa kömək edir.",
+    "image": "/images/blog-lg-dishwasher-codes.webp",
+    "alt": "LG markalı ağ qabyuyanın işıqlı mətbəxdə konseptual təsviri",
+    "imageKind": "editorial",
+    "sections": [
+      {
+        "id": "lg-model-ferqi",
+        "title": "IE, 1E və model fərqinə diqqət",
+        "text": "Ekran şriftində I hərfi 1 rəqəminə bənzəyə bilər. Kodun fotosunu və tam model nömrəsini saxlayın. LG özü bildirişlərin modeldən asılı olduğunu qeyd edir; başqa markadakı eyni hərfi LG üçün izah kimi götürməyin."
+      },
+      {
+        "id": "lg-kod-siyahisi",
+        "title": "LG kodlarının qısa izahı",
+        "text": "Bu nümunələr LG-nin dəstək bələdçilərindəki sistemləri ayırır. Dəqiq səbəb və təmir üsulu model üzrə yoxlanmalıdır.",
+        "codes": [
+          {
+            "code": "IE",
+            "meaning": "Tələb olunan miqdarda su daxil olmayıb.",
+            "action": "Digər kranlarda suyun olub-olmadığını və əlçatan su girişini yoxlayın; klapanı sökməyin."
+          },
+          {
+            "code": "OE",
+            "meaning": "Su boşaltma problemi qeydə alınıb.",
+            "action": "Filtr və görünən şlanqla bağlı müşahidələri qeyd edin. Nasosun xarab olduğu nəticəsinə tələsməyin."
+          },
+          {
+            "code": "AE",
+            "meaning": "Sızma və su təhlükəsizliyi xəbərdarlığı.",
+            "action": "Su girişini təhlükəsiz bağlayın və servisə müraciət edin; maşını əyməyin və sensoru keçməyin."
+          },
+          {
+            "code": "FE",
+            "meaning": "Həddindən artıq su verilməsi qeydə alınıb.",
+            "action": "Təkrar proqram başlatmadan servis yoxlaması tələb edin."
+          },
+          {
+            "code": "HE",
+            "meaning": "Suyun isidilməsi ilə bağlı xəta.",
+            "action": "Qızdırıcı və elektrik dövrəsini yalnız mütəxəssis yoxlamalıdır."
+          },
+          {
+            "code": "tE",
+            "meaning": "Temperatur sensoru və ya onun bağlantısı ilə bağlı xəta.",
+            "action": "Sensoru ev şəraitində ölçməyin və dəyişməyin; texniki diaqnostika lazımdır."
+          }
+        ]
+      },
+      {
+        "id": "lg-ae",
+        "title": "AE zamanı görünən su olmaya bilər",
+        "text": "Alt hissədəki nəm döşəmədə gölməçə yaratmadan da xəbərdarlığa səbəb ola bilər. Cihazı yenidən başladaraq sızmanı axtarmayın. Qapalı korpusu açmaq, cihazı dartıb çıxarmaq və qoruyucu hissəni qurudub kodu gizlətmək ilkin istifadəçi yoxlaması deyil."
+      },
+      {
+        "id": "lg-servis",
+        "title": "Təkrar xəta üçün düzgün müraciət",
+        "text": "Model nömrəsini, kodu, proqramın hansı mərhələdə dayandığını və varsa su izini qeyd edin. Təhlükəsiz yerdən çəkilmiş foto faydalı ola bilər. DənizServis ilə diaqnostika şərtlərini dəqiqləşdirin; bu məqalə rəsmi LG servis statusu və ya konkret hissə diaqnozu vermir."
+      }
+    ],
+    "note": "LG kodları seriyadan və modeldən asılıdır. Yaş elektrik hissələrinə toxunmayın; bu bələdçi model təlimatını və servis yoxlamasını əvəz etmir.",
+    "sources": [
+      {
+        "label": "LG: xəta kodlarının rəsmi bələdçisi",
+        "url": "https://www.lg.com/us/support/help-library/lg-dishwasher-guide-to-error-codes-CT10000009-20154823515108"
+      },
+      {
+        "label": "LG: OE boşaltma xətasının izahı",
+        "url": "https://www.lg.com/us/support/help-library/oe-error-code-dishwasher-CT10000009-1440686618796"
+      }
+    ]
+  },
+  {
     slug: "qabyuyan-xeta-kodlari", category: "Xəta kodları", appliance: "Qabyuyan",
     title: "Qabyuyan xəta kodları: ekran sizə nə deyir?",
     excerpt: "Bosch E15, E24, E09 və Samsung 4C, 5C, LC: kodları modelə uyğun anlamaq və təhlükəsiz növbəti addımı seçmək üçün bələdçi.",

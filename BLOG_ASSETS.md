@@ -1,5 +1,40 @@
 # Blog şəkilləri — mənşə və promptlar
 
+## 23 noyabr 2026 — marka üzrə qabyuyan xəta kodları
+
+Mənbə: built-in ImageGen. Bosch, Samsung və LG üçün ayrı kompozisiyalar, 1440 px WebP (quality 84). Bunlar markaları göstərən konseptual AI redaksiya təsvirləridir, rəsmi məhsul fotosu, konkret modelin texniki təsviri və ya real müştəri işi deyil. Marka istifadəsi rəsmi servis əlaqəsi və ya təsdiqi bildirmir. Şəkillər vizual yoxlanılıb; responsive variantlar static build-də yaradılır.
+
+### blog-bosch-dishwasher-codes.webp
+
+Fayl: `public/images/blog-bosch-dishwasher-codes.webp`
+
+Orijinal: `/Users/bakirgahramanov/.codex/generated_images/01a1822a-30ff-7063-9bfc-5d19f5a2707c/exec-6ea04a37-306b-4c94-a0e7-baa7163749f9.png`
+
+Final prompt:
+
+Use case: photorealistic-natural. Asset: landscape 3:2 editorial cover for a Bosch dishwasher error-code guide. A stainless steel Bosch dishwasher with a clearly legible small red "BOSCH" wordmark on the upper front, closed door and restrained dark control strip, three-quarter view in a warm oak and limestone kitchen. Soft golden morning light, dark navy towel on counter, realistic appliance geometry and metal texture. Dishwasher centrally framed for mobile crops, tasteful premium editorial photograph. No people, no dismantling, no error numbers, no repair tools, no water leak, no other brands, no promotional copy or watermark. A conceptual AI editorial scene, not an official product catalog or evidence of a customer repair; do not invent a model designation.
+
+### blog-samsung-dishwasher-codes.webp
+
+Fayl: `public/images/blog-samsung-dishwasher-codes.webp`
+
+Orijinal: `/Users/bakirgahramanov/.codex/generated_images/01a1822a-30ff-7063-9bfc-5d19f5a2707c/exec-3f9ef32a-7203-4da7-9ad7-df4eba393e59.png`
+
+Final prompt:
+
+Use case: photorealistic-natural. Asset: landscape 3:2 editorial cover for a Samsung dishwasher error-code guide. A graphite Samsung dishwasher with a small crisp "SAMSUNG" wordmark on the front, door open with a neat lower rack of white plates, photographed from a slightly elevated three-quarter angle in a deep teal contemporary kitchen with pale quartz worktop. Cool window light, tactile dark metal and glass, sophisticated editorial photography. Main appliance and wordmark in central 70 percent for responsive crops. No people, no error code display, no tools, no flood, no other brand names, no watermark. Conceptual AI editorial scene, not an official catalog photograph or real repair; no model designation.
+
+### blog-lg-dishwasher-codes.webp
+
+Fayl: `public/images/blog-lg-dishwasher-codes.webp`
+
+Orijinal: `/Users/bakirgahramanov/.codex/generated_images/01a1822a-30ff-7063-9bfc-5d19f5a2707c/exec-a18a648a-834e-4f08-95f6-62c7fa6dbc8a.png`
+
+Final prompt:
+
+Use case: photorealistic-natural. Asset: landscape 3:2 editorial cover for an LG dishwasher error-code guide. A pearl white LG dishwasher, small recognizable red circular LG mark and "LG" lettering on upper front, door slightly ajar and stainless rack visible, front three-quarter low angle in a bright sage and cream kitchen, brushed metal handle, soft afternoon side light, ceramic bowl and linen on nearby counter. Visually distinct from steel Bosch and graphite Samsung covers. Dishwasher centered for responsive card crops, realistic proportions, premium editorial appliance photography. No people, no error codes, no tools, no puddles, no other brands, no watermark or promotional slogans. Conceptual AI editorial scene, not an official product photograph or real customer job; no invented model designation.
+
+
 ## 18 noyabr 2026 — dörd fərqli qabyuyan şəkli
 
 Mənbə: built-in ImageGen. Konseptual redaksiya təsvirləridir, real müştəri işi deyil. Şəkillər ayrıca yaradılıb və vizual yoxlanılıb; hər biri 1440 × 960 px WebP (quality 84). Mövcud responsive şəkil komponentləri və mobil kəsim saxlanılıb.
